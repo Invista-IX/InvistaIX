@@ -1,7 +1,7 @@
-package br.com.invistaix.InvistaIX.Controller;
+package br.com.invistaix.InvistaIX.controller;
 
-import br.com.invistaix.InvistaIX.Model.Usuario;
-import br.com.invistaix.InvistaIX.Repository.UsuarioRepository;
+import br.com.invistaix.InvistaIX.model.Usuario;
+import br.com.invistaix.InvistaIX.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

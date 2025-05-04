@@ -1,8 +1,9 @@
-package br.com.invistaix.InvistaIX.Repository;
+package br.com.invistaix.InvistaIX.repository;
 
-import br.com.invistaix.InvistaIX.Model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+import br.com.invistaix.InvistaIX.model.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByEmail(String email);
 }
