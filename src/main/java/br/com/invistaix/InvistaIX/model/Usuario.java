@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.Model;
+package br.com.invistaix.InvistaIX.model;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgestor")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 45)
     private String nome;
@@ -29,8 +29,25 @@ public class Usuario {
 
     @Column(name = "pessoa_FJ", nullable = false, length = 1)
     private String tipoPessoa;
+    
+    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj,
+			String senha, String tipoPessoa) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.telefone = telefone;
+		this.cpfCnpj = cpfCnpj;
+		this.senha = senha;
+		this.tipoPessoa = tipoPessoa;
+	}
+    
+    public Usuario() {
+    	
+    }
 
-    public int getId() {
+	public Integer getId() {
         return id;
     }
 
