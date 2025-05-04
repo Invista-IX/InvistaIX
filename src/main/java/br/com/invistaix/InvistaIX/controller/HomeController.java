@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.Controller.Controller;
+package br.com.invistaix.InvistaIX.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
