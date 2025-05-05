@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "gestor")
+@NamedQuery(name = "Usuario.findByEmail", query = "select u from Usuario u where u.email = ?1")
+@NamedQuery(name = "Usuario.findByTelefone", query = "select u from Usuario u where u.telefone = ?1")
+@NamedQuery(name = "Usuario.findByCPF", query = "select u from Usuario u where u.cpfCnpj = ?1")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
