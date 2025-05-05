@@ -21,6 +21,10 @@ public class CadastroController {
 
     @PostMapping("/cadastro")
     public String salvarCadastro(@ModelAttribute Usuario usuario, Model model) {
+    	
+    	/* debug */
+    	System.out.println("novo cadastro, nome: " + usuario.getNome());
+    	
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             model.addAttribute("erro", "Email já cadastrado.");
             return "cadastro";

@@ -3,6 +3,7 @@ package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "gestor")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +28,10 @@ public class Usuario {
     @Column(nullable = false, length = 45)
     private String senha;
 
-    @Column(name = "pessoa_FJ", nullable = false, length = 1)
-    private String tipoPessoa;
+    @Column(name = "PJ", nullable = false)
+    private Boolean tipoPessoa;
     
-    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj,
-			String senha, String tipoPessoa) {
+    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Boolean tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -103,11 +103,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getTipoPessoa() {
+    public Boolean getTipoPessoa() {
         return tipoPessoa;
     }
 
-    public void setTipoPessoa(String tipoPessoa) {
+    public void setTipoPessoa(Boolean tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
 }
