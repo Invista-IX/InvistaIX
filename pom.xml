@@ -19,6 +19,7 @@
 	<description>Projeto desenvolvido pelo grupo 1 do 3° Período de E.S. da Instituição Biopark Educação com o intuito de desenvolver um sistema gerenciador de imóveis para a empresa InvistaIX.</description>
 
 	<properties>
+    <junit-jupiter-version>RELEASE</junit-jupiter-version>
 		<java.version>17</java.version>
 	</properties>
 
@@ -61,6 +62,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+    
+    	<dependency>
+      		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      		<version>4.13.2</version>
+      		<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+    		<groupId>org.junit.jupiter</groupId>
+    		<artifactId>junit-jupiter</artifactId>
+    		<version>RELEASE</version>
+    		<scope>test</scope>
+    	</dependency>
+		
 	</dependencies>
 
 	<build>
