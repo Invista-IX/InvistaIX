@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Controller
 public class CadastroController {
 
@@ -24,11 +26,21 @@ public class CadastroController {
     @PostMapping("/cadastro")
     public String salvarCadastro(@ModelAttribute Usuario cadastro, Model model) {
 
+        boolean temErro = false;
+
         if (usuarioService.checarEmailCadastrado(cadastro)) {
-            model.addAttribute("erro", "Email já cadastrado.");
-            return "cadastro";
+            model.addAttribute("emailErro", "Email já cadastrado.");
+            temErro = true;
         }
 
+        if (usuarioService.checarCPFCadastrado(cadastro)) {
+            model.addAttribute("cpfCnpjErro", "CPF/CNPJ já cadastrado.");
+            temErro = true;
+        }
+
+        if (temErro) {
+            return "cadastro";
+        }
         /* debug */
         System.out.println("novo cadastro, nome: " + cadastro.getNome());
 

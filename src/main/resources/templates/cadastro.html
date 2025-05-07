@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -20,44 +20,50 @@
     <div class="form-box">
         <h2>Cadastro</h2>
         <p>Preencha os campos para criar sua conta</p>
-        <form method="post" action="/cadastro">
+        <form id="formCadastro" method="post" action="/cadastro">
             <div>
                 <label id="nome">Nome</label>
                 <input type="text" name="nome" placeholder="Nome" required />
             </div>
 			<div>
-				<label id="nome">Sobrenome</label>
+				<label id="sobrenome">Sobrenome</label>
 			    <input type="text" name="sobrenome" placeholder="Sobrenome" required />
 			</div>
             <div>
                 <label id="cpf">CPF/CNPJ</label>
                 <input type="text" name="cpfCnpj" placeholder="CPF/CNPJ" required />
+                <span th:if="${cpfCnpjErro}" th:text="${cpfCnpjErro}" class="erro"></span>
             </div>
 			<div>
+                <label id="tipoPessoa">Tipo de pessoa</label>
 				<select name="tipoPessoa">
-					<option value="false">Pessoa Física</option>
-					<option value="true">Pessoa Jurídica</option>
+					<option value="F">Pessoa Física</option>
+					<option value="J">Pessoa Jurídica</option>
 				</select>
 			</div>
             <div>
                 <label id="email">Email</label>
-            <input type="email" name="email" placeholder="Email" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <span th:if="${emailErro}" th:text="${emailErro}" class="erro"></span>
             </div>
             <div>
                 <label id="telefone">Telefone</label>
                 <input type="tel" name="telefone" placeholder="(11) 9999 999" required />
             </div>
             <div>
-                <label id="senha">Senha</label>
-                <input type="password" name="senha" placeholder="Senha" required />
+                <label id="senhaLabel">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required />
+                <span class="erroSenha" id="erroSenha"></span>
             </div>
             <div>
-                <label id="confSenha">Confirme a Senha</label>
-                <input type="password" name="senha" placeholder="Confirme a senha" required />
+                <label id="confSenhaLabel">Confirme a Senha</label>
+                <input type="password" id="confSenha" placeholder="Confirme a senha" required />
+                <span class="erroSenha" id="erroConfSenha"></span>
             </div>
             <button type="submit" class="btn">Cadastrar</button>
         </form>
     </div>
 </div>
+<script src="/JS/cadastro.js"></script>
 </body>
 </html>
