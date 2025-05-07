@@ -3,6 +3,10 @@ package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "gestor")
+@NamedQuery(name = "Usuario.findByEmail", query = "select u from Usuario u where u.email = ?1")
+@NamedQuery(name = "Usuario.findByTelefone", query = "select u from Usuario u where u.telefone = ?1")
+@NamedQuery(name = "Usuario.findByCPF", query = "select u from Usuario u where u.cpfCnpj = ?1")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +31,10 @@ public class Usuario {
     @Column(nullable = false, length = 45)
     private String senha;
 
-    @Column(name = "pessoa_FJ", nullable = false, length = 1)
-    private String tipoPessoa;
+    @Column(name = "pessoa_fj", nullable = false, length = 1)
+    private Character tipoPessoa;
     
-    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj,
-			String senha, String tipoPessoa) {
+    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -103,11 +106,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getTipoPessoa() {
+    public Character getTipoPessoa() {
         return tipoPessoa;
     }
 
-    public void setTipoPessoa(String tipoPessoa) {
+    public void setTipoPessoa(Character tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
 }
