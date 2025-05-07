@@ -31,10 +31,10 @@ public class Usuario {
     @Column(nullable = false, length = 45)
     private String senha;
 
-    @Column(name = "PJ", nullable = false)
-    private Boolean tipoPessoa;
+    @Column(name = "pessoa_fj", nullable = false, length = 1)
+    private Character tipoPessoa;
     
-    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Boolean tipoPessoa) {
+    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -106,11 +106,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Boolean getTipoPessoa() {
+    public Character getTipoPessoa() {
         return tipoPessoa;
     }
 
-    public void setTipoPessoa(Boolean tipoPessoa) {
+    public void setTipoPessoa(Character tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
 }
