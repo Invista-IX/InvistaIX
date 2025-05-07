@@ -15,16 +15,24 @@ header {
 }
 
 .logo {
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	font-size: 24px;
-}
+          display: flex;
+          align-items: center;
+          font-weight: bold;
+          font-size: 24px;
+          margin-top: 8px;
+          margin-left: 20px;
+        }
 
-.logo span {
-	color: #009966;
-	margin-left: 4px;
-}
+        .logo span {
+          color: #009966;
+          margin-left: 4px;
+        }
+
+        .logo-img {
+          width: 100px;
+          height: auto;
+          margin-right: 8px;
+        }
 
 nav {
 	display: flex;

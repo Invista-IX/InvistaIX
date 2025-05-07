@@ -26,14 +26,13 @@ body {
 	justify-content: space-between;
 	margin-bottom: 2rem;
 	flex-direction: column;
-}
+      }
 
-.logo {
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	font-size: 24px;
-}
+        .logo-img {
+          width: 100px;
+          height: auto;
+          margin-right: 8px;
+        }
 
 .header a {
 	text-decoration: none;
