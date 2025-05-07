@@ -1,134 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Cadastro - invistaIX</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
-    <style>
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-        }
-
-        body {
-          font-family: 'Inter', sans-serif;
-          background: #fff;
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .container {
-          width: 100%;
-          max-width: 100%;
-          max-height: 100%;
-          height: 100%;
-          padding: 0.8rem;
-        }
-
-        .header {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 2rem;
-          flex-direction: column;
-        }
-
-        .logo {
-          display: flex;
-          align-items: center;
-          font-weight: bold;
-          font-size: 24px;
-        }
-
-        .header a {
-          text-decoration: none;
-          color: #000;
-          font-size: 1.1rem;
-          margin-top: 10px;
-          font-weight: 600;
-        }
-
-        .form-box {
-          background: #fff;
-          padding: 0 0.5rem;
-          border-radius: 12px;
-          max-width: 100%;
-          width: 100%;
-        }
-
-        h2 {
-          font-size: 2rem;
-          font-weight: 800;
-          text-align: center;
-          margin-bottom: 0.3rem;
-        }
-
-        p {
-          text-align: center;
-          margin-bottom: 2rem;
-          color: #666;
-          font-size: 0.95rem;
-        }
-
-        form {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-        }
-
-        label {
-          font-weight: 600;
-          font-size: 14px;
-          margin-bottom: 8px;
-          display: block;
-        }
-
-        input, select {
-          width: 100%;
-          padding: 0.9rem;
-          border: 1px solid #dcdcdc;
-          border-radius: 10px;
-          font-size: 0.95rem;
-          background-color: #f9f9f9;
-        }
-
-        input::placeholder {
-          color: #b0b0b0;
-        }
-
-        select {
-          appearance: none;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-          background-repeat: no-repeat;
-          background-position: right 0.7rem center;
-          background-size: 1rem;
-        }
-
-        .btn {
-          grid-column: span 2;
-          background-color: #0ca678;
-          color: white;
-          border: none;
-          padding: 0.9rem;
-          border-radius: 10px;
-          font-size: 1.1rem;
-          cursor: pointer;
-          font-weight: bold;
-        }
-
-        @media (max-width: 600px) {
-          form {
-            grid-template-columns: 1fr;
-          }
-
-          .btn {
-            grid-column: span 1;
-          }
-        }
-    </style>
+	<link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
 <div class="container">
@@ -138,43 +15,55 @@
         </div>
         <br>
         <hr>
-        <a href="index.html">← Sair</a>
+        <a href="/">← Sair</a>
     </div>
     <div class="form-box">
         <h2>Cadastro</h2>
-        <p>Preencha o formulário para criar sua conta</p>
-        <form>
+        <p>Preencha os campos para criar sua conta</p>
+        <form id="formCadastro" method="post" action="/cadastro">
             <div>
-                <label id="nome">Nome Completo</label>
-                <input type="text" placeholder="Nome" required />
+                <label id="nome">Nome</label>
+                <input type="text" name="nome" placeholder="Nome" required />
             </div>
+			<div>
+				<label id="sobrenome">Sobrenome</label>
+			    <input type="text" name="sobrenome" placeholder="Sobrenome" required />
+			</div>
             <div>
                 <label id="cpf">CPF/CNPJ</label>
-                <input type="text" placeholder="CPF/CNPJ" required />
+                <input type="text" name="cpfCnpj" placeholder="CPF/CNPJ" required />
+                <span th:if="${cpfCnpjErro}" th:text="${cpfCnpjErro}" class="erro"></span>
             </div>
+			<div>
+                <label id="tipoPessoa">Tipo de pessoa</label>
+				<select name="tipoPessoa">
+					<option value="F">Pessoa Física</option>
+					<option value="J">Pessoa Jurídica</option>
+				</select>
+			</div>
             <div>
                 <label id="email">Email</label>
-            <input type="email" placeholder="Email" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <span th:if="${emailErro}" th:text="${emailErro}" class="erro"></span>
             </div>
             <div>
                 <label id="telefone">Telefone</label>
-                <input type="tel" placeholder="(11) 9999 999" required />
+                <input type="tel" name="telefone" placeholder="(11) 9999 999" required />
             </div>
             <div>
-                <label id="senha">Senha</label>
-                <input type="password" placeholder="Senha" required />
+                <label id="senhaLabel">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required />
+                <span class="erroSenha" id="erroSenha"></span>
             </div>
             <div>
-                <label id="confSenha">Confirme a Senha</label>
-                <input type="password" placeholder="Confirme a senha" required />
+                <label id="confSenhaLabel">Confirme a Senha</label>
+                <input type="password" id="confSenha" placeholder="Confirme a senha" required />
+                <span class="erroSenha" id="erroConfSenha"></span>
             </div>
-            <select>
-                <option>Pessoa Física</option>
-                <option>Pessoa Jurídica</option>
-            </select>
             <button type="submit" class="btn">Cadastrar</button>
         </form>
     </div>
 </div>
+<script src="/JS/cadastro.js"></script>
 </body>
 </html>
