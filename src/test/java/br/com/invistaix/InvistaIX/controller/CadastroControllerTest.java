@@ -38,16 +38,7 @@ public class CadastroControllerTest {
 	private Model model;
 
 	@Test
-	public void deveCadastrarUsuarioComSucesso() throws Exception {
-		
-		//apaga o usuário de teste do banco de dados caso o mesmo esteja salvo
-		if(!usuarioRepository.existsByEmail("carlos@teste.com")) {
-			System.out.println("entrou no if");
-			Usuario usuario = usuarioService.encontrarPorEmail("carlos@teste.com");
-			System.out.println(usuario.getEmail());
-			usuarioService.apagarUsuario(usuario.getId());
-		}
-		
+	public void deveCadastrarEApagarUsuarioComSucesso() throws Exception {
 		mockMvc.perform(post("/cadastro")
 				.param("nome", "Carlos")
 				.param("sobrenome", "maia")
@@ -55,22 +46,17 @@ public class CadastroControllerTest {
 				.param("senha", "1234")
 				.param("cpfCnpj", "12345678900")
 				.param("telefone", "11999999999")
-				.param("tipoPessoa", "0"))
+				.param("tipoPessoa", "F"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/login"));
+
+		Usuario usuario = usuarioService.encontrarPorEmail("carlos@teste.com");
+		System.out.println(usuario.getEmail());
+		usuarioService.apagarUsuario(usuario.getId());
 	}
 	
 	@Test
-	public void testSalvarUsuarioNovo() {
-		
-		//apaga o usuário de teste do banco de dados caso o mesmo esteja salvo
-		if(!usuarioRepository.existsByEmail("carlos2@teste.com")) {
-			System.out.println("entrou no if");
-			Usuario usuario = usuarioService.encontrarPorEmail("carlos2@teste.com");
-			System.out.println(usuario.getEmail());
-			usuarioService.apagarUsuario(usuario.getId());
-		}
-		
+	public void testSalvarEApagarUsuarioNovo() {
 	    Usuario usuario = new Usuario();
 	    usuario.setNome("Carlos");
 	    usuario.setSobrenome("silva");
@@ -78,13 +64,16 @@ public class CadastroControllerTest {
 	    usuario.setSenha("4599999999");
 	    usuario.setCpfCnpj("12345678988");
 	    usuario.setTelefone("senha");
-	    usuario.setTipoPessoa(false);
+	    usuario.setTipoPessoa('F');
 	    
 	    when(usuarioRepository.existsByEmail(usuario.getEmail())).thenReturn(false);
 
 	    String view = cadastroController.salvarCadastro(usuario, model);
 
 	    assertEquals("redirect:/login", view);
+
+		Usuario usuarioDelete = usuarioService.encontrarPorEmail("carlos2@teste.com");
+		System.out.println(usuarioDelete.getEmail());
+		usuarioService.apagarUsuario(usuarioDelete.getId());
 	}
-	
 }
