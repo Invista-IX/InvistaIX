@@ -140,6 +140,14 @@ select {
 	font-weight: bold;
 }
 
+footer {
+	text-align: center;
+	padding: 20px 10px;
+	font-size: 14px;
+	color: #888888;
+	border-top: 1px solid #dddddd;
+}
+
 @media (max-width: 600px) {
 	form {
 		grid-template-columns: 1fr;
