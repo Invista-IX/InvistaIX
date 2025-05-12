@@ -1,0 +1,173 @@
+body {
+	display: grid;
+    margin: 0;
+	font-family: 'Inter', sans-serif;
+	background-color: #f9f9f9;
+	color: #1a1a1a;
+	row-gap: 1cm;
+}
+
+header {
+	    display: grid;
+	    grid: 'logo gap gap gap nav';
+	    padding: 16px 32px;
+	    background-color: #ffffff;
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	    max-height: 4vw;
+	    align-items: center;
+	    justify-content: space-between;
+	    align-content: center;
+}
+		
+.logo {
+	margin-top: 8px;
+	grid-area: logo;
+}
+
+.logo span {
+	color: #009966;
+	margin-left: 4px;
+}
+
+.logo-img {
+	width: 180px;
+	height: auto;
+	align-self: center;
+}
+
+nav {
+	grid-area: nav;
+}
+
+nav a {
+	margin-right: 20px;
+	text-decoration: none;
+	color: #333333;
+	font-weight: 500;
+}
+
+
+main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 700;
+	margin-bottom: 6px;
+	margin-top: -22px;
+	text-align: center;
+}
+
+p.subtitle {
+	margin-bottom: 50px;
+	color: #666666;
+	font-size: 18px;
+	text-align: center;
+        }
+
+form {
+	width: 100%;
+	max-width: 450px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	box-sizing: border-box;
+}
+		
+label {
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 8px;
+	display: block;
+	box-sizing: border-box;
+}
+
+input, select {
+	width: 100%;
+	padding: 0.9rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	font-size: 0.95rem;
+	background-color: #f9f9f9;
+	box-sizing: border-box;
+}
+
+input::placeholder {
+	color: #b0b0b0;
+	text-align: center;
+}
+
+input::placeholder {
+	color: #bbbbbb;
+}
+
+button {
+	padding: 16px;
+	background-color: #009966;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 18px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	margin-top: 10px;
+	width: 100%;
+}
+
+button:hover {
+	background-color: #007f55;
+}
+
+.links {
+	text-align: center;
+	font-size: 16px;
+	margin-top: 30px;
+}
+
+.links a {
+	color: #333333;
+	text-decoration: none;
+	font-weight: 600;
+	margin: 8px 0;
+	display: block;
+}
+
+footer {
+	text-align: center;
+	padding: 20px 10px;
+	font-size: 14px;
+	color: #888888;
+	border-top: 1px solid #dddddd;
+}
+
+@media (max-width: 480px) {
+	h1 {
+		font-size: 26px;
+	}
+
+	p.subtitle {
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+
+	input, button {
+		font-size: 15px;
+		padding: 14px;
+	}
+
+	form {
+		gap: 16px;
+	}
+
+	.logo {
+		justify-content: center;
+		margin-left: 0;
+        margin-top: 12px;
+	}
+}
