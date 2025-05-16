@@ -1,14 +1,34 @@
 package br.com.invistaix.InvistaIX.model;
 
-import jakarta.persistence.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Base64;
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name= "grupo")
+@NamedQuery(name = "Grupo.findByCodigo", query = "select g from Grupo g where g.codigo = ?1")
 public class Grupo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgrupo")
     private Integer id;
+    
+    @Column(nullable = false, length = 45)
+    private String nome;
 
     @Column(nullable = false, length = 45)
     private String codigo;
@@ -16,6 +36,77 @@ public class Grupo {
     @Column(nullable = false, length = 45)
     private String senha;
 
-    @Column(nullable = false, length = 45)
-    private String imagem_base64;
+    @Column(nullable = true)
+    @Lob
+    private byte[] imagem_base64;
+
+	public Grupo(Integer id, String nome, String codigo, String senha, byte[] imagem_base64) {
+		this.id = id;
+		this.nome = nome;
+		this.codigo = codigo;
+		this.senha = senha;
+		this.imagem_base64 = imagem_base64;
+	}
+
+	public Grupo() {
+		
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getImagem_base64() {
+		String base64Data = Base64.getEncoder().encodeToString(imagem_base64);
+        System.out.println(base64Data);
+		return base64Data;
+	}
+
+	public void setImagem_base64(MultipartFile imagem_base64) {
+		byte[] cpy;
+		try {
+			cpy = imagem_base64.getBytes();
+			this.imagem_base64 = cpy;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			this.imagem_base64 = null;
+		}
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Grupo [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", senha=" + senha + ", imagem_base64="
+				+ imagem_base64 + "]";
+	}
+    
 }
