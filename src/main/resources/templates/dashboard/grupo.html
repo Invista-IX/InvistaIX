@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - InvistaIX</title>
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard/grupo.css">
+</head>
+<body>
+
+<!-- Menu lateral -->
+<aside>
+	<a href="/dashboard">
+		<img class="logo" src="logooo.png" alt="Logo" />
+	</a>
+	    <nav>
+            <ul>
+                <h4 style="margin-bottom: 10px;">Menu</h4>
+                <li>
+                    <a href="/dashboard">
+                        <span class="material-icons">dashboard</span>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    <div class="perfil">
+        <h4>Perfil</h4>
+        <a href="#">
+            <span class="material-icons">person</span>
+            Meus Dados
+        </a>
+        <a href="/">
+            <span class="material-icons">logout</span>
+            Sair
+        </a>
+    </div>
+</aside>
+
+<!-- Conteúdo principal -->
+<main>
+    <header>
+        <div>
+            <h1 class="titulo">Imóveis</h1>
+            <p class="subtitulo">Gerencie sua carteira de imóveis</p>
+        </div>
+        <div class="acoes">
+            <a href="#"><button class="sair_grupo">Sair do grupo</button></a>
+            <a href="#"><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
+        </div>
+    </header>
+	
+	<div>
+		<div class="desc">
+			<input id="pesquisa_imovel" type="text" placeholder="Buscar Imoveis"/>
+		</div>
+
+	
+    	<div class="cards" id="cards_container">
+		
+			<!-- Cards aplicados dinamicamente -->
+		
+        	<!-- Card exemplo -->
+			<a href="#">
+        	<div class="card">
+            	<img class="card-img" src="https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg" alt="Grupo Exemplo">
+            	<h3 class="card-h3">Grupo Exemplo</h3>
+            	<p class="card-p">Valor total<br>R$ 1.320.000</p>
+            	<p>Total de imóveis<br>8</p>
+            	<p>Total de Gestores<br>10</p>
+        	</div>
+			</a>
+    	</div>
+	
+		</div>
+	
+	<footer>
+		© 2025 InvistaIX. Todos os direitos reservados.
+	</footer>
+</main>
+
+<script src=""></script>
+
+</body>
+
+</html>
