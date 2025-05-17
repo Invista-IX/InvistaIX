@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - InvistaIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+<header>
+	<div class="logo">
+		<a href="/">
+			<img src="img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+		</a>
+	</div>
+	<nav class="login-cadastro">
+	   	<a href="/">← Sair</a>
+	</nav>
+</header>
+<main>
+    <h1>Login</h1>
+    <p class="subtitle">Entre com sua conta para acessar o sistema</p>
+
+    <form method="post" action="/login" onsubmit="return validarFormulario()">
+		
+		<div>
+		<label>EMail</label>
+        <input type="email" name="email" id="email" placeholder="exemplo@email.com" required />
+		</div>
+		
+		<div>
+		<label>Senha</label>
+        <input type="password" name="senha" id="senha" placeholder="senha" required />
+		</div>
+		
+		<button type="submit">Entrar</button>
+        <p style="color: red;">[[${erro}]]</p>
+		
+    </form>
+
+    <div class="links">
+        <a href="/esqueceuasenha">Esqueceu sua senha?</a>
+        <a href="/cadastro">Não tem uma conta? <strong>Registre-se</strong></a>
+    </div>
+</main>
+
+<footer>
+    © 2025 InvistaIX. Todos os direitos reservados.
+</footer>
+
+<script src="/JS/login.js"></script>
+</body>
+</html>

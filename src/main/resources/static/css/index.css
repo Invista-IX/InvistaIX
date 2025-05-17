@@ -1,24 +1,25 @@
 body {
-    margin: 0;
+ margin: 0;
 	font-family: 'Inter', sans-serif;
 	background-color: #f9f9f9;
 	color: #1a1a1a;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 16px 32px;
-	background-color: #ffffff;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: grid;
+  grid: 'logo gap gap gap nav';
+  padding: 16px 32px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  max-height: 4vw;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
 }
-
+		
 .logo {
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	font-size: 24px;
+	margin-top: 8px;
+	grid-area: logo;
 }
 
 .logo span {
@@ -26,9 +27,13 @@ header {
 	margin-left: 4px;
 }
 
+.logo-img {
+	width: 180px;
+	height: auto;
+	align-self: center;
+}
 nav {
-	display: flex;
-	align-items: center;
+	grid-area: nav;
 }
 
 nav a {
@@ -52,6 +57,7 @@ nav a {
 main {
 	text-align: center;
 	padding: 80px 20px;
+	min-height: 25vw;
 }
 
 .badge {
@@ -91,4 +97,12 @@ p {
 	border-radius: 8px;
 	text-decoration: none;
 	display: inline-block;
+}
+
+footer {
+	text-align: center;
+	padding: 20px 10px;
+	font-size: 14px;
+	color: #888888;
+	border-top: 1px solid #dddddd;
 }

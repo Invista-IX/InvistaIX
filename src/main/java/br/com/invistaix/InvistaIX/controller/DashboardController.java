@@ -32,7 +32,7 @@ public class DashboardController {
     @PostMapping("/cadastro_grupo")
     public String salvarGrupo(Grupo grupo, Model model) {
     	grupoService.salvar(grupo);
-    	return "redirect:dashboard";
+    	return "redirect:/dashboard";
     }
     
     @GetMapping("/grupo/{id}")
