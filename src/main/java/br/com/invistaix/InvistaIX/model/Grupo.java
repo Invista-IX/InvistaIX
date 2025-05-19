@@ -1,12 +1,8 @@
 package br.com.invistaix.InvistaIX.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Base64;
 
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Column;
@@ -37,6 +33,7 @@ public class Grupo {
     private String senha;
 
     @Column(nullable = true)
+    
     @Lob
     private byte[] imagem_base64;
 
