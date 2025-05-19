@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="css/redefinirsenha.css">
+</head>
+<body>
+
+<main>
+    <div class="conteudo">
+        <h2>Redefinir Senha</h2>
+        <p>Digite sua nova senha abaixo</p>
+
+        <form th:action="@{/redefinirsenha}" method="post">
+            <input type="hidden" name="email" th:value="${email}" />
+
+            <label for="novaSenha">Nova Senha</label>
+            <input type="password" id="novaSenha" name="novaSenha" placeholder="Digite a nova senha" required />
+
+            <label for="confirmarSenha">Confirmar Senha</label>
+            <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirme a nova senha" required />
+
+            <div class="erro" th:if="${erro}" th:text="${erro}"></div>
+            <div class="mensagem" th:if="${mensagem}" th:text="${mensagem}"></div>
+
+            <button type="submit">Redefinir Senha</button>
+        </form>
+
+        <div class="voltar">
+            <a href="/login">Voltar ao login</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © 2025 InvistaIX. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>

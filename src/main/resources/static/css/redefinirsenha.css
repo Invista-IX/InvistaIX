@@ -1,0 +1,132 @@
+* {
+         box-sizing: border-box;
+       }
+
+       body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         background-color: #f9f9f9;
+         min-height: 100vh;
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+       }
+
+       main {
+         display: flex;
+         flex-grow: 1;
+         padding: 50px 100px 40px 100px;
+         align-items: center;
+         justify-content: center;
+       }
+
+       .conteudo {
+         max-width: 400px;
+         width: 100%;
+         background-color: white;
+         padding: 40px;
+         border-radius: 8px;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+       }
+
+       h2 {
+         font-size: 28px;
+         margin-bottom: 15px;
+         text-align: center;
+       }
+
+       p {
+         margin-bottom: 25px;
+         color: #666;
+         font-size: 16px;
+         text-align: center;
+       }
+
+       label {
+         display: block;
+         margin-bottom: 8px;
+         font-weight: bold;
+         font-size: 15px;
+       }
+
+       input[type="password"] {
+         width: 100%;
+         padding: 12px;
+         border-radius: 5px;
+         border: 1px solid #ccc;
+         margin-bottom: 20px;
+         font-size: 15px;
+       }
+
+       input[type="hidden"] {
+         display: none;
+       }
+
+       button {
+         background-color: #019267;
+         color: white;
+         padding: 14px 20px;
+         border: none;
+         border-radius: 5px;
+         font-size: 17px;
+         cursor: pointer;
+         width: 100%;
+       }
+
+       button:hover {
+         background-color: #017a55;
+       }
+
+       .voltar {
+         margin-top: 20px;
+         text-align: center;
+       }
+
+       .voltar a {
+         text-decoration: none;
+         color: #333;
+         font-size: 15px;
+       }
+
+       .mensagem {
+         text-align: center;
+         margin-bottom: 15px;
+         color: green;
+       }
+
+       .erro {
+         text-align: center;
+         margin-bottom: 15px;
+         color: red;
+       }
+
+       footer {
+         text-align: center;
+         padding: 20px 10px;
+         font-size: 14px;
+         color: #888888;
+         border-top: 1px solid #dddddd;
+       }
+
+       @media (max-width: 768px) {
+         main {
+           padding: 20px;
+         }
+
+         .conteudo {
+           padding: 30px 20px;
+         }
+
+         h2 {
+           font-size: 24px;
+         }
+
+         p {
+           font-size: 15px;
+         }
+
+         input,
+         button {
+           font-size: 15px;
+         }
+       }
