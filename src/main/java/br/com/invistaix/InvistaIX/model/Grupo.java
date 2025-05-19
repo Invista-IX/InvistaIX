@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 @Table(name= "grupo")
 @NamedQuery(name = "Grupo.findByCodigo", query = "select g from Grupo g where g.codigo = ?1")
 public class Grupo {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgrupo")
@@ -31,10 +32,9 @@ public class Grupo {
 
     @Column(nullable = false, length = 45)
     private String senha;
-
-    @Column(nullable = true)
     
     @Lob
+    @Column(nullable = true)
     private byte[] imagem_base64;
 
 	public Grupo(Integer id, String nome, String codigo, String senha, byte[] imagem_base64) {
