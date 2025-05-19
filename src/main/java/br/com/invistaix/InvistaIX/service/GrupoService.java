@@ -26,7 +26,15 @@ public class GrupoService {
     	return grupoRepository.findById(id).orElse(null);
     }
     
+    public Grupo encontrarPorCodigo(String codigo) {
+    	return grupoRepository.findByCodigo(codigo);
+    }
+    
     public boolean conferirExistencia(Grupo grupo) {
     	return grupoRepository.existsById(grupo.getId());
+    }
+    
+    public void apagarGrupo(Integer id) {
+    	grupoRepository.deleteById(id);
     }
 }
