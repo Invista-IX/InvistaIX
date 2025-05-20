@@ -1,7 +1,6 @@
 package br.com.invistaix.InvistaIX.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -15,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 
-import br.com.invistaix.InvistaIX.model.*;
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
 import br.com.invistaix.InvistaIX.repository.UsuarioRepository;
 import br.com.invistaix.InvistaIX.service.UsuarioService;
 
@@ -50,30 +49,30 @@ public class CadastroControllerTest {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/login"));
 
-		Usuario usuario = usuarioService.encontrarPorEmail("carlos@teste.com");
-		System.out.println(usuario.getEmail());
-		usuarioService.apagarUsuario(usuario.getId());
+		UsuarioModel usuarioModel = usuarioService.encontrarPorEmail("carlos@teste.com");
+		System.out.println(usuarioModel.getEmail());
+		usuarioService.apagarUsuario(usuarioModel.getId());
 	}
 	
 	@Test
 	public void testSalvarEApagarUsuarioNovo() {
-	    Usuario usuario = new Usuario();
-	    usuario.setNome("Carlos");
-	    usuario.setSobrenome("silva");
-	    usuario.setEmail("carlos2@teste.com");
-	    usuario.setSenha("4599999999");
-	    usuario.setCpfCnpj("12345678988");
-	    usuario.setTelefone("senha");
-	    usuario.setTipoPessoa('F');
+	    UsuarioModel usuarioModel = new UsuarioModel();
+	    usuarioModel.setNome("Carlos");
+	    usuarioModel.setSobrenome("silva");
+	    usuarioModel.setEmail("carlos2@teste.com");
+	    usuarioModel.setSenha("4599999999");
+	    usuarioModel.setCpfCnpj("12345678988");
+	    usuarioModel.setTelefone("senha");
+	    usuarioModel.setTipoPessoa('F');
 	    
-	    when(usuarioRepository.existsByEmail(usuario.getEmail())).thenReturn(false);
+	    when(usuarioRepository.existsByEmail(usuarioModel.getEmail())).thenReturn(false);
 
-	    String view = cadastroController.salvarCadastro(usuario, model);
+	    String view = cadastroController.salvarCadastro(usuarioModel, model);
 
 	    assertEquals("redirect:/login", view);
 
-		Usuario usuarioDelete = usuarioService.encontrarPorEmail("carlos2@teste.com");
-		System.out.println(usuarioDelete.getEmail());
-		usuarioService.apagarUsuario(usuarioDelete.getId());
+		UsuarioModel usuarioModelDelete = usuarioService.encontrarPorEmail("carlos2@teste.com");
+		System.out.println(usuarioModelDelete.getEmail());
+		usuarioService.apagarUsuario(usuarioModelDelete.getId());
 	}
 }
