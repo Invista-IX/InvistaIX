@@ -1,6 +1,6 @@
 package br.com.invistaix.InvistaIX.service;
 
-import br.com.invistaix.InvistaIX.model.Usuario;
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
 import br.com.invistaix.InvistaIX.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,12 @@ public class LoginService {
     private UsuarioRepository usuarioRepository;
 
     public String autenticar(String email, String senha) {
-        Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario == null) {
+        UsuarioModel usuarioModel = usuarioRepository.findByEmail(email);
+        if (usuarioModel == null) {
             return "Email não encontrado";
         }
 
-        if (!usuario.getSenha().equals(senha)) {
+        if (!usuarioModel.getSenha().equals(senha)) {
             return "Senha incorreta.";
         }
 

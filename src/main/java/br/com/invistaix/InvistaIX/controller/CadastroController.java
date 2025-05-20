@@ -1,14 +1,13 @@
 package br.com.invistaix.InvistaIX.controller;
 
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
+import br.com.invistaix.InvistaIX.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import br.com.invistaix.InvistaIX.model.Usuario;
-import br.com.invistaix.InvistaIX.service.UsuarioService;
 
 @Controller
 public class CadastroController {
@@ -18,12 +17,12 @@ public class CadastroController {
 
     @GetMapping("/cadastro")
     public String formCadastro(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "cadastro_usuario";
+        model.addAttribute("usuario", new UsuarioModel());
+        return "cadastro";
     }
 
     @PostMapping("/cadastro")
-    public String salvarCadastro(@ModelAttribute Usuario cadastro, Model model) {
+    public String salvarCadastro(@ModelAttribute UsuarioModel cadastro, Model model) {
 
         boolean temErro = false;
 
