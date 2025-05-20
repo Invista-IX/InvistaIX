@@ -17,7 +17,7 @@ import java.util.Map;
 public class EsqueceuasenhaController {
 
     @Autowired
-   private RedefinirSenhaService redefinirSenhaService;
+    RedefinirSenhaService redefinirSenhaService;
 
     @GetMapping("/esqueceuasenha")
     public String mostrarPaginaEsqueceuSenha() {
