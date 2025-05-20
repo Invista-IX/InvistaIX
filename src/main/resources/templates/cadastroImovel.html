@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cadastrar Novo Imóvel - InvistaIX</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/cadastroImovel.css">
+</head>
+<body>
+<aside>
+    <img class="logo" src="/img/logo.png" alt="Logo" />
+    <nav>
+        <ul>
+            <h4 style="margin-bottom: 10px;">Menu</h4>
+            <li>
+                <a href="#">
+                    <span class="material-icons">dashboard</span>
+                    Dashboard
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="perfil">
+        <h4>Perfil</h4>
+        <a href="#">
+            <span class="material-icons">person</span>
+            Meus Dados
+        </a>
+        <a href="#">
+            <span class="material-icons">logout</span>
+            Sair
+        </a>
+    </div>
+</aside>
+
+<main>
+    <header>
+        <h2>Cadastrar Novo Imóvel</h2>
+        <p class="sub">Preencha os dados do imóvel para cadastrá-lo no sistema.</p>
+    </header>
+    <form method="post" action="/" enctype="multipart/form-data">
+        <div class="imagem-upload" id="imgInput">
+            <input type="file" id="imagemInput" name="imagem" accept="image/*" style="display: none;" />
+
+            <label for="imagemInput">
+                <span class="material-icons">add_a_photo</span>
+                <p>Adicionar imagem</p>
+            </label>
+            <input type="hidden" id="imagemBase64" name="imagemBase64" />
+        </div>
+
+        <div id="nomeImovelInput">
+            <label>Nome do Imóvel</label>
+            <input type="text" name="nome" placeholder="Nome do imóvel" required>
+        </div>
+
+        <div id="valorMatriculaInput">
+            <label>Valor da Matrícula</label>
+            <input type="double" name="valorMatricula" placeholder="R$ Valor da matrícula" required>
+        </div>
+
+        <div id="numeroMatriculaInput">
+            <label>Número da Matrícula</label>
+            <input type="text" name="numeroMatricula" placeholder="Número da matrícula" required>
+        </div>
+
+        <div id="nomeProprietarioInput">
+            <label>Nome do Proprietário</label>
+            <input type="text" name="proprietario.nome" placeholder="Informe o nome do proprietário" required>
+        </div>
+
+        <div id="cepInput">
+            <label>CEP</label>
+            <input type="text" name="endereco.cep" placeholder="CEP" required>
+        </div>
+
+        <div id="ruaInput">
+            <label>Rua</label>
+            <input type="text" name="endereco.rua" placeholder="Nome da rua" required>
+        </div>
+
+        <div id="bairroInput">
+            <label>Bairro</label>
+            <input type="text" name="endereco.bairro" placeholder="Nome do bairro" required>
+        </div>
+
+        <div id="numeroImovelInput">
+            <label>Número</label>
+            <input type="text" name="endereco.numero" placeholder="Número" required>
+        </div>
+
+        <div id="cidadeInput">
+            <label>Cidade</label>
+            <input type="text" name="endereco.cidade" placeholder="Cidade" required>
+        </div>
+
+        <div class="form-footer" id="botaoCadastroInput">
+            <button type="submit" class="btn-cadastrar">Cadastrar</button>
+        </div>
+    </form>
+    <footer>
+        © 2025 InvistaIX. Todos os direitos reservados.
+    </footer>
+</main>
+<script src="/js/cadastroImovel.js"></script>
+</body>
+</html>
