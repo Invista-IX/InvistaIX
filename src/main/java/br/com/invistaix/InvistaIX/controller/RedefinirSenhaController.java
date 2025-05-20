@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RedefinirSenhaController {
 
     @Autowired
-    private RedefinirSenhaService redefinirSenhaService;
+    public RedefinirSenhaService redefinirSenhaService;
 
     @GetMapping("/redefinirsenha")
     public String mostrarPaginaRedefinicao(Model model, @RequestParam(value = "email", required = false) String email) {
