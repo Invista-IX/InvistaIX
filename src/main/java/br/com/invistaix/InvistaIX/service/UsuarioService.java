@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.invistaix.InvistaIX.model.Usuario;
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
 import br.com.invistaix.InvistaIX.repository.UsuarioRepository;
 
 @Service
@@ -14,19 +14,19 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public List<Usuario> listarTodos() {
+	public List<UsuarioModel> listarTodos() {
 		return usuarioRepository.findAll();
 	}
 	
-	public Usuario encontrarPorId(Integer id) {
+	public UsuarioModel encontrarPorId(Integer id) {
 		return usuarioRepository.findById(id).orElse(null);
 	}
 	
-	public Usuario encontrarPorEmail(String email) {
+	public UsuarioModel encontrarPorEmail(String email) {
 		return usuarioRepository.findByEmail(email);
 	}
 	
-	public Usuario salvarCadastro(Usuario cadastro) {
+	public UsuarioModel salvarCadastro(UsuarioModel cadastro) {
 		return usuarioRepository.save(cadastro);
 	}
 	
@@ -34,15 +34,16 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 	
-	public Boolean checarCPFCadastrado(Usuario usuario) {
-		return usuarioRepository.existsByCpfCnpj(usuario.getCpfCnpj());
+	public Boolean checarCPFCadastrado(UsuarioModel usuarioModel) {
+		return usuarioRepository.existsByCpfCnpj(usuarioModel.getCpfCnpj());
+
 	}
 	
-	public Boolean checarEmailCadastrado(Usuario usuario) {
-		return usuarioRepository.existsByEmail(usuario.getEmail());
+	public Boolean checarEmailCadastrado(UsuarioModel usuarioModel) {
+		return usuarioRepository.existsByEmail(usuarioModel.getEmail());
 	}
 	
-	public Boolean checarTelefoneCadastrado(Usuario usuario) {
-		return usuarioRepository.existsByEmail(usuario.getTelefone());
+	public Boolean checarTelefoneCadastrado(UsuarioModel usuarioModel) {
+		return usuarioRepository.existsByEmail(usuarioModel.getTelefone());
 	}
 }

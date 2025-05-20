@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "gestor")
-@NamedQuery(name = "Usuario.findByEmail", query = "select u from Usuario u where u.email = ?1")
-@NamedQuery(name = "Usuario.findByTelefone", query = "select u from Usuario u where u.telefone = ?1")
-@NamedQuery(name = "Usuario.findByCPF", query = "select u from Usuario u where u.cpfCnpj = ?1")
-public class Usuario {
+@NamedQuery(name = "Usuario.findByEmail", query = "select u from UsuarioModel u where u.email = ?1")
+@NamedQuery(name = "Usuario.findByTelefone", query = "select u from UsuarioModel u where u.telefone = ?1")
+@NamedQuery(name = "Usuario.findByCPF", query = "select u from UsuarioModel u where u.cpfCnpj = ?1")
+public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgestor")
@@ -34,7 +34,7 @@ public class Usuario {
     @Column(name = "pessoa_fj", nullable = false, length = 1)
     private Character tipoPessoa;
     
-    public Usuario(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
+    public UsuarioModel(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -46,7 +46,7 @@ public class Usuario {
 		this.tipoPessoa = tipoPessoa;
 	}
     
-    public Usuario() {
+    public UsuarioModel() {
     	
     }
 

@@ -2,13 +2,13 @@ package br.com.invistaix.InvistaIX.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.invistaix.InvistaIX.model.Usuario;
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> {
     boolean existsByEmail(String email);
-    Usuario findByEmail(String email);
+    UsuarioModel findByEmail(String email);
     boolean existsByTelefone(String telefone);
-    Usuario findByTelefone(String telefone);
+    UsuarioModel findByTelefone(String telefone);
     boolean existsByCpfCnpj(String CpfCnpj);
-    Usuario findByCpfCnpj(String CpfCnpj);
+    UsuarioModel findByCpfCnpj(String CpfCnpj);
 }
