@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.invistaix.InvistaIX.model.Grupo;
+import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.service.GrupoService;
 
 @Controller
@@ -25,12 +25,12 @@ public class DashboardController {
     
     @GetMapping("/cadastro_grupo")
     public String cadastrarGrupo(Model model) {
-    	model.addAttribute("grupo", new Grupo());
+    	model.addAttribute("grupo", new GrupoModel());
     	return "dashboard/cadastro_grupo";
     }
     
     @PostMapping("/cadastro_grupo")
-    public String salvarGrupo(Grupo grupo, Model model) {
+    public String salvarGrupo(GrupoModel grupo, Model model) {
     	grupoService.salvar(grupo);
     	return "redirect:/dashboard";
     }

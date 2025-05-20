@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.invistaix.InvistaIX.model.Grupo;
+import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.repository.GrupoRepository;
 
 @Service
@@ -14,23 +14,23 @@ public class GrupoService {
     @Autowired
     GrupoRepository grupoRepository;
     
-    public void salvar(Grupo novoGrupo) {
+    public void salvar(GrupoModel novoGrupo) {
     	grupoRepository.save(novoGrupo);
     }
     
-    public List<Grupo> listarTodos() {
+    public List<GrupoModel> listarTodos() {
     	return grupoRepository.findAll();
     }
     
-    public Grupo encontrarPorId(Integer id) {
+    public GrupoModel encontrarPorId(Integer id) {
     	return grupoRepository.findById(id).orElse(null);
     }
     
-    public Grupo encontrarPorCodigo(String codigo) {
+    public GrupoModel encontrarPorCodigo(String codigo) {
     	return grupoRepository.findByCodigo(codigo);
     }
     
-    public boolean conferirExistencia(Grupo grupo) {
+    public boolean conferirExistencia(GrupoModel grupo) {
     	return grupoRepository.existsById(grupo.getId());
     }
     

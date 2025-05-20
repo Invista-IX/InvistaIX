@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.invistaix.InvistaIX.model.Grupo;
+import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.service.GrupoService;
 
 @RestController
@@ -18,7 +18,7 @@ public class APIGruposRestController {
 	GrupoService grupoService;
 	
 	@GetMapping("/grupos")
-	public List<Grupo> getGrupos() {
+	public List<GrupoModel> getGrupos() {
 		return grupoService.listarTodos();
 	}
 }
