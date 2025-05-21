@@ -1,0 +1,150 @@
+   * {
+         box-sizing: border-box;
+       }
+
+       body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         background-color: #f9f9f9;
+         min-height: 100vh;
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+       }
+
+         header {
+         display: grid;
+         grid: 'logo gap gap gap nav';
+         padding: 42px 32px;
+         background-color: #ffffff;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+         max-height: 4vw;
+         align-items: center;
+         justify-content: space-between;
+         align-content: center;
+       }
+
+       .logo {
+         margin-top: 8px;
+         grid-area: logo;
+       }
+
+       .logo-img {
+         width: 180px;
+         height: auto;
+         align-self: center;
+       }
+
+
+       main {
+         display: flex;
+         flex-grow: 1;
+         padding: 50px 100px 40px 350px; /* layout desktop */
+         align-items: center;
+         gap: 160px;
+       }
+
+       main img {
+         width: 270px;
+         height: auto;
+       }
+
+       .conteudo {
+         max-width: 500px;
+       }
+
+       h2 {
+         font-size: 32px;
+         margin-bottom: 15px;
+       }
+
+       p {
+         margin-bottom: 30px;
+         color: #666;
+         font-size: 18px;
+       }
+
+       label {
+         display: block;
+         margin-bottom: 8px;
+         font-weight: bold;
+         font-size: 16px;
+       }
+
+       input[type="email"] {
+         width: 100%;
+         padding: 14px;
+         border-radius: 5px;
+         border: 1px solid #ccc;
+         margin-bottom: 25px;
+         font-size: 16px;
+       }
+
+       button {
+         background-color: #019267;
+         color: white;
+         padding: 14px 20px;
+         border: none;
+         border-radius: 5px;
+         font-size: 18px;
+         cursor: pointer;
+         width: 100%;
+       }
+
+       button:hover {
+         background-color: #017a55;
+       }
+
+       .voltar {
+         margin-top: 20px;
+       }
+
+       .voltar a {
+         text-decoration: none;
+         color: #333;
+         font-size: 16px;
+       }
+
+       footer {
+   text-align: center;
+   padding: 20px 10px;
+   font-size: 14px;
+   color: #888888;
+   border-top: 1px solid #dddddd;
+}
+
+       /* Responsividade */
+       @media (max-width: 768px) {
+
+       header{
+       display: none;
+       }
+
+        main {
+        flex-direction: column;
+        padding: 10px 20px;
+        gap: 30px;
+        text-align: center;
+         }
+
+        main img {
+        width: 200px;
+         }
+
+        .conteudo {
+         max-width: 100%;
+         }
+
+        h2 {
+        font-size: 26px;
+         }
+
+        p {
+        font-size: 16px;
+         }
+
+        input[type="email"],
+         button {
+          font-size: 16px;
+         }
+       }
