@@ -1,42 +1,69 @@
 package br.com.invistaix.InvistaIX.model;
-
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "imovel")
 public class ImovelModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "idimovel")
+    private Long id;
 
+    @Column(name = "nome", nullable = false, length = 45)
     private String nome;
-    private Double valorMatricula;
+
+    @Column(name = "data_cadastro", nullable = false)
+    private LocalDateTime dataCadastro;
+
+    @Column(name = "area", nullable = false)
+    private Double area;
+
+    @Column(name = "preco", nullable = false)
+    private Double preco;
+
+    @Column(name = "numero_matricula", nullable = false)
     private String numeroMatricula;
-    private String imagemBase64;
 
-    @ManyToOne
-    private ProprietarioModel proprietarioModel;
+    @Column(name = "valor_matricula")
+    private Double valorMatricula;
 
-    @ManyToOne
-    private EnderecoModel enderecoModel;
+    @Column(name = "imagem_base64")
+    private byte[] imagemBase64;
 
-    public ImovelModel(Integer id, String nome, Double valorMatricula, String numeroMatricula, String imagemBase64, ProprietarioModel proprietarioModel, EnderecoModel enderecoModel) {
-      this.id = id;
-      this.nome = nome;
-      this.valorMatricula = valorMatricula;
-      this.numeroMatricula = numeroMatricula;
-      this.imagemBase64 = imagemBase64;
-      this.proprietarioModel = proprietarioModel;
-      this.enderecoModel = enderecoModel;
-    }
+    @Column(name = "idproprietario", nullable = false)
+    private Long idProprietario;
+
+    @Column(name = "idgrupo", nullable = false)
+    private Long idGrupo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idendereco", nullable = false)
+    private EnderecoModel endereco;
 
     public ImovelModel() {
     }
 
-    public Integer getId() {
+    public ImovelModel(Long id, String nome, LocalDateTime dataCadastro, Double area, Double preco,
+                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, Double valorMatricula) {
+        this.id = id;
+        this.nome = nome;
+        this.dataCadastro = dataCadastro;
+        this.area = area;
+        this.preco = preco;
+        this.idProprietario = idProprietario;
+        this.idGrupo = idGrupo;
+        this.endereco = endereco;
+        this.imagemBase64 = imagemBase64;
+        this.valorMatricula = valorMatricula;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,12 +75,48 @@ public class ImovelModel {
         this.nome = nome;
     }
 
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
     public Double getValorMatricula() {
         return valorMatricula;
     }
 
     public void setValorMatricula(Double valorMatricula) {
         this.valorMatricula = valorMatricula;
+    }
+
+    public byte[] getImagemBase64() {
+        return imagemBase64;
+    }
+
+    public void setImagemBase64(byte[] imagemBase64) {
+        this.imagemBase64 = imagemBase64;
+    }
+
+    public Long getIdProprietario() {
+        return idProprietario;
     }
 
     public String getNumeroMatricula() {
@@ -64,27 +127,38 @@ public class ImovelModel {
         this.numeroMatricula = numeroMatricula;
     }
 
-    public String getImagemBase64() {
-        return imagemBase64;
+    public void setIdProprietario(Long idProprietario) {
+        this.idProprietario = idProprietario;
     }
 
-    public void setImagemBase64(String imagemBase64) {
-        this.imagemBase64 = imagemBase64;
+    public Long getIdGrupo() {
+        return idGrupo;
     }
 
-    public ProprietarioModel getProprietarioModel() {
-        return proprietarioModel;
+    public void setIdGrupo(Long idGrupo) {
+        this.idGrupo = idGrupo;
     }
 
-    public void setProprietarioModel(ProprietarioModel proprietarioModel) {
-        this.proprietarioModel = proprietarioModel;
+    public EnderecoModel getEndereco() {
+        return endereco;
     }
 
-    public EnderecoModel getEnderecoModel() {
-        return enderecoModel;
+    public void setEndereco(EnderecoModel endereco) {
+        this.endereco = endereco;
     }
 
-    public void setEnderecoModel(EnderecoModel enderecoModel) {
-        this.enderecoModel = enderecoModel;
+    public String getEnderecoFormatado() {
+        if (endereco == null) {
+            return "Endereço não disponível";
+        }
+
+        return String.format(
+                "%s, %d - %s, %s - %s",
+                endereco.getRua(),
+                endereco.getNumero(),
+                endereco.getBairro(),
+                endereco.getLoteamento(),
+                endereco.getMunicipio()
+        );
     }
 }

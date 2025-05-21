@@ -3,88 +3,86 @@ package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "endereco")
 public class EnderecoModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "idendereco")
+    private Long id;
 
-    private String nome;
-    private Double valorMatricula;
-    private String numeroMatricula;
-    private String imagemBase64;
+    @Column(name = "bairro", nullable = false, length = 45)
+    private String bairro;
 
-    @ManyToOne
-    @JoinColumn(name = "proprietario_id")
-    private ProprietarioModel proprietario;
+    @Column(name = "loteamento", nullable = false, length = 45)
+    private String loteamento;
 
-    @ManyToOne
-    @JoinColumn(name = "endereco_id")
-    private EnderecoModel endereco;
+    @Column(name = "municipio", nullable = false, length = 45)
+    private String municipio;
 
-    public EnderecoModel(Integer id, String nome, Double valorMatricula, String numeroMatricula, String imagemBase64, ProprietarioModel proprietario, EnderecoModel endereco) {
+    @Column(name = "numero", nullable = false)
+    private Integer numero;
+
+    @Column(name = "rua", nullable = false, length = 45)
+    private String rua;
+
+    public EnderecoModel(Long id, String bairro, String municipio, Integer numero, String rua, String loteamento) {
         this.id = id;
-        this.nome = nome;
-        this.valorMatricula = valorMatricula;
-        this.numeroMatricula = numeroMatricula;
-        this.imagemBase64 = imagemBase64;
-        this.proprietario = proprietario;
-        this.endereco = endereco;
+        this.bairro = bairro;
+        this.municipio = municipio;
+        this.numero = numero;
+        this.rua = rua;
+        this.loteamento = loteamento;
     }
 
-    public Integer getId() {
+    public EnderecoModel() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public Double getValorMatricula() {
-        return valorMatricula;
+    public String getMunicipio() {
+        return municipio;
     }
 
-    public void setValorMatricula(Double valorMatricula) {
-        this.valorMatricula = valorMatricula;
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
     }
 
-    public String getNumeroMatricula() {
-        return numeroMatricula;
+    public Integer getNumero() {
+        return numero;
     }
 
-    public void setNumeroMatricula(String numeroMatricula) {
-        this.numeroMatricula = numeroMatricula;
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
-    public String getImagemBase64() {
-        return imagemBase64;
+    public String getRua() {
+        return rua;
     }
 
-    public void setImagemBase64(String imagemBase64) {
-        this.imagemBase64 = imagemBase64;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
-    public ProprietarioModel getProprietario() {
-        return proprietario;
+    public String getLoteamento() {
+        return loteamento;
     }
 
-    public void setProprietario(ProprietarioModel proprietario) {
-        this.proprietario = proprietario;
-    }
-
-    public EnderecoModel getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(EnderecoModel endereco) {
-        this.endereco = endereco;
+    public void setLoteamento(String loteamento) {
+        this.loteamento = loteamento;
     }
 }
-
