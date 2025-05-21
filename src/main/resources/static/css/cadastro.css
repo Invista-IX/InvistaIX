@@ -52,7 +52,7 @@ nav a {
 	font-weight: 500;
 }		
 
-.form-box 
+.form-box {
 	padding: 0 0.5rem;
 	border-radius: 12px;
 	max-width: 100%;
@@ -79,7 +79,7 @@ form {
 	grid-template-columns: 1fr 1fr;
 	gap: 2rem;
 	box-sizing: border-box;
-
+}
 
 label {
 	font-weight: 600;

@@ -44,10 +44,11 @@
             <input type="file" id="imagemInput" name="imagem" accept="image/*" style="display: none;" />
 
             <label for="imagemInput">
-                <span class="material-icons">add_a_photo</span>
-                <p>Adicionar imagem</p>
+                <img src="#" style="display: none" id="preview">
+                <span class="material-icons" id="imgPlaceHolder">add_a_photo</span>
+                <p id="imgPlaceHolder">Adicionar imagem</p>
             </label>
-            <input type="hidden" id="imagemBase64" name="imagemBase64" />
+            <input type="hidden" id="imagemBase64" name="imagemBase64" accept="image/*" />
         </div>
 
         <div id="nomeImovelInput">
@@ -63,6 +64,11 @@
         <div id="numeroMatriculaInput">
             <label>Número da Matrícula</label>
             <input type="text" name="numeroMatricula" placeholder="Número da matrícula" required>
+        </div>
+
+        <div id="areaInput">
+            <label>Área do imóvel(m²)</label>
+            <input type="double" name="valorArea" placeholder="Área do imóvel(m²)" required>
         </div>
 
         <div id="nomeProprietarioInput">
