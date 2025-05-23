@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+     const formImposto = document.getElementById('formImposto');
+        if (formImposto) {
+            formImposto.addEventListener('submit', enviarImposto);
+        }
+
+
     document.querySelectorAll('.dinheiro').forEach(input => {
         IMask(input, {
             mask: Number,
@@ -144,4 +150,57 @@ function mostrarToastSucesso(mensagem) {
     setTimeout(() => {
         toast.classList.remove("mostrar");
     }, 3000);
+}
+
+function enviarImposto(event) {
+    try {
+        event.preventDefault();
+
+        const form = event.target;
+        const idimovel = document.getElementById('idimovel').value;
+
+        if (!idimovel) {
+            exibirModalErro('ID do imóvel não foi definido.');
+            return;
+        }
+
+        const impostoData = {};
+        form.querySelectorAll('.dinheiro').forEach(input => {
+            let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
+            impostoData[input.name] = valorTratado;
+        });
+
+        impostoData['idimovel'] = idimovel;
+
+        const body = new URLSearchParams();
+        for (const campo in impostoData) {
+            body.append(campo, impostoData[campo]);
+        }
+
+        fetch(`/iptu/criar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: body.toString(),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+                return response.text();
+            })
+            .then(data => {
+                mostrarToastSucesso('Imposto salvo com sucesso!');
+                form.reset();
+            })
+            .catch(error => {
+                exibirModalErro(error.message);
+            });
+
+    } catch (err) {
+        exibirModalErro('Erro ao processar o imposto: ' + err.message);
+    }
 }

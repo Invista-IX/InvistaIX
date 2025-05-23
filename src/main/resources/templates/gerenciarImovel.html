@@ -418,9 +418,12 @@
                 <section class="pane" id="imposto">
                     <div class="fields full-width">
                         <div class="field">
-                            <label for="iptu">IPTU</label>
-                            <input id="iptu" name="iptu" type="text" class="dinheiro"
-                                   placeholder="Digite o valor do IPTU do imóvel"/>
+                            <form id="formImposto" action="/iptu/criar" method="post">
+                                <label for="valor">IPTU</label>
+                                <input id="valor" name="valor" type="text" class="dinheiro" placeholder="Digite o valor do IPTU do imóvel"/>
+                                <input id="idimovel" type="hidden" name="idimovel" th:value="${imovel.id}" />
+                                <button type="submit" class="save-btn">Salvar</button>
+                            </form>
                         </div>
                     </div>
                 </section>
