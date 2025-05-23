@@ -60,6 +60,44 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', init);
 });
 
+////////INPUT DE DATA/////////////////
+const hoje = new Date();
+const elems = document.querySelectorAll('.inputData');
+Datepicker.locales['pt-BR'] = {
+    days: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+    daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    daysMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+        'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    titleFormat: 'MM yyyy',
+    format: 'dd/mm/yyyy',
+    weekStart: 0
+};
+
+elems.forEach(elem => {
+    new Datepicker(elem, {
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR',
+        autohide: true,
+        clearBtn: true,
+        maxDate: hoje
+    });
+});
+
+elems.addEventListener('changeDate', function (e) {
+    const date = e.detail.date;
+    if (date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        elems.value = `${day}/${month}/${year}`;
+    }
+});
+
 function enviarDespesa(event) {
     try {
         event.preventDefault();
@@ -73,12 +111,16 @@ function enviarDespesa(event) {
         }
 
         const despesaData = {};
-        form.querySelectorAll('.dinheiro').forEach(input => {
+        form.querySelectorAll('.dinheiroDespesa').forEach(input => {
             let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
             despesaData[input.name] = valorTratado;
         });
 
         despesaData['idImovel'] = idImovel;
+        const dataInput = document.getElementById('dataDespesa');
+        if (dataInput && dataInput.value) {
+            despesaData['data'] = dataInput.value;
+        }
 
         const body = new URLSearchParams();
         for (const campo in despesaData) {
@@ -112,6 +154,65 @@ function enviarDespesa(event) {
 
     } catch (err) {
         exibirModalErro('Erro ao processar a despesa: ' + err.message());
+    }
+}
+
+
+function enviarReceita(event) {
+    try {
+        event.preventDefault();
+
+        const form = event.target;
+        const idImovel = document.getElementById('idImovel').value;
+
+        if (!idImovel) {
+            exibirModalErro('ID do imóvel não foi definido.');
+            return;
+        }
+
+        const receitaData = {};
+        form.querySelectorAll('.dinheiroReceita').forEach(input => {
+            let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
+            receitaData[input.name] = valorTratado;
+        });
+        receitaData['idImovel'] = idImovel;
+        const dataInput = document.getElementById('dataReceita');
+        if (dataInput && dataInput.value) {
+            receitaData['data'] = dataInput.value;
+        }
+
+        const body = new URLSearchParams();
+        for (const campo in receitaData) {
+            body.append(campo, receitaData[campo]);
+        }
+
+        fetch(`/receita/criar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: body.toString(),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+
+                        throw new Error(text);
+                    });
+                }
+                return response.text();
+            })
+            .then(data => {
+                mostrarToastSucesso('Receita salva com sucesso!');
+                form.reset();
+            })
+            .catch(error => {
+
+                exibirModalErro(error.message);
+            });
+
+    } catch (err) {
+        exibirModalErro('Erro ao processar a Receita: ' + err.message());
     }
 }
 

@@ -24,7 +24,7 @@ public class DespesaModel {
     @Column(name = "agua")
     private Double agua;
 
-    @Column(name = "data")
+    @Column(name = "data", nullable = false)
     private LocalDate data;
 
     @Column(name = "idimovel", nullable = false)

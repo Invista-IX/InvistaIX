@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>InvistaIX — Cadastrar Nova Entrada</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
+
 </head>
 <style>
     .toast-sucesso {
@@ -15,17 +17,19 @@
         color: white;
         padding: 16px 24px;
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         font-size: 14px;
         max-width: 300px;
         transition: right 0.4s ease, opacity 0.3s ease;
         opacity: 0;
         z-index: 9999;
     }
+
     .toast-sucesso.mostrar {
         right: 30px;
         opacity: 1;
     }
+
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -38,6 +42,7 @@
         align-items: center;
         z-index: 999;
     }
+
     .modal-content .btn-container {
         display: flex;
         justify-content: flex-end;
@@ -100,6 +105,7 @@
         height: 100vh;
 
     }
+
     .sidebar {
         width: 18rem;
         background: #e6f2eb;
@@ -248,13 +254,23 @@
     }
 
     .field label {
+        margin-left: .4rem;
         margin-bottom: .5rem;
         font-size: 1rem;
     }
 
+    .inputData {
+        border-radius: 10px;
+        padding: .75rem;
+        border: 1px solid var(--grey);
+        font-size: .9rem;
+        width: 33rem;
+        margin-right: 2rem;
+    }
+
     .field input[type="text"] {
         padding: .75rem;
-        width: 35rem;
+        width: 33rem;
         border: 1px solid var(--grey);
         border-radius: 10px;
         font-size: .9rem;
@@ -373,23 +389,35 @@
                         <div class="fields">
                             <div class="field">
                                 <label for="agua">Água</label>
-                                <input id="agua" name="agua" type="text" class="dinheiro"
+                                <input id="agua" name="agua" type="text" class="dinheiro dinheiroDespesa"
                                        placeholder="Digite o valor da conta de água"/>
                             </div>
                             <div class="field">
                                 <label for="manutencao">Manutenção</label>
-                                <input id="manutencao" name="manutencao" type="text" class="dinheiro"
+                                <input id="manutencao" name="manutencao" type="text" class="dinheiro dinheiroDespesa"
                                        placeholder="Digite o valor da manutenção"/>
                             </div>
                             <div class="field">
                                 <label for="luz">Luz</label>
-                                <input id="luz" name="luz" type="text" class="dinheiro"
+                                <input id="luz" name="luz" type="text" class="dinheiro dinheiroDespesa"
                                        placeholder="Digite o valor da conta de luz"/>
                             </div>
                             <div class="field">
                                 <label for="avulsaDespesa">Despesa avulsa</label>
-                                <input id="avulsaDespesa" name="despesaAvulsa" type="text" class="dinheiro"
+                                <input id="avulsaDespesa" name="despesaAvulsa" type="text" class="dinheiro dinheiroDespesa"
                                        placeholder="Digite valor da despesa avulsa"/>
+                            </div>
+                            <div class="field">
+                                <label for="dataDespesa">Data da despesa</label>
+                                <input
+                                        id="dataDespesa"
+                                        name="dataDespesa"
+                                        type="text"
+                                        placeholder="Selecione a data"
+                                        class="inputData"
+                                        autocomplete="off"
+                                        readonly
+                                />
                             </div>
                         </div>
                         <input type="hidden" id="idImovel" th:value="${imovel.id}"/>
@@ -399,21 +427,37 @@
                     </section>
                 </form>
 
-
-                <section class="pane" id="receita">
-                    <div class="fields">
-                        <div class="field">
-                            <label for="aluguel">Aluguel</label>
-                            <input id="aluguel" name="aluguel" type="text" class="dinheiro"
-                                   placeholder="Digite o valor do aluguel">
+                <form onsubmit="enviarReceita(event)">
+                    <section class="pane" id="receita">
+                        <div class="fields">
+                            <div class="field">
+                                <label for="aluguel">Aluguel</label>
+                                <input id="aluguel" name="aluguel" type="text" class="dinheiro dinheiroReceita"
+                                       placeholder="Digite o valor do aluguel">
+                            </div>
+                            <div class="field">
+                                <label for="receitaAvulsa">Receita avulsa</label>
+                                <input id="receitaAvulsa" name="receitaAvulsa" type="text" class="dinheiro dinheiroReceita"
+                                       placeholder="Digite valor da receita avulsa"/>
+                            </div>
+                            <div class="field">
+                                <label for="dataReceita">Data da receita</label>
+                                <input
+                                        id="dataReceita"
+                                        name="dataReceita"
+                                        type="text"
+                                        placeholder="Selecione a data"
+                                        class="inputData"
+                                        autocomplete="off"
+                                        readonly
+                                />
+                            </div>
                         </div>
-                        <div class="field">
-                            <label for="avulsaReceita">Receita avulsa</label>
-                            <input id="avulsaReceita" name="avulsaReceita" type="text" class="dinheiro"
-                                   placeholder="Digite valor da receita avulsa"/>
+                        <div class="actions">
+                            <button type="submit" class="save-btn">Salvar</button>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </form>
 
                 <section class="pane" id="imposto">
                     <div class="fields full-width">
@@ -474,8 +518,8 @@
     </div>
 </div>
 <div id="toastSucesso" class="toast-sucesso"></div>
-
 <script src="https://unpkg.com/imask@7.6.0/dist/imask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
 <script src="/JS/gerenciarImovel.js"></script>
 </body>
 </html>
