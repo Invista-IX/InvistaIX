@@ -5,8 +5,10 @@ import br.com.invistaix.InvistaIX.repository.ImpostoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImpostoService {
@@ -15,9 +17,26 @@ public class ImpostoService {
     private ImpostoRepository impostoRepository;
 
     public ImpostoModel criarIptu(ImpostoModel iptu) {
-        try {
-            if (iptu.getValor() == null || iptu.getValor() <= 0) {
-                throw new IllegalArgumentException("Valor do IPTU deve ser maior que zero.");
+            try {
+                if (iptu.getValor() == null || iptu.getValor() <= 0) {
+                    throw new IllegalArgumentException("Erro: o valor do IPTU deve ser um número positivo maior que zero.");
+                }
+
+            LocalDate data = iptu.getData();
+            if (data == null) {
+                data = LocalDate.now();
+                iptu.setData(data);
+            }
+
+            LocalDate inicioAno = LocalDate.of(data.getYear(), 1, 1);
+            LocalDate fimAno = LocalDate.of(data.getYear(), 12, 31);
+
+            Optional<ImpostoModel> existente = impostoRepository.findByIdimovelAndDataBetween(
+                    iptu.getIdimovel(), inicioAno, fimAno
+            );
+
+            if (existente.isPresent()) {
+                throw new IllegalArgumentException("Já existe um IPTU cadastrado para este imóvel neste ano.");
             }
 
             return impostoRepository.save(iptu);
