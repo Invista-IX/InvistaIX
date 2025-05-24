@@ -271,6 +271,13 @@ function enviarImposto(event) {
             impostoData[input.name] = valorTratado;
         });
 
+        const data = document.getElementById('data').value;
+        if (!data) {
+            exibirModalErro('A data do IPTU deve ser informada.');
+            return;
+        }
+        impostoData['data'] = data;
+
         impostoData['idimovel'] = idimovel;
 
         const body = new URLSearchParams();

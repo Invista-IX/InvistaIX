@@ -24,8 +24,7 @@ public class ImpostoService {
 
             LocalDate data = iptu.getData();
             if (data == null) {
-                data = LocalDate.now();
-                iptu.setData(data);
+                throw new IllegalArgumentException("O ano deve ser informado.");
             }
 
             LocalDate inicioAno = LocalDate.of(data.getYear(), 1, 1);
@@ -35,13 +34,12 @@ public class ImpostoService {
                     iptu.getIdimovel(), inicioAno, fimAno
             );
 
-            if (existente.isPresent()) {
-                throw new IllegalArgumentException("Já existe um IPTU cadastrado para este imóvel neste ano.");
+            if(impostoRepository.existsByidimovelAndAno(iptu.getIdimovel(), iptu.getData().getYear())){
+                    throw new IllegalArgumentException("Já existe um IPTU cadastrado para este imóvel neste ano.");
             }
-
             return impostoRepository.save(iptu);
 
-        } catch (Exception ex) {
+            } catch (Exception ex) {
             throw new RuntimeException("Erro ao criar IPTU: " + ex.getMessage(), ex);
         }
     }
