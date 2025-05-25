@@ -107,58 +107,142 @@ h2 {
 form {
   display: grid;
   grid-template-areas:
-    "img nome_proprietario"
-    "img CEP"
-    "img rua"
-    "nome_imovel bairro"
-    "valor_matricula numero_imovel"
-    "numero_matricula cidade"
-    "area botao";
+  	"imovel imovel"
+    "img nome_imovel"
+    "img area"
+    "numero_matricula valor_matricula"
+    "select_proprietario proprietario_input"
+	"divP divP"
+	"endereco enderco" 
+	"rua numero"
+	"bairro CEP"
+	"cidade estado"
+	". botao";
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-#areaInput {
+form h2 {
+	color: #888888;
+}
+
+#subtituloImovel {
+	grid-area: imovel;
+}
+
+#imagemImovelDiv {
+  grid-area: img;
+}
+
+#nomeImovelDiv {
+  grid-area: nome_imovel;
+}
+
+#areaImovelDiv {
   grid-area: area;
 }
 
-#imgInput {
-  grid-area: img;
-}
-#nomeProprietarioInput {
-  grid-area: nome_proprietario;
-}
-#cepInput {
-  grid-area: CEP;
-}
-#ruaInput {
-  grid-area: rua;
-}
-#nomeImovelInput {
-  grid-area: nome_imovel;
-}
-#bairroInput {
-  grid-area: bairro;
-}
-#valorMatriculaInput {
-  grid-area: valor_matricula;
-}
-#numeroImovelInput {
-  grid-area: numero_imovel;
-}
-#numeroMatriculaInput {
+#numeroMatriculaImovelDiv {
   grid-area: numero_matricula;
 }
-#cidadeInput {
+
+#valorMatriculaImovelDiv {
+  grid-area: valor_matricula;
+}
+
+#proprietarioSelect {
+	grid-area: select_proprietario;
+}
+#proprietarioImovelDiv {
+  grid-area: proprietario_input;
+}
+
+#cadastroProprietario {
+	grid-area: divP;
+	display: grid;
+	grid-template-areas:
+	    "proprietario proprietario"
+	  	"nomeProprietario cpfCnpjProprietario"
+	  	"sobrenomeProprietario tipoPessoaProprietario"
+	  	"emailProprietario telefoneProprietario";
+	grid-template-columns: 1fr 1fr;
+	border-bottom: 1px solid #dddddd;
+	border-top: 1px solid #dddddd; 
+	/*gap: 20px;*/
+}
+
+#subtituloProprietario {
+	grid-area: proprietario;
+}
+
+#nomeProprietarioDiv {
+	grid-area: nomeProprietario;
+}
+
+#cpfCnpjProprietarioDiv {
+	grid-area: cpfCnpjProprietario;
+}
+
+#sobrenomeProprietarioDiv {
+	grid-area: sobrenomeProprietario;
+}
+
+#tipoPessoaProprietarioDiv {
+	grid-area: tipoPessoaProprietario;
+}
+
+#emailProprietarioDiv {
+	grid-area: emailProprietario;
+}
+
+#telefoneProprietarioDiv {
+	grid-area: telefoneProprietario;
+}
+
+#subtituloEndereco {
+	grid-area: endereco;
+}
+
+#ruaEnderecoDiv {
+  grid-area: rua;
+}
+
+#numeroEnderecoDiv {
+  grid-area: numero;
+}
+
+#bairroEnderecoDiv {
+  grid-area: bairro;
+}
+
+#cepEnderecoDiv {
+  grid-area: CEP;
+}
+
+#cidadeEnderecoDiv {
   grid-area: cidade;
 }
-#botaoCadastroInput {
+
+#estadoEnderecoDiv {
+  grid-area: estado;
+}
+
+#botaoCadastroDiv {
   grid-area: botao;
 }
 
 img#preview {
-    max-width: 100%;
-    max-height: 16vh;
+	    width: calc(100% + 340px);
+	    max-height: 27vh;
+	    margin-left: -170px;
+	    /* margin-top: -20px; */
+	    /* margin-bottom: 10px; */
+	    /* border-top-left-radius: 8px; */
+	    /* border-top-right-radius: 8px; */
+}
+
+.toggleProprietario {
+	display: none;
 }
 
 .imagem-upload {
@@ -166,12 +250,13 @@ img#preview {
     max-height: 25vh;
     text-align: center;
     border: 2px dashed #ccc;
-    padding: 40px;
     cursor: pointer;
     width: 100%;
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
+	border-radius: 8px;
+	padding: 20px;
 }
 
 .imagem-upload:hover {
@@ -197,6 +282,8 @@ img#preview {
 label {
   display: block;
   font-weight: bold;
+  padding-left: 0.3rem;
+  padding-bottom: 0.2rem;
 }
 
 input {
@@ -205,6 +292,16 @@ input {
   border: 1px solid #ddd;
   border-radius: 6px;
   background-color: #f9f9f9;
+  max-height: 37px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  max-height: 37px;
 }
 
 .btn-cadastrar {
