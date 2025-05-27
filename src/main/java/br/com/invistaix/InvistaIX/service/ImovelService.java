@@ -1,14 +1,13 @@
 package br.com.invistaix.InvistaIX.service;
 
-import br.com.invistaix.InvistaIX.model.DespesaModel;
-import br.com.invistaix.InvistaIX.model.ImovelModel;
-import br.com.invistaix.InvistaIX.repository.ImovelRepository;
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 
 @Service
 public class ImovelService {
@@ -30,21 +29,6 @@ public class ImovelService {
             }
             if (imovel.getArea() == null || imovel.getArea() <= 0) {
                 throw new IllegalArgumentException("Informe a área do imóvel válido.");
-            }
-            if (imovel.getEndereco().getBairro() == null || imovel.getEndereco().getBairro().isEmpty()) {
-                throw new IllegalArgumentException("Informe um bairro válido.");
-            }
-            if (imovel.getEndereco().getLoteamento() == null || imovel.getEndereco().getLoteamento().isEmpty()) {
-                throw new IllegalArgumentException("Informe um loteamento válido.");
-            }
-            if (imovel.getEndereco().getRua() == null || imovel.getEndereco().getRua().isEmpty()) {
-                throw new IllegalArgumentException("Informe uma rua válida.");
-            }
-            if (imovel.getEndereco().getMunicipio() == null || imovel.getEndereco().getMunicipio().isEmpty()) {
-                throw new IllegalArgumentException("Informe um município válido.");
-            }
-            if (imovel.getEndereco().getNumero() == null || imovel.getEndereco().getNumero() <= 0) {
-                throw new IllegalArgumentException("Informe um número válido.");
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage(), ex);
