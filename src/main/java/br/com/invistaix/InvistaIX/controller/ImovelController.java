@@ -21,15 +21,6 @@ public class ImovelController {
     @Autowired
     private ImovelService imovelService;
 
-  //  @Autowired
-  //  private ImovelService endereco;
-
-    @Autowired
-    private ProprietarioRepository proprietarioRepository;
-
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-
     @GetMapping("/cadastroImovel")
     public String formCadastro(Model model) {
         model.addAttribute("imovel", new ImovelModel());
