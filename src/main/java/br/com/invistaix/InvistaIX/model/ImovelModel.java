@@ -153,12 +153,13 @@ public class ImovelModel {
         }
 
         return String.format(
-                "%s, %d - %s, %s - %s",
+                "%s, %d - %s, %s - %s - %s - %s",
                 endereco.getRua(),
                 endereco.getNumero(),
-                endereco.getBairro(),
                 endereco.getLoteamento(),
-                endereco.getMunicipio()
+                endereco.getCidade(),
+                endereco.getEstado(), 
+                endereco.getCEP()
         );
     }
 }
