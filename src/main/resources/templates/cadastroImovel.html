@@ -14,7 +14,7 @@
         <ul>
             <h4 style="margin-bottom: 10px;">Menu</h4>
             <li>
-                <a href="#">
+                <a href="/">
                     <span class="material-icons">dashboard</span>
                     Dashboard
                 </a>
@@ -35,16 +35,16 @@
 </aside>
 
 <main>
-	
+
     <header>
         <h2>Cadastrar Novo Imóvel</h2>
         <p class="sub">Preencha os dados do imóvel para cadastrá-lo no sistema.</p>
     </header>
-	
-    <form method="post" action="/" enctype="multipart/form-data">
-		
+
+    <form method="post" action="/imovel/salvar" enctype="multipart/form-data">
+
 		<h3 id="subtituloImovel">Dados do imóvel</h3>
-		
+
         <div class="imagem-upload" id="imagemImovelDiv">
             <input type="file" id="imagemInput" name="imagem" accept="image/*" style="display: none;" />
 
@@ -60,7 +60,7 @@
             <label>Nome do Imóvel</label>
             <input type="text" name="nome" id="nomeImovelInput" placeholder="Nome do imóvel" required>
         </div>
-		
+
 		<div id="areaImovelDiv">
 		    <label>Área do imóvel (m²)</label>
 		    <input type="double" name="valorArea" id="areaImovelInput" placeholder="Área do imóvel(m²)" required>
@@ -70,7 +70,7 @@
 		    <label>Número da Matrícula</label>
 		    <input type="text" name="numeroMatricula" id="numeroMatriculaImovelInput" placeholder="Número da matrícula" required>
 		</div>
-		
+
         <div id="valorMatriculaImovelDiv">
             <label>Valor da Matrícula</label>
             <input type="double" name="valorMatricula" id="valorMatriculaImovelInput" placeholder="R$ Valor da matrícula" required>
@@ -83,31 +83,31 @@
 				<option value="criar">Cadastrar novo proprietario</option>
 			</select>
 		</div>
-		
+
         <div id="proprietarioImovelDiv">
             <label>CPF/CNPJ do Proprietário</label>
             <input type="text" name="proprietarioCpfCnpj" id="propritarioImovelInput" placeholder="Informe o nome do proprietário" maxlength="18" required>
         </div>
-		
+
 		<div id="cadastroProprietario">
-			
+
 			<h3 id="subtituloProprietario" class="toggleProprietario">Dados do proprietário</h3>
-			
+
 			<div id="nomeProprietarioDiv" class="toggleProprietario">
 			    <label>Nome do Proprietário</label>
 			    <input type="text" name="propritario.nome" id="nomeProprietarioInput" placeholder="Nome do imóvel" required>
 			</div>
-			
+
 			<div id="cpfCnpjProprietarioDiv" class="toggleProprietario">
 			    <label id="labelCPFCNPJProprietario">CPF do Proprietário</label>
 			    <input type="text" name="propritario.cpfcnpj" id="cpfCpnjProprietarioInput" placeholder="Nome do imóvel" maxlength="14" required>
 			</div>
-			
+
 			<div id="sobrenomeProprietarioDiv" class="toggleProprietario">
 			    <label>Sobrenome do Proprietário</label>
 			    <input type="text" name="propritario.sobrenome" id="sobrenomeProprietarioInput" placeholder="Nome do imóvel" required>
 			</div>
-			
+
 			<div id="tipoPessoaProprietarioDiv" class="toggleProprietario">
 			    <label>Tipo de Pessoa do Proprietário</label>
 				<select type="text" id="tipoPessoaProprietarioSelect" name="proprietario.tipoPessoa">
@@ -115,36 +115,36 @@
 					<option value="J">Pessoa Jurídica</option>
 				</select>
 			</div>
-			
+
 			<div id="emailProprietarioDiv" class="toggleProprietario">
 			    <label>Email do Proprietário</label>
 			    <input type="email" name="propritario.email" id="emailProprietarioInput" placeholder="Nome do imóvel" required>
 			</div>
-			
+
 			<div id="telefoneProprietarioDiv" class="toggleProprietario">
 			    <label>Telefone do proprietário (opcional)</label>
 			    <input type="tel" name="propritario.telefone" id="telefoneProprietarioInput" placeholder="Nome do imóvel">
 			</div>
 
 		</div>
-		
+
 		<h3 id="subtituloEndereco">Dados do endereço</h3>
-		
+
 		<div id="ruaEnderecoDiv">
 		    <label>Rua</label>
 		    <input type="text" name="endereco.rua" id="ruaEnderecoInput" placeholder="Nome da rua" required>
 		</div>
-		
+
 		<div id="numeroEnderecoDiv">
 		    <label>Número</label>
 		    <input type="text" name="endereco.numero" id="numeroEnderecoInput" placeholder="Número" required>
 		</div>
-		
+
 		<div id="bairroEnderecoDiv">
 		    <label>Bairro</label>
 		    <input type="text" name="endereco.bairro" id="bairroEnderecoInput" placeholder="Nome do bairro" required>
 		</div>
-		
+
         <div id="cepEnderecoDiv">
             <label>CEP</label>
             <input type="text" name="endereco.cep" id="cepEnderecoInput" placeholder="CEP" required>
@@ -187,18 +187,15 @@
 				<option value="TO">Tocantins</option>
 			</select>
 		</div>
-		
+
         <div class="form-footer" id="botaoCadastroDiv">
             <button type="submit" class="btn-cadastrar">Cadastrar</button>
         </div>
     </form>
-	
     <footer>
         © 2025 InvistaIX. Todos os direitos reservados.
     </footer>
-	
 </main>
-<script src="https://unpkg.com/imask@7.6.0/dist/imask.min.js"></script>
 <script src="/js/cadastroImovel.js"></script>
 </body>
 </html>

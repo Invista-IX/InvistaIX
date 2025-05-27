@@ -44,6 +44,6 @@ public class UsuarioService {
 	}
 	
 	public Boolean checarTelefoneCadastrado(UsuarioModel usuarioModel) {
-		return usuarioRepository.existsByEmail(usuarioModel.getTelefone());
+		return usuarioRepository.existsByTelefone(usuarioModel.getTelefone());
 	}
 }

@@ -6,6 +6,7 @@ import br.com.invistaix.InvistaIX.repository.ProprietarioRepository;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.service.ImovelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +22,17 @@ public class ImovelController {
     @Autowired
     private ImovelService imovelService;
 
+    @Autowired
+    private ProprietarioRepository proprietarioRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     @GetMapping("/cadastroImovel")
     public String formCadastro(Model model) {
         model.addAttribute("imovel", new ImovelModel());
         model.addAttribute("proprietarios", new EnderecoModel());
         return "cadastroImovel";
-    }
-
-    @PostMapping("/salvar")
-    public String cadastrarImovel(@ModelAttribute ImovelModel imovel, @ModelAttribute EnderecoModel enddreco) {
-        //enderecoService.salvarEndereco(endereco);
-        imovelService.salvarImovel(imovel);
-        return "redirect:/imovel/cadastroImovel";
     }
 
     @GetMapping("/{idGrupo}/{idImovel}/gerenciar")
