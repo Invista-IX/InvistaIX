@@ -1,14 +1,14 @@
 package br.com.invistaix.InvistaIX.service;
 
-import br.com.invistaix.InvistaIX.model.DespesaModel;
-import br.com.invistaix.InvistaIX.model.ImovelModel;
-import br.com.invistaix.InvistaIX.repository.ImovelRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 
 @Service
 public class ImovelService {
@@ -31,20 +31,14 @@ public class ImovelService {
             if (imovel.getArea() == null || imovel.getArea() <= 0) {
                 throw new IllegalArgumentException("Informe a área do imóvel válido.");
             }
-            if (imovel.getEndereco().getBairro() == null || imovel.getEndereco().getBairro().isEmpty()) {
-                throw new IllegalArgumentException("Informe um bairro válido.");
+            if(imovel.getIdGrupo() == null || imovel.getIdGrupo() <=0) {
+                throw new IllegalArgumentException("Informe um id de grupo válido");
             }
-            if (imovel.getEndereco().getLoteamento() == null || imovel.getEndereco().getLoteamento().isEmpty()) {
-                throw new IllegalArgumentException("Informe um loteamento válido.");
+            if(imovel.getEndereco().getId() == null || imovel.getEndereco().getId() <=0) {
+                throw new IllegalArgumentException("Informe um id endereço válido");
             }
-            if (imovel.getEndereco().getRua() == null || imovel.getEndereco().getRua().isEmpty()) {
-                throw new IllegalArgumentException("Informe uma rua válida.");
-            }
-            if (imovel.getEndereco().getMunicipio() == null || imovel.getEndereco().getMunicipio().isEmpty()) {
-                throw new IllegalArgumentException("Informe um município válido.");
-            }
-            if (imovel.getEndereco().getNumero() == null || imovel.getEndereco().getNumero() <= 0) {
-                throw new IllegalArgumentException("Informe um número válido.");
+            if(imovel.getIdProprietario() == null || imovel.getIdProprietario() <=0) {
+                throw new IllegalArgumentException("Informe um id de proprietario válido");
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage(), ex);
@@ -68,6 +62,45 @@ public class ImovelService {
             );
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao buscar imóvel: " + ex.getMessage(), ex);
+        }
+    }
+
+    public ImovelModel buscarPorMatricula(String matricula) {
+        try {
+            if (matricula == null || matricula.isEmpty()) {
+                throw new IllegalArgumentException("Matricula do imóvel inválido.");
+            }
+            Optional<ImovelModel> imovel = imovelRepository.findByMatricula(matricula);
+            return imovel.orElseThrow(() ->
+                    new IllegalArgumentException("Imóvel com matricula " + matricula + " não encontrado")
+            );
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao buscar imóvel: " + ex.getMessage(), ex);
+        }
+    }
+
+    public List<ImovelModel> buscarImoveisNoGrupo(Integer idGrupo) {
+        try {
+            if (idGrupo == null || idGrupo <= 0) {
+                throw new IllegalArgumentException("ID do imóvel inválido.");
+            }
+            List<ImovelModel> imoveis = imovelRepository.findAllInGrupo(idGrupo);
+            System.out.println(imoveis);
+            return imoveis;
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
+        }
+    }
+
+    public String apagarImovelPorId(Long idImovel) {
+        try {
+            if (idImovel == null || idImovel <= 0) {
+                throw new IllegalArgumentException("ID do imóvel inválido.");
+            }
+            imovelRepository.deleteById(idImovel);
+            return "Imóvel apagado com sucesso";
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
         }
     }
 }
