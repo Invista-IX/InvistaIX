@@ -1,7 +1,6 @@
 package br.com.invistaix.InvistaIX.service;
 
 import br.com.invistaix.InvistaIX.model.InccModel;
-import br.com.invistaix.InvistaIX.repository.ImpostoRepository;
 import br.com.invistaix.InvistaIX.repository.InccRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -28,10 +27,15 @@ public class InccService {
     @Autowired
     private InccRepository inccRepository;
 
+    public LocalDate getHoje() {
+        return LocalDate.now();
+    }
+
+
     @Scheduled(cron = "0 0 0 15 * *")
     public void executarDia15DoMes() throws IOException {
         try {
-            InccModel inccModel = new InccModel(Double.parseDouble(obterUltimoValorINCC().replace("%", "").replace(",", ".")), LocalDate.now());
+            InccModel inccModel = new InccModel(Double.parseDouble(obterUltimoValorINCC().replace("%", "").replace(",", ".")), getHoje());
             inccRepository.save(inccModel);
         }  catch (IOException e) {
             logger.error("Erro de IO ao buscar o valor do INCC", e);
