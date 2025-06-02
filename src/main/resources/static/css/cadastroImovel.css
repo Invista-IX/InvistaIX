@@ -115,7 +115,7 @@ form {
 	"divP divP"
 	"endereco enderco" 
 	"rua numero"
-	"bairro CEP"
+	"loteamento CEP"
 	"cidade estado"
 	". botao";
   grid-template-columns: 1fr 1fr;
@@ -211,8 +211,8 @@ form h2 {
   grid-area: numero;
 }
 
-#bairroEnderecoDiv {
-  grid-area: bairro;
+#loteamentoEnderecoDiv {
+  grid-area: loteamento;
 }
 
 #cepEnderecoDiv {
@@ -230,7 +230,6 @@ form h2 {
 #botaoCadastroDiv {
   grid-area: botao;
 }
-
 img#preview {
 	    width: calc(100% + 340px);
 	    max-height: 27vh;
@@ -334,7 +333,7 @@ footer {
       "CEP"
       "rua"
       "nome_imovel"
-      "bairro"
+      "loteamento"
       "valor_matricula"
       "numero_imovel"
       "numero_matricula"
