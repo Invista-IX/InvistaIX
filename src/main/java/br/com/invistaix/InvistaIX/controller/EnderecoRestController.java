@@ -19,7 +19,7 @@ public class EnderecoRestController {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	@PostMapping
+	@PostMapping("/salvarEndereco")
 	public ResponseEntity<?> cadastrarEndereco(@ModelAttribute EnderecoModel endereco) {
 		try {
 			enderecoService.salvarEndereco(endereco);
@@ -31,7 +31,7 @@ public class EnderecoRestController {
 		}
 	}
 	
-	@GetMapping("/findByID={id}")
+	@GetMapping("/findById={id}")
 	public EnderecoModel encontrarPorId(@PathVariable Integer id) {
 		try {
 			return enderecoService.encontrarPorId(id);

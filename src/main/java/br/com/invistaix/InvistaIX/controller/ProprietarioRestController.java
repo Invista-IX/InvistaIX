@@ -19,7 +19,7 @@ public class ProprietarioRestController {
 	@Autowired
 	ProprietarioService proprietarioService;
 	
-	@PostMapping("save")
+	@PostMapping("/salvarProprietario")
 	public ResponseEntity<?> salvarProprietario(@ModelAttribute ProprietarioModel proprietario) {
 		try {
 			proprietarioService.salvarProprietario(proprietario);
@@ -43,7 +43,7 @@ public class ProprietarioRestController {
 	}
 	
 	@GetMapping("/findByCnpjCpf={cnpjCpf}")
-	public ProprietarioModel encontrarProprietarioPorCnpjCpf(@PathVariable String cnpjCpf) {
+	public ProprietarioModel encontrarPorCnpjCpf(@PathVariable String cnpjCpf) {
 		try {
 			return proprietarioService.encontrarPorCnpjCpf(cnpjCpf);
 		} catch (IllegalArgumentException ex) {
