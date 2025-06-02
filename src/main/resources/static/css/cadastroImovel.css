@@ -231,13 +231,9 @@ form h2 {
   grid-area: botao;
 }
 img#preview {
-	    width: calc(100% + 340px);
-	    max-height: 27vh;
-	    margin-left: -170px;
-	    /* margin-top: -20px; */
-	    /* margin-bottom: 10px; */
-	    /* border-top-left-radius: 8px; */
-	    /* border-top-right-radius: 8px; */
+	width: calc(100% + 40px);
+	max-height: 20vh;
+    margin-left: -40px;
 }
 
 .toggleProprietario {

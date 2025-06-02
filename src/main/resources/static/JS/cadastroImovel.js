@@ -118,7 +118,7 @@ document.getElementById('imagemInput').addEventListener('change', function () {
     reader.readAsDataURL(file);
 });
 
-function enviarEndereco() {
+async function enviarEndereco() {
 	try {
 		
 		const form = document.getElementById('cad_imovel');
@@ -159,7 +159,7 @@ function enviarEndereco() {
 	}
 }
 
-function enviarProprietario() {
+async function enviarProprietario() {
 	try {
 
 		const form = document.getElementById('cad_imovel');
@@ -183,7 +183,7 @@ function enviarProprietario() {
 
 		const body = new URLSearchParams(fd);
 
-		fetch(`/proprietario/salvarProprietario`, {
+		await fetch(`/proprietario/salvarProprietario`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -212,7 +212,7 @@ function enviarProprietario() {
 
 let idEndereco;
 
-function enviarImovel(idEndereco, idProprietario) {
+async function enviarImovel(idEndereco, idProprietario) {
 	try {
 
 		let form = document.getElementById('cad_imovel')
@@ -242,7 +242,7 @@ function enviarImovel(idEndereco, idProprietario) {
 		console.log(Array.from(fd));
 		let body = new URLSearchParams(fd);
 
-		fetch(`/imovel/salvarImovel`, {
+		await fetch(`/imovel/salvarImovel`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -270,9 +270,9 @@ function enviarImovel(idEndereco, idProprietario) {
 	}
 }
 
-function mandarImovel(event) {
+ async function  mandarImovel(event) {
 	event.preventDefault();
-
+	
 	const maskCpfCnpj1 = IMask(proprietarioImovel, {
 		mask: [ 
 			{mask: '000.000.000-00'},
@@ -284,10 +284,10 @@ function mandarImovel(event) {
 	console.log(addressProprietario);
 
 	if (selectProprietario.value === "criar") {
-		enviarProprietario();
+		await enviarProprietario();
 	}
 
-	enviarEndereco();
+	await enviarEndereco();
 
 	let rua = document.getElementById('ruaEnderecoInput').value;
 	let numero = document.getElementById('numeroEnderecoInput').value;
@@ -299,7 +299,7 @@ function mandarImovel(event) {
 	let addressEndereco = "http://localhost:8080/endereco/findByEndereco=" + rua + "&" + numero + "&" + loteamento + "&" + cidade + "&" + estado + "&" + cep; 
 	console.log(addressEndereco);
 
-	fetch(addressProprietario)
+	await fetch(addressProprietario)
 		.then(response => {
 			if (!response.ok) {
 				return response.text().then(text => {
@@ -308,8 +308,8 @@ function mandarImovel(event) {
 			}
 			return response.json();
 		})
-		.then(proprietario => {
-			fetch(addressEndereco)
+		.then(async proprietario => {
+			await fetch(addressEndereco)
 				.then(response => {
 					if (!response.ok) {
 						return response.text().then(text => {
@@ -331,4 +331,5 @@ function mandarImovel(event) {
 		.catch(erro => {
 			console.log(erro.message);
 		}) ;
+
 }
