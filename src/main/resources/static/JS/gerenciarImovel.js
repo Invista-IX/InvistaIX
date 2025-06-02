@@ -74,10 +74,14 @@ function enviarDespesa(event) {
 
         despesaData['idImovel'] = idImovel;
 
+        console.log(despesaData);
+
         const body = new URLSearchParams();
         for (const campo in despesaData) {
             body.append(campo, despesaData[campo]);
         }
+
+        console.log(body);
 
         fetch(`/despesa/criar`, {
             method: 'POST',

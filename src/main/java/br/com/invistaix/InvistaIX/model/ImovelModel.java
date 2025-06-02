@@ -1,6 +1,8 @@
 package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Base64;
 
 @Entity
 @Table(name = "imovel")
@@ -47,7 +49,7 @@ public class ImovelModel {
     }
 
     public ImovelModel(Long id, String nome, LocalDateTime dataCadastro, Double area, Double preco,
-                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, Double valorMatricula) {
+                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, String numeroMatricula, Double valorMatricula) {
         this.id = id;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
@@ -57,6 +59,7 @@ public class ImovelModel {
         this.idGrupo = idGrupo;
         this.endereco = endereco;
         this.imagemBase64 = imagemBase64;
+        this.numeroMatricula = numeroMatricula;
         this.valorMatricula = valorMatricula;
     }
 
@@ -99,7 +102,7 @@ public class ImovelModel {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
-
+    
     public String getNumeroMatricula() {
         return numeroMatricula;
     }
@@ -107,6 +110,7 @@ public class ImovelModel {
     public void setNumeroMatricula(String numeroMatricula) {
         this.numeroMatricula = numeroMatricula;
     }
+    
 
     public Double getValorMatricula() {
         return valorMatricula;
@@ -116,12 +120,15 @@ public class ImovelModel {
         this.valorMatricula = valorMatricula;
     }
 
-    public byte[] getImagemBase64() {
-        return imagemBase64;
+    public String getImagemBase64() {
+        String imagemData = Base64.getEncoder().encodeToString(imagemBase64);
+        System.out.println(imagemData);
+    	return imagemData;
     }
 
-    public void setImagemBase64(byte[] imagemBase64) {
-        this.imagemBase64 = imagemBase64;
+    public void setImagemBase64(String imagemBase64) {
+        byte[] imagemBytes = imagemBase64.getBytes();
+    	this.imagemBase64 = imagemBytes;
     }
 
     public Long getIdProprietario() {
@@ -139,7 +146,7 @@ public class ImovelModel {
     public void setIdGrupo(Long idGrupo) {
         this.idGrupo = idGrupo;
     }
-
+    
     public EnderecoModel getEndereco() {
         return endereco;
     }
@@ -147,7 +154,7 @@ public class ImovelModel {
     public void setEndereco(EnderecoModel endereco) {
         this.endereco = endereco;
     }
-
+    
     public String getEnderecoFormatado() {
         if (endereco == null) {
             return "Endereço não disponível";
@@ -155,7 +162,7 @@ public class ImovelModel {
 
         return String.format(
 
-                "%s, %d - %s, %s - %s - %s - %s",
+                "%s, %d - %s, %s - %s - %se",
 
                 endereco.getRua(),
                 endereco.getNumero(),
@@ -166,4 +173,13 @@ public class ImovelModel {
         );
     }
 
+
+	@Override
+	public String toString() {
+		return "ImovelModel [id=" + id + ", nome=" + nome + ", dataCadastro=" + dataCadastro + ", area=" + area
+				+ ", preco=" + preco + ", numeroMatricula=" + numeroMatricula + ", valorMatricula=" + valorMatricula
+				+ ", imagemBase64=" + Arrays.toString(imagemBase64) + ", idProprietario=" + idProprietario
+				+ ", idGrupo=" + idGrupo + ", endereco=" + endereco + "]";
+	}
+    
 }
