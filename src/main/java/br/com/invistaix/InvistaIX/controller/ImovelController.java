@@ -1,19 +1,17 @@
 package br.com.invistaix.InvistaIX.controller;
 
-import br.com.invistaix.InvistaIX.model.*;
-import br.com.invistaix.InvistaIX.repository.EnderecoRepository;
-import br.com.invistaix.InvistaIX.repository.ProprietarioRepository;
-import br.com.invistaix.InvistaIX.model.ImovelModel;
-import br.com.invistaix.InvistaIX.service.ImovelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.com.invistaix.InvistaIX.exception.UnauthorizedAccessException;
+import br.com.invistaix.InvistaIX.model.DespesaModel;
+import br.com.invistaix.InvistaIX.model.EnderecoModel;
+import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.service.ImovelService;
 
 @Controller
 @RequestMapping("/imovel")
@@ -22,12 +20,6 @@ public class ImovelController {
     @Autowired
     private ImovelService imovelService;
 
-    @Autowired
-    private ProprietarioRepository proprietarioRepository;
-
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-
     @GetMapping("/cadastroImovel")
     public String formCadastro(Model model) {
         model.addAttribute("imovel", new ImovelModel());
@@ -35,7 +27,7 @@ public class ImovelController {
         return "cadastroImovel";
     }
 
-    @GetMapping("/{idGrupo}/{idImovel}/gerenciar")
+    @GetMapping("/grupo={idGrupo}&imovel={idImovel}/gerenciar")
     public String gerenciarImovel(@PathVariable Long idGrupo,
                                   @PathVariable Long idImovel,
                                   Model model) {
@@ -49,6 +41,9 @@ public class ImovelController {
             ImovelModel imovel = imovelService.buscarPorId(idImovel);
             if (imovel == null) {
                 throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
+            }
+            if (imovel.getIdGrupo() != idGrupo) {
+                throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
             }
             DespesaModel despesa = new DespesaModel();
             despesa.setIdImovel(idImovel);

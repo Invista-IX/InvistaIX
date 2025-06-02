@@ -26,10 +26,11 @@ public class ImovelModel {
     @Column(name = "numero_matricula", nullable = false)
     private String numeroMatricula;
 
-    @Column(name = "valor_matricula")
+    @Column(name = "valor_matricula", nullable = false)
     private Double valorMatricula;
 
-    @Column(name = "imagem_base64")
+    @Lob
+    @Column(name = "imagem_base64", nullable = true)
     private byte[] imagemBase64;
 
     @Column(name = "idproprietario", nullable = false)
@@ -99,6 +100,14 @@ public class ImovelModel {
         this.preco = preco;
     }
 
+    public String getNumeroMatricula() {
+        return numeroMatricula;
+    }
+
+    public void setNumeroMatricula(String numeroMatricula) {
+        this.numeroMatricula = numeroMatricula;
+    }
+
     public Double getValorMatricula() {
         return valorMatricula;
     }
@@ -117,14 +126,6 @@ public class ImovelModel {
 
     public Long getIdProprietario() {
         return idProprietario;
-    }
-
-    public String getNumeroMatricula() {
-        return numeroMatricula;
-    }
-
-    public void setNumeroMatricula(String numeroMatricula) {
-        this.numeroMatricula = numeroMatricula;
     }
 
     public void setIdProprietario(Long idProprietario) {
@@ -153,13 +154,16 @@ public class ImovelModel {
         }
 
         return String.format(
+
                 "%s, %d - %s, %s - %s - %s - %s",
+
                 endereco.getRua(),
                 endereco.getNumero(),
                 endereco.getLoteamento(),
                 endereco.getCidade(),
-                endereco.getEstado(), 
+                endereco.getEstado(),
                 endereco.getCEP()
         );
     }
+
 }
