@@ -1,6 +1,8 @@
 package br.com.invistaix.InvistaIX.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import br.com.invistaix.InvistaIX.api.DespesaRestController;
 import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.service.DespesaService;
 import org.junit.jupiter.api.Test;
@@ -11,15 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 
-public class DespesaControllerTest {
+public class DespesaRestControllerTest {
 
     @Mock
     private DespesaService despesaService;
 
     @InjectMocks
-    private DespesaController despesaController;
+    private DespesaRestController despesaController;
 
-    public DespesaControllerTest() {
+    public DespesaRestControllerTest() {
         MockitoAnnotations.openMocks(this);
     }
 

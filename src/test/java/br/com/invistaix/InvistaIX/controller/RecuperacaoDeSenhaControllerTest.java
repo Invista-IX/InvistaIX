@@ -6,12 +6,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class EsqueceuasenhaControllerTest {
+public class RecuperacaoDeSenhaControllerTest {
 
     @Test
     public void deveRetornarOkSeEmailExiste() {
         var service = mock(RedefinirSenhaService.class);
-        var controller = new EsqueceuasenhaController();
+        var controller = new RecuperacaoDeSenhaController();
         controller.redefinirSenhaService = service;
 
         when(service.enviarLinkRedefinicao("teste@exemplo.com")).thenReturn(true);
@@ -26,7 +26,7 @@ public class EsqueceuasenhaControllerTest {
     @Test
     public void deveRetornarErroSeEmailNaoExiste() {
         var service = mock(RedefinirSenhaService.class);
-        var controller = new EsqueceuasenhaController();
+        var controller = new RecuperacaoDeSenhaController();
         controller.redefinirSenhaService = service;
 
         when(service.enviarLinkRedefinicao("naoexiste@teste.com")).thenReturn(false);

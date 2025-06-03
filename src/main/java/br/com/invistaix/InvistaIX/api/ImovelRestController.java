@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import java.util.List;
 

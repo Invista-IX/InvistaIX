@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import br.com.invistaix.InvistaIX.model.AvaliacaoModel;
 import br.com.invistaix.InvistaIX.service.AvaliacaoService;
@@ -11,7 +11,7 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping("/avaliacao")
-public class AvaliacaoController {
+public class AvaliacaoRestController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;

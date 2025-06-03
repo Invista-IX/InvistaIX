@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.invistaix.InvistaIX.model.EnderecoModel;
-import br.com.invistaix.InvistaIX.service.EnderecoService;
+import br.com.invistaix.InvistaIX.model.ProprietarioModel;
+import br.com.invistaix.InvistaIX.service.ProprietarioService;
 
 @RestController
-@RequestMapping("/endereco")
-public class EnderecoRestController {
+@RequestMapping("/proprietario")
+public class ProprietarioRestController {
 	
 	@Autowired
-	EnderecoService enderecoService;
+	ProprietarioService proprietarioService;
 	
-	@PostMapping("/salvarEndereco")
-	public ResponseEntity<?> cadastrarEndereco(@ModelAttribute EnderecoModel endereco) {
+	@PostMapping("/salvarProprietario")
+	public ResponseEntity<?> salvarProprietario(@ModelAttribute ProprietarioModel proprietario) {
 		try {
-			enderecoService.salvarEndereco(endereco);
+			proprietarioService.salvarProprietario(proprietario);
 			return ResponseEntity.ok("Sucesso");
 		} catch (IllegalArgumentException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
@@ -32,9 +32,9 @@ public class EnderecoRestController {
 	}
 	
 	@GetMapping("/findById={id}")
-	public EnderecoModel encontrarPorId(@PathVariable Integer id) {
+	public ProprietarioModel encontrarPorId(@PathVariable Integer id) {
 		try {
-			return enderecoService.encontrarPorId(id);
+			return proprietarioService.encontrarPorId(id);
 		} catch (IllegalArgumentException ex) {
 			return null;
 		} catch (Exception ex) {
@@ -42,10 +42,10 @@ public class EnderecoRestController {
 		}
 	}
 	
-	@GetMapping("/findByEndereco={rua}&{numero}&{loteamento}&{cidade}&{estado}&{CEP}")
-	public EnderecoModel encontrarEndereco(@PathVariable String rua ,@PathVariable Integer numero, @PathVariable String loteamento, @PathVariable String cidade, @PathVariable String estado, @PathVariable String CEP) {
+	@GetMapping("/findByCnpjCpf={cnpjCpf}")
+	public ProprietarioModel encontrarPorCnpjCpf(@PathVariable String cnpjCpf) {
 		try {
-			return enderecoService.encontrarEndereco(rua, numero, loteamento, cidade, estado, CEP);
+			return proprietarioService.encontrarPorCnpjCpf(cnpjCpf);
 		} catch (IllegalArgumentException ex) {
 			return null;
 		} catch (Exception ex) {

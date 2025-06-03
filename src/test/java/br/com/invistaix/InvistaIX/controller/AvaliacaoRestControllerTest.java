@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.controller;
 
+import br.com.invistaix.InvistaIX.api.AvaliacaoRestController;
 import br.com.invistaix.InvistaIX.model.AvaliacaoModel;
 import br.com.invistaix.InvistaIX.service.AvaliacaoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
 
-public class AvaliacaoControllerTest {
+public class AvaliacaoRestControllerTest {
 
     @Mock
     private AvaliacaoService avaliacaoService;
     @InjectMocks
-    private AvaliacaoController controller;
+    private AvaliacaoRestController controller;
 
     @BeforeEach
     void setup() {
