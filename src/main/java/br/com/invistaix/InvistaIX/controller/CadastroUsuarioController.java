@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class CadastroController {
+public class CadastroUsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
@@ -18,7 +18,7 @@ public class CadastroController {
     @GetMapping("/cadastro")
     public String formCadastro(Model model) {
         model.addAttribute("usuario", new UsuarioModel());
-        return "cadastro_usuario";
+        return "cadastroUsuario";
     }
 
     @PostMapping("/cadastro")
@@ -37,7 +37,7 @@ public class CadastroController {
         }
 
         if (temErro) {
-            return "cadastro_usuario";
+            return "cadastroUsuario";
         }
         /* debug */
         System.out.println("novo cadastro, nome: " + cadastro.getNome());
