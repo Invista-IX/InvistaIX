@@ -3,8 +3,6 @@ package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 @Entity
 @Table(name = "iptu")
 public class ImpostoModel {

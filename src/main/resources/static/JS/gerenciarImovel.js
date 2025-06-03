@@ -11,12 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+<<<<<<< HEAD
+=======
      const formImposto = document.getElementById('formImposto');
         if (formImposto) {
             formImposto.addEventListener('submit', enviarImposto);
         }
 
+        const inputArquivo = document.getElementById('docAvaliacao');
+        const nomeArquivo = document.getElementById('nomeArquivo');
 
+        inputArquivo.addEventListener('change', () => {
+          if (inputArquivo.files.length > 0) {
+            nomeArquivo.textContent = inputArquivo.files[0].name;
+          } else {
+            nomeArquivo.textContent = '';
+          }
+        });
+
+
+>>>>>>> dev
     document.querySelectorAll('.dinheiro').forEach(input => {
         IMask(input, {
             mask: Number,
@@ -60,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', init);
 });
 
+<<<<<<< HEAD
+=======
 ////////INPUT DE DATA/////////////////
 const hoje = new Date();
 const elems = document.querySelectorAll('.inputData');
@@ -98,6 +114,7 @@ elems.addEventListener('changeDate', function (e) {
     }
 });
 
+>>>>>>> dev
 function enviarDespesa(event) {
     try {
         event.preventDefault();
@@ -111,22 +128,36 @@ function enviarDespesa(event) {
         }
 
         const despesaData = {};
+<<<<<<< HEAD
+        form.querySelectorAll('.dinheiro').forEach(input => {
+=======
         form.querySelectorAll('.dinheiroDespesa').forEach(input => {
+>>>>>>> dev
             let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
             despesaData[input.name] = valorTratado;
         });
 
         despesaData['idImovel'] = idImovel;
+<<<<<<< HEAD
+
+        console.log(despesaData);
+=======
         const dataInput = document.getElementById('dataDespesa');
         if (dataInput && dataInput.value) {
             despesaData['data'] = dataInput.value;
         }
+>>>>>>> dev
 
         const body = new URLSearchParams();
         for (const campo in despesaData) {
             body.append(campo, despesaData[campo]);
         }
 
+<<<<<<< HEAD
+        console.log(body);
+
+=======
+>>>>>>> dev
         fetch(`/despesa/criar`, {
             method: 'POST',
             headers: {
@@ -158,6 +189,8 @@ function enviarDespesa(event) {
 }
 
 
+<<<<<<< HEAD
+=======
 function enviarReceita(event) {
     try {
         event.preventDefault();
@@ -217,6 +250,7 @@ function enviarReceita(event) {
 }
 
 
+>>>>>>> dev
 function exibirModalErro(mensagem) {
     const modal = document.getElementById("modalErro");
     const texto = document.getElementById("mensagemErroTexto");
@@ -252,6 +286,8 @@ function mostrarToastSucesso(mensagem) {
         toast.classList.remove("mostrar");
     }, 3000);
 }
+<<<<<<< HEAD
+=======
 
 function enviarImposto(event) {
     try {
@@ -312,3 +348,117 @@ function enviarImposto(event) {
         exibirModalErro('Erro ao processar o imposto: ' + err.message);
     }
 }
+
+function enviarAvaliacao(event) {
+    try {
+        event.preventDefault();
+
+        const form = event.target;
+        const idimovel = document.getElementById('idimovel').value;
+
+        if (!idimovel) {
+            exibirModalErro('ID do imóvel não foi definido.');
+            return;
+        }
+
+        const dataAvaliacao = {};
+        form.querySelectorAll('.dinheiro').forEach(input => {
+            let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
+            dataAvaliacao[input.name] = valorTratado;
+        });
+
+        const cnpj = document.getElementById('cnpj').value.trim();
+        if (!cnpj) {
+            exibirModalErro('O CNPJ deve ser informado.');
+            return;
+        }
+
+        const razaoSocial = document.getElementById('razaoSocial').value.trim();
+        if (!razaoSocial) {
+            exibirModalErro('A razão social deve ser informada.');
+            return;
+        }
+
+        const valorInput = document.getElementById('valorAvaliacao');
+        let valor = valorInput.value.trim();
+        if (!valor) {
+            exibirModalErro('O valor da avaliação deve ser informado.');
+            return;
+        }
+        let valorTratado = valor.replace(/\./g, '').replace(',', '.');
+
+        const data = document.getElementById('dataAvaliacao').value;
+        if (!data) {
+            exibirModalErro('A data da avaliação deve ser informada.');
+            return;
+        }
+
+        const fileInput = document.getElementById('docAvaliacao');
+        if (!fileInput || fileInput.files.length === 0) {
+            exibirModalErro('O documento da avaliação (PDF) deve ser enviado.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        if (file.type !== "application/pdf") {
+            exibirModalErro('Apenas arquivos PDF são permitidos.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('cnpj', cnpj);
+        formData.append('razaoSocial', razaoSocial);
+        formData.append('valorAvaliacao', valorTratado);
+        formData.append('dataAvaliacao', data);
+        formData.append('idimovel', idimovel);
+        formData.append('docAvaliacaoFile', file);
+
+        fetch('/avaliacao/criar', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(errorMessage => {
+                    throw new Error(errorMessage);
+                });
+            }
+            return response.text();
+        })
+        .then(idAvaliacao => {
+            document.getElementById('idAvaliacaoInput').value = idAvaliacao;
+            mostrarToastSucesso('Avaliação salva com sucesso!');
+
+            form.querySelectorAll('input:not(#idAvaliacaoInput)').forEach(input => input.value = '');
+
+            return fetch(`/avaliacao/base64?idAvaliacao=${idAvaliacao}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Erro ao buscar PDF.");
+                        return response.text();
+                    })
+                    .then(base64String => {
+                        const byteCharacters = atob(base64String);
+                        const byteNumbers = Array.from(byteCharacters).map(ch => ch.charCodeAt(0));
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                        /*const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'avaliacao.pdf';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);*/
+                    });
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+                exibirModalErro(error.message || "Erro ao salvar ou baixar o PDF.");
+            });
+
+    } catch (err) {
+        exibirModalErro('Erro ao processar a avaliação: ' + err.message);
+    }
+}
+
+
+>>>>>>> dev

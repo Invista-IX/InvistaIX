@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
+  "dependencies": {
+    "imask": "^7.6.1"
+=======
   "name": "invistaix",
   "version": "1.0.0",
   "description": "",
@@ -13,5 +17,6 @@
   "private": true,
   "dependencies": {
 
+>>>>>>> dev
   }
 }

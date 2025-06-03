@@ -56,6 +56,7 @@ public class DespesaService {
                     && despesa.getDespesaAvulsa() == null) {
                 throw new IllegalArgumentException("Informe ao menos um valor de despesa.");
             }
+
             if(despesaRepository.existsByImovelAndMesAndAno(despesa.getIdImovel(), despesa.getData().getMonthValue(), despesa.getData().getYear())){
                 throw new IllegalArgumentException("Já existe despesa no mês.");
             }
@@ -95,6 +96,7 @@ public class DespesaService {
             }
             List<DespesaModel> despesas = despesaRepository.findByIdImovelAndDataBetween(idImovel, inicio, fim);
             return despesas;
+
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception ex) {
