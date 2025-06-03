@@ -12,7 +12,7 @@ import br.com.invistaix.InvistaIX.service.GrupoService;
 
 @RestController
 @RequestMapping("/api")
-public class APIGruposRestController {
+public class GrupoRestController {
 	
 	@Autowired
 	GrupoService grupoService;
