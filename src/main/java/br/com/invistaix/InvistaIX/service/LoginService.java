@@ -11,16 +11,14 @@ public class LoginService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public String autenticar(String email, String senha) {
+    public UsuarioModel autenticar(String email, String senha) {
         UsuarioModel usuarioModel = usuarioRepository.findByEmail(email);
-        if (usuarioModel == null) {
-            return "Email não encontrado";
-        }
 
-        if (!usuarioModel.getSenha().equals(senha)) {
-            return "Senha incorreta.";
-        }
+        if (usuarioModel == null) return null;
 
-        return null;
+        if (!usuarioModel.getSenha().equals(senha)) return null;
+
+        return usuarioModel;
     }
 }
+

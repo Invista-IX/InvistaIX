@@ -8,7 +8,7 @@ function validarFormulario() {
         }
 
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!regexEmail.test(email)) {
+        if (!regexEmail.test(email)) {a
             alert("Digite um email válido!");
             return false;
         }

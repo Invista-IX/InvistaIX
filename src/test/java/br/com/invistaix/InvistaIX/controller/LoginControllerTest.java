@@ -5,8 +5,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import jakarta.servlet.http.HttpSession;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,10 +26,18 @@ public class LoginControllerTest {
 
 	@Autowired    
 	private MockMvc mockMvc;
-	    
+
+	@Mock
+	private HttpSession session;
+
 	@Mock
 	private UsuarioRepository usuarioRepository;
-	    
+
+	@BeforeEach
+	public void setup() {
+		MockitoAnnotations.openMocks(this);
+	}
+
 	@Autowired
 	private LoginController loginController;
 	
@@ -56,7 +67,7 @@ public class LoginControllerTest {
 	    
 	    when(usuarioRepository.existsByEmail(usuarioModel.getEmail())).thenReturn(false);
 
-	    String view = loginController.login("carlos@teste.com", "senha", model);
+	    String view = loginController.login("carlos@teste.com", "senha", model, session);
 
 	    assertEquals("redirect:/dashboard", view);
 
