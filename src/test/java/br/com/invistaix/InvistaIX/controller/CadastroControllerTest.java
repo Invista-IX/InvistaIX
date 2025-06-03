@@ -1,7 +1,6 @@
 package br.com.invistaix.InvistaIX.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -15,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 
-import br.com.invistaix.InvistaIX.model.*;
+import br.com.invistaix.InvistaIX.model.UsuarioModel;
 import br.com.invistaix.InvistaIX.repository.UsuarioRepository;
 import br.com.invistaix.InvistaIX.service.UsuarioService;
 

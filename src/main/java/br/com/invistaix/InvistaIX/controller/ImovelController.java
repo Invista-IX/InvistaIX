@@ -14,6 +14,7 @@ import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.model.ProprietarioModel;
 import br.com.invistaix.InvistaIX.service.ImovelService;
 
+
 @Controller
 @RequestMapping("/imovel")
 public class ImovelController {
@@ -58,3 +59,4 @@ public class ImovelController {
         }
     }
 }
+

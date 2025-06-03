@@ -12,10 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ImovelRepository extends JpaRepository<ImovelModel, Long> {
-
 	@Query("SELECT i FROM ImovelModel i WHERE i.numeroMatricula = :matricula")
 	Optional<ImovelModel> findByMatricula(@Param("matricula") String matricula);
 	@Query("SELECT i FROM ImovelModel i where i.idGrupo = :idGrupo")
 	List<ImovelModel> findAllInGrupo(@Param("idGrupo") Integer idGrupo);
 }
-

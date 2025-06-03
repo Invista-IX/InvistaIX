@@ -9,6 +9,7 @@ public class EnderecoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idendereco")
+
     private Integer id;
 
     @Column(name = "rua", nullable = false, length = 45)
@@ -66,7 +67,7 @@ public class EnderecoModel {
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
-    
+
     public String getLoteamento() {
         return loteamento;
     }
@@ -98,4 +99,5 @@ public class EnderecoModel {
 	public void setCEP(String CEP) {
 		this.CEP = CEP;
 	}
+
 }

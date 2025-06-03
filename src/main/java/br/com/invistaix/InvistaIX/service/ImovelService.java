@@ -105,4 +105,5 @@ public class ImovelService {
     		throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
     	}
     }
+
 }

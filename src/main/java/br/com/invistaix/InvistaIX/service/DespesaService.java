@@ -16,18 +16,39 @@ public class DespesaService {
 
     public DespesaModel criarDespesa(DespesaModel despesa) {
         try {
-            despesa.setData(LocalDate.now());
-            if (despesa.getManutencao() != null && despesa.getManutencao() <= 0) {
-                despesa.setManutencao(null);
+            if (despesa.getManutencao() != null) {
+                if (despesa.getManutencao() < 0) {
+                    throw new IllegalArgumentException("Valores negativos não são permitidos.");
+                } else if (despesa.getManutencao() == 0) {
+                    despesa.setManutencao(null);
+                }
             }
-            if (despesa.getAgua() != null && despesa.getAgua() <= 0) {
-                despesa.setAgua(null);
+
+            if (despesa.getAgua() != null) {
+                if (despesa.getAgua() < 0) {
+                    throw new IllegalArgumentException("Valores negativos não são permitidos.");
+                } else if (despesa.getAgua() == 0) {
+                    despesa.setAgua(null);
+                }
             }
-            if (despesa.getLuz() != null && despesa.getLuz() <= 0) {
-                despesa.setLuz(null);
+
+            if (despesa.getLuz() != null) {
+                if (despesa.getLuz() < 0) {
+                    throw new IllegalArgumentException("Valores negativos não são permitidos.");
+                } else if (despesa.getLuz() == 0) {
+                    despesa.setLuz(null);
+                }
             }
-            if (despesa.getDespesaAvulsa() != null && despesa.getDespesaAvulsa() <= 0) {
-                despesa.setDespesaAvulsa(null);
+
+            if (despesa.getDespesaAvulsa() != null) {
+                if (despesa.getDespesaAvulsa() < 0) {
+                    throw new IllegalArgumentException("Valores negativos não são permitidos.");
+                } else if (despesa.getDespesaAvulsa() == 0) {
+                    despesa.setDespesaAvulsa(null);
+                }
+            }
+            if (despesa.getData() == null) {
+                throw new IllegalArgumentException("A data deve ser informada.");
             }
             if (despesa.getManutencao() == null
                     && despesa.getAgua() == null
@@ -35,15 +56,17 @@ public class DespesaService {
                     && despesa.getDespesaAvulsa() == null) {
                 throw new IllegalArgumentException("Informe ao menos um valor de despesa.");
             }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage(), ex);
-        }
-        try {
+
+            if(despesaRepository.existsByImovelAndMesAndAno(despesa.getIdImovel(), despesa.getData().getMonthValue(), despesa.getData().getYear())){
+                throw new IllegalArgumentException("Já existe despesa no mês.");
+            }
             return despesaRepository.save(despesa);
+
+        } catch (IllegalArgumentException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao criar despesa: " + ex.getMessage(), ex);
         }
-
     }
 
     public List<DespesaModel> listarPorImovel(Long idImovel) {
@@ -53,6 +76,8 @@ public class DespesaService {
             }
             List<DespesaModel> despesas = despesaRepository.findByIdImovel(idImovel);
             return despesas;
+        } catch (IllegalArgumentException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao listar despesas por imóvel: " + ex.getMessage(), ex);
         }
@@ -71,6 +96,9 @@ public class DespesaService {
             }
             List<DespesaModel> despesas = despesaRepository.findByIdImovelAndDataBetween(idImovel, inicio, fim);
             return despesas;
+
+        } catch (IllegalArgumentException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao listar despesas por período: " + ex.getMessage(), ex);
         }
@@ -82,6 +110,8 @@ public class DespesaService {
                 throw new IllegalArgumentException("ID da despesa inválido.");
             }
             despesaRepository.deleteById(idDespesa);
+        } catch (IllegalArgumentException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao excluir despesa: " + ex.getMessage(), ex);
         }

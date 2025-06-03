@@ -33,6 +33,7 @@ public class ImovelModel {
 
     @Lob
     @Column(name = "imagem_base64", nullable = true)
+
     private byte[] imagemBase64;
 
     @Column(name = "idproprietario", nullable = false)
@@ -49,7 +50,8 @@ public class ImovelModel {
     }
 
     public ImovelModel(Long id, String nome, LocalDateTime dataCadastro, Double area, Double preco,
-                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, String numeroMatricula, Double valorMatricula) {
+                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, 
+                       String numeroMatricula, Double valorMatricula) {
         this.id = id;
         this.nome = nome;
         this.dataCadastro = dataCadastro;
@@ -110,7 +112,6 @@ public class ImovelModel {
     public void setNumeroMatricula(String numeroMatricula) {
         this.numeroMatricula = numeroMatricula;
     }
-    
 
     public Double getValorMatricula() {
         return valorMatricula;
@@ -154,14 +155,14 @@ public class ImovelModel {
     public void setEndereco(EnderecoModel endereco) {
         this.endereco = endereco;
     }
-    
+
     public String getEnderecoFormatado() {
         if (endereco == null) {
             return "Endereço não disponível";
         }
 
         return String.format(
-
+        		
                 "%s, %d - %s, %s - %s - %se",
 
                 endereco.getRua(),
