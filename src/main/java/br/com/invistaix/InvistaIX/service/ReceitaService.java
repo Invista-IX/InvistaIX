@@ -44,9 +44,12 @@ public class ReceitaService {
             if (receitaRepository.existsByImovelAndMesAndAno(receita.getIdImovel(), receita.getData().getMonthValue(), receita.getData().getYear())) {
                 throw new IllegalArgumentException("Já existe receita no mês.");
             }
-            if (receita.getAluguel() != null) {
 
-            }
+            double totalReceita =
+                    (receita.getAluguel() != null ? receita.getAluguel() : 0.0) +
+                            (receita.getReceitaAvulsa() != null ? receita.getReceitaAvulsa() : 0.0);
+
+            calculoIRService.salvarIR(totalReceita, receita.getIdImovel());
 
             return receitaRepository.save(receita);
 
