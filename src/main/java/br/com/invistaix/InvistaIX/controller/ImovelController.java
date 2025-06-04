@@ -26,7 +26,7 @@ public class ImovelController {
         model.addAttribute("imovel", new ImovelModel());
         model.addAttribute("endereco", new EnderecoModel());
         model.addAttribute("proprietario", new ProprietarioModel());
-        return "cadastroImovel";
+        return "imovel/cadastroImovel";
     }
 
     @GetMapping("/grupo={idGrupo}&imovel={idImovel}/gerenciar")
@@ -52,7 +52,7 @@ public class ImovelController {
             model.addAttribute("despesa", despesa);
             model.addAttribute("imovel", imovel);
             model.addAttribute("idGrupo", idGrupo);
-            return "gerenciarImovel";
+            return "imovel/gerenciarImovel";
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage(), ex);
         }
