@@ -6,6 +6,7 @@ import br.com.invistaix.InvistaIX.service.DespesaService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,9 @@ public class DespesaControllerTest {
         despesa.setIdImovel(-1L);
         despesa.setData(LocalDate.now());
 
+        Mockito.doThrow(new IllegalArgumentException("ID do imóvel inválido."))
+                .when(despesaService).criarDespesa(despesa);
+
         ResponseEntity<?> response = despesaController.cadastrarDespesa(despesa);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -56,6 +60,10 @@ public class DespesaControllerTest {
         DespesaModel despesa = new DespesaModel();
         despesa.setIdImovel(1L);
         despesa.setData(LocalDate.now());
+
+
+        Mockito.doThrow(new RuntimeException("Erro inesperado"))
+                .when(despesaService).criarDespesa(despesa);
 
         ResponseEntity<?> response = despesaController.cadastrarDespesa(despesa);
 
