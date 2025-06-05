@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import br.com.invistaix.InvistaIX.model.ImpostoModel;
 import br.com.invistaix.InvistaIX.service.ImpostoService;

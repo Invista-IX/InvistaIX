@@ -1,0 +1,350 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+aside {
+  width: 220px;
+  background-color: #e6f1ec;
+  padding: 20px;
+  display: grid;
+  position: sticky;
+  grid: 'logo'
+		'nav'
+		'gap'
+		'perfil';
+  grid-template-rows: 15% 60% 10% 20%;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  grid-area: logo;
+  align-items: center;
+  gap: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+  max-width: 175px;
+  max-height: 100px;
+}
+
+nav {
+	grid-area: nav;
+}
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  margin-bottom: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav ul li a .material-icons,
+.perfil a .material-icons {
+  font-size: 18px;
+  color: #777;
+}
+
+.perfil {
+  grid-area: perfil;
+  margin-bottom: 30px;
+}
+
+.perfil h4 {
+  margin-bottom: 10px;
+}
+
+.perfil a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+}
+
+main {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #fff;
+  min-width: 0;
+  display: grid;
+  gap: 20px;
+}
+
+h2 {
+  color: #019267;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.sub {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: grid;
+  grid-template-areas:
+  	"imovel imovel"
+    "img nome_imovel"
+    "img area"
+    "numero_matricula valor_matricula"
+    "select_proprietario proprietario_input"
+	"divP divP"
+	"endereco enderco" 
+	"rua numero"
+	"loteamento CEP"
+	"cidade estado"
+	". botao";
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+form h2 {
+	color: #888888;
+}
+
+#subtituloImovel {
+	grid-area: imovel;
+}
+
+#imagemImovelDiv {
+  grid-area: img;
+}
+
+#nomeImovelDiv {
+  grid-area: nome_imovel;
+}
+
+#areaImovelDiv {
+  grid-area: area;
+}
+
+#numeroMatriculaImovelDiv {
+  grid-area: numero_matricula;
+}
+
+#valorMatriculaImovelDiv {
+  grid-area: valor_matricula;
+}
+
+#proprietarioSelect {
+	grid-area: select_proprietario;
+}
+#proprietarioImovelDiv {
+  grid-area: proprietario_input;
+}
+
+#cadastroProprietario {
+	grid-area: divP;
+	display: grid;
+	grid-template-areas:
+	    "proprietario proprietario"
+	  	"nomeProprietario cpfCnpjProprietario"
+	  	"sobrenomeProprietario tipoPessoaProprietario"
+	  	"emailProprietario telefoneProprietario";
+	grid-template-columns: 1fr 1fr;
+	border-bottom: 1px solid #dddddd;
+	border-top: 1px solid #dddddd; 
+	/*gap: 20px;*/
+}
+
+#subtituloProprietario {
+	grid-area: proprietario;
+}
+
+#nomeProprietarioDiv {
+	grid-area: nomeProprietario;
+}
+
+#cpfCnpjProprietarioDiv {
+	grid-area: cpfCnpjProprietario;
+}
+
+#sobrenomeProprietarioDiv {
+	grid-area: sobrenomeProprietario;
+}
+
+#tipoPessoaProprietarioDiv {
+	grid-area: tipoPessoaProprietario;
+}
+
+#emailProprietarioDiv {
+	grid-area: emailProprietario;
+}
+
+#telefoneProprietarioDiv {
+	grid-area: telefoneProprietario;
+}
+
+#subtituloEndereco {
+	grid-area: endereco;
+}
+
+#ruaEnderecoDiv {
+  grid-area: rua;
+}
+
+#numeroEnderecoDiv {
+  grid-area: numero;
+}
+
+#loteamentoEnderecoDiv {
+  grid-area: loteamento;
+}
+
+#cepEnderecoDiv {
+  grid-area: CEP;
+}
+
+#cidadeEnderecoDiv {
+  grid-area: cidade;
+}
+
+#estadoEnderecoDiv {
+  grid-area: estado;
+}
+
+#botaoCadastroDiv {
+  grid-area: botao;
+}
+img#preview {
+	width: calc(100% + 40px);
+	max-height: 20vh;
+    margin-left: -40px;
+}
+
+.toggleProprietario {
+	display: none;
+}
+
+.imagem-upload {
+    display: flex;
+    max-height: 25vh;
+    text-align: center;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+    width: 100%;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+.imagem-upload:hover {
+  border-color: #019267;
+}
+
+.imagem-upload span {
+  font-size: 48px;
+  color: #999;
+}
+
+.imagem-upload p {
+  margin-top: 10px;
+  color: #777;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  padding-left: 0.3rem;
+  padding-bottom: 0.2rem;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  max-height: 37px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  max-height: 37px;
+}
+
+.btn-cadastrar {
+  background-color: #019267;
+  color: #fff;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  align-self: flex-end;
+  margin-top: 12.4px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+    color: #888888;
+    border-top: 1px solid #dddddd;
+}
+
+@media (max-width: 768px) {
+  form {
+    grid-template-areas:
+      "img"
+      "nome_proprietario"
+      "CEP"
+      "rua"
+      "nome_imovel"
+      "loteamento"
+      "valor_matricula"
+      "numero_imovel"
+      "numero_matricula"
+      "cidade"
+      "botao";
+    grid-template-columns: 1fr;
+  }
+
+  input {
+    padding: 12px;
+  }
+
+  .btn-cadastrar {
+    width: 100%;
+    justify-self: center;
+  }
+}
+

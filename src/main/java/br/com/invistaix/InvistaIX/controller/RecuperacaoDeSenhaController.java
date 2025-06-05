@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class EsqueceuasenhaController {
+public class RecuperacaoDeSenhaController {
 
     @Autowired
     RedefinirSenhaService redefinirSenhaService;

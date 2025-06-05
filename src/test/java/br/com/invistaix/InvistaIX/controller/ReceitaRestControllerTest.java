@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.controller;
 
+import br.com.invistaix.InvistaIX.api.ReceitaRestController;
 import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import br.com.invistaix.InvistaIX.service.ReceitaService;
 import org.junit.jupiter.api.Test;
@@ -14,15 +15,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ReceitaControllerTest {
+public class ReceitaRestControllerTest {
 
     @Mock
     private ReceitaService receitaService;
 
     @InjectMocks
-    private ReceitaController receitaController;
+    private ReceitaRestController receitaController;
 
-    public ReceitaControllerTest() {
+    public ReceitaRestControllerTest() {
         MockitoAnnotations.openMocks(this);
     }
 

@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.Service;
+package br.com.invistaix.InvistaIX.service;
 
 import br.com.invistaix.InvistaIX.model.InccModel;
 import br.com.invistaix.InvistaIX.repository.InccRepository;
