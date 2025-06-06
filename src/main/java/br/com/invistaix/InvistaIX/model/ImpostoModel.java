@@ -12,13 +12,13 @@ public class ImpostoModel {
     @Column(name = "idiptu")
     private int idiptu;
 
-    @Column(name = "valor")
+    @Column(name = "valor", nullable = false)
     private Double valor;
 
-    @Column(name = "data")
+    @Column(name = "data",  nullable = false)
     private LocalDate data;
 
-    @Column(name = "idimovel")
+    @Column(name = "idimovel",  nullable = false)
     private Long idimovel;
 
     public ImpostoModel() {

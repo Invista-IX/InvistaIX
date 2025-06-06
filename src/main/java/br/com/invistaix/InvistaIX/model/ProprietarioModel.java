@@ -27,10 +27,10 @@ public class ProprietarioModel {
     @Column(name = "CNPJ_CPF", nullable = false, length = 14)
     private String cnpjCpf;
     
-    @Column(name = "email", length = 45)
+    @Column(name = "email", nullable = false, length = 45)
     private String email;
     
-    @Column(name = "telefone", length = 16)
+    @Column(name = "telefone", nullable = true, length = 16)
     private String telefone;
     
     public ProprietarioModel(Integer id, String nome, String sobrenome, Character tipoPessoa, String cnpjCpf, String telefone, String email) {

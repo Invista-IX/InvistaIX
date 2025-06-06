@@ -25,7 +25,7 @@ public class ImovelModel {
     @Column(name = "preco", nullable = false)
     private Double preco;
 
-    @Column(name = "numero_matricula", nullable = false)
+    @Column(name = "numero_matricula", nullable = false, length = 15)
     private String numeroMatricula;
 
     @Column(name = "valor_matricula", nullable = false)
@@ -33,7 +33,6 @@ public class ImovelModel {
 
     @Lob
     @Column(name = "imagem_base64", nullable = true)
-
     private byte[] imagemBase64;
 
     @Column(name = "idproprietario", nullable = false)

@@ -12,16 +12,16 @@ public class DespesaModel {
     @Column(name = "iddespesa")
     private Long id;
 
-    @Column(name = "manutencao")
+    @Column(name = "manutencao", nullable = true)
     private Double manutencao;
 
-    @Column(name = "despesaavulsa")
+    @Column(name = "despesaavulsa", nullable = true)
     private Double despesaAvulsa;
 
-    @Column(name = "luz")
+    @Column(name = "luz", nullable = true)
     private Double luz;
 
-    @Column(name = "agua")
+    @Column(name = "agua", nullable = true)
     private Double agua;
 
     @Column(name = "data", nullable = false)

@@ -12,10 +12,10 @@ public class InccModel {
     @Column(name = "idIncc")
     private Integer idIncc;
 
-    @Column(name = "porcentagem")
+    @Column(name = "porcentagem", nullable = false)
     private Double porcentagem;
 
-    @Column(name = "data")
+    @Column(name = "data", nullable = false)
     private LocalDate data;
 
     public InccModel() {}

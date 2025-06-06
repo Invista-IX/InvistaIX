@@ -13,22 +13,22 @@ public class AvaliacaoModel {
         @Column(name = "idavaliacao")
         private Long idavaliacao;
 
-        @Column(name = "valorAvaliacao")
+        @Column(name = "valorAvaliacao", nullable = false)
         private Double valorAvaliacao;
 
-        @Column(name = "cnpj")
+        @Column(name = "cnpj", nullable = false, length = 14)
         private String cnpj;
 
-        @Column(name = "idimovel")
+        @Column(name = "idimovel", nullable = false)
         private Long idimovel;
 
-        @Column(name = "dataAvaliacao")
+        @Column(name = "dataAvaliacao", nullable = false)
         private LocalDate dataAvaliacao;
 
-        @Column(name = "razaoSocial")
+        @Column(name = "razaoSocial", nullable = false, length = 130)
         private String razaoSocial;
 
-        @Column(columnDefinition = "TEXT")
+        @Column(columnDefinition = "TEXT", nullable = false)
         private String docAvaliacao;
 
         @Transient
