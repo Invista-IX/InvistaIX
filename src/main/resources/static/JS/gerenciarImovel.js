@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-<<<<<<< HEAD
-=======
      const formImposto = document.getElementById('formImposto');
         if (formImposto) {
             formImposto.addEventListener('submit', enviarImposto);
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
->>>>>>> dev
     document.querySelectorAll('.dinheiro').forEach(input => {
         IMask(input, {
             mask: Number,
@@ -74,8 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', init);
 });
 
-<<<<<<< HEAD
-=======
 ////////INPUT DE DATA/////////////////
 const hoje = new Date();
 const elems = document.querySelectorAll('.inputData');
@@ -114,7 +109,6 @@ elems.addEventListener('changeDate', function (e) {
     }
 });
 
->>>>>>> dev
 function enviarDespesa(event) {
     try {
         event.preventDefault();
@@ -128,36 +122,22 @@ function enviarDespesa(event) {
         }
 
         const despesaData = {};
-<<<<<<< HEAD
-        form.querySelectorAll('.dinheiro').forEach(input => {
-=======
         form.querySelectorAll('.dinheiroDespesa').forEach(input => {
->>>>>>> dev
             let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
             despesaData[input.name] = valorTratado;
         });
 
         despesaData['idImovel'] = idImovel;
-<<<<<<< HEAD
-
-        console.log(despesaData);
-=======
         const dataInput = document.getElementById('dataDespesa');
         if (dataInput && dataInput.value) {
             despesaData['data'] = dataInput.value;
         }
->>>>>>> dev
 
         const body = new URLSearchParams();
         for (const campo in despesaData) {
             body.append(campo, despesaData[campo]);
         }
 
-<<<<<<< HEAD
-        console.log(body);
-
-=======
->>>>>>> dev
         fetch(`/despesa/criar`, {
             method: 'POST',
             headers: {
@@ -189,8 +169,6 @@ function enviarDespesa(event) {
 }
 
 
-<<<<<<< HEAD
-=======
 function enviarReceita(event) {
     try {
         event.preventDefault();
@@ -250,7 +228,6 @@ function enviarReceita(event) {
 }
 
 
->>>>>>> dev
 function exibirModalErro(mensagem) {
     const modal = document.getElementById("modalErro");
     const texto = document.getElementById("mensagemErroTexto");
@@ -286,8 +263,6 @@ function mostrarToastSucesso(mensagem) {
         toast.classList.remove("mostrar");
     }, 3000);
 }
-<<<<<<< HEAD
-=======
 
 function enviarImposto(event) {
     try {
@@ -461,4 +436,3 @@ function enviarAvaliacao(event) {
 }
 
 
->>>>>>> dev
