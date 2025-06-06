@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.service.DespesaService;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/despesa")
-public class DespesaController {
+public class DespesaRestController {
 
     @Autowired
     private DespesaService despesaService;

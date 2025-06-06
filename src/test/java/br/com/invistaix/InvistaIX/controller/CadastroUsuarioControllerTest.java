@@ -20,7 +20,7 @@ import br.com.invistaix.InvistaIX.service.UsuarioService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CadastroControllerTest {
+public class CadastroUsuarioControllerTest {
 		
 	@Autowired    
 	private MockMvc mockMvc;
@@ -29,7 +29,7 @@ public class CadastroControllerTest {
 	private UsuarioRepository usuarioRepository;
 	    
 	@Autowired
-	private CadastroController cadastroController;
+	private CadastroUsuarioController cadastroController;
 	
 	@Autowired UsuarioService usuarioService;
 	    

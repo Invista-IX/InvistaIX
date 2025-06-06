@@ -11,10 +11,10 @@ public class ReceitaModel {
     @Column(name = "idreceita")
     private Long id;
 
-    @Column(name = "aluguel")
+    @Column(name = "aluguel", nullable = true)
     private Double aluguel;
 
-    @Column(name = "receitaavulsa")
+    @Column(name = "receitaavulsa", nullable = true)
     private Double receitaAvulsa;
 
     @Column(name = "data", nullable = false)

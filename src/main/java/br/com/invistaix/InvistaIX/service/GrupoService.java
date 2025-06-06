@@ -16,6 +16,7 @@ public class GrupoService {
     
     public void salvar(GrupoModel novoGrupo) {
     	grupoRepository.save(novoGrupo);
+    	System.out.println(novoGrupo.toString());
     }
     
     public List<GrupoModel> listarTodos() {

@@ -1,6 +1,7 @@
 package br.com.invistaix.InvistaIX.model;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -102,8 +103,8 @@ public class GrupoModel {
 
 	@Override
 	public String toString() {
-		return "Grupo [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", senha=" + senha + ", imagem_base64="
-				+ imagem_base64 + "]";
+		return "GrupoModel [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", senha=" + senha
+				+ ", imagem_base64=" + Arrays.toString(imagem_base64) + "]";
 	}
     
 }
