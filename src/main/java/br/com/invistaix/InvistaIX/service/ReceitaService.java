@@ -14,6 +14,9 @@ public class ReceitaService {
     @Autowired
     private ReceitaRepository receitaRepository;
 
+    @Autowired
+    private CalculoIRService calculoIRService;
+
     public ReceitaModel criarReceita(ReceitaModel receita) {
         try {
             if (receita.getAluguel() != null) {
@@ -41,6 +44,13 @@ public class ReceitaService {
             if (receitaRepository.existsByImovelAndMesAndAno(receita.getIdImovel(), receita.getData().getMonthValue(), receita.getData().getYear())) {
                 throw new IllegalArgumentException("Já existe receita no mês.");
             }
+
+            double totalReceita =
+                    (receita.getAluguel() != null ? receita.getAluguel() : 0.0) +
+                            (receita.getReceitaAvulsa() != null ? receita.getReceitaAvulsa() : 0.0);
+
+            calculoIRService.salvarIR(totalReceita, receita.getIdImovel());
+
             return receitaRepository.save(receita);
 
         } catch (IllegalArgumentException ex) {
