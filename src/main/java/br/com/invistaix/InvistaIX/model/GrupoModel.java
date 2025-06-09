@@ -83,9 +83,14 @@ public class GrupoModel {
 	}
 
 	public String getImagem_base64() {
-		String base64Data = Base64.getEncoder().encodeToString(imagem_base64);
-        System.out.println(base64Data);
-		return base64Data;
+		try {
+			String base64Data = Base64.getEncoder().encodeToString(imagem_base64);
+	        System.out.println(base64Data);
+			return base64Data;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	public void setImagem_base64(MultipartFile imagem_base64) {
