@@ -58,7 +58,7 @@ function criarElementoCardGrupo(item) {
     grupo_card.appendChild(codigo);
 
     const grupo_link = document.createElement("a");
-    grupo_link.href = "/dashboard/grupo/" + item.id;
+    grupo_link.href = "/dashboard/grupo=" + item.id;
     grupo_link.append(grupo_card);
 
     return grupo_link;
