@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard InvistaIX</title>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/css/graficos.css">
+</head>
+<body>
+<aside>
+  <img class="logo" src="/img/logo.png" alt="Logo" />
+  <nav>
+    <ul>
+      <h4 style="margin-bottom: 10px;">Menu</h4>
+      <li>
+        <a href="/">
+          <span class="material-icons">dashboard</span>
+          Dashboard
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="perfil">
+    <h4>Perfil</h4>
+    <a href="#">
+      <span class="material-icons">person</span>
+      Meus Dados
+    </a>
+    <a href="#">
+      <span class="material-icons">logout</span>
+      Sair
+    </a>
+  </div>
+</aside>
+
+<main>
+  <div class="chart-container">
+    <canvas id="valorizacao"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="receita-despesa"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="lucro"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="performance"></canvas>
+  </div>
+  <footer>
+    © 2025 InvistaIX. Todos os direitos reservados.
+  </footer>
+</main>
+
+<script src="/JS/graficos.js"></script>
+</body>
+</html>
