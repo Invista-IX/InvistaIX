@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+}
+aside {
+    width: 220px;
+    background-color: #e6f1ec;
+    padding: 20px;
+    display: grid;
+    position: sticky;
+    grid: 'logo'
+		'nav'
+		'gap'
+		'perfil';
+    grid-template-rows: 15% 60% 10% 20%;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.perfil {
+    grid-area: perfil;
+    margin-bottom: 30px;
+}
+
+.perfil h4 {
+    margin-bottom: 10px;
+}
+
+.perfil a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+.logo {
+    display: flex;
+    grid-area: logo;
+    align-items: center;
+    gap: 2px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+    max-width: 175px;
+    max-height: 100px;
+}
+
+nav {
+    grid-area: nav;
+}
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    margin-bottom: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav ul li a .material-icons,
+.perfil a .material-icons {
+    font-size: 18px;
+    color: #777;
+}
+
+main {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #fff;
+    min-width: 0;
+    display: grid;
+    gap: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+    color: #888888;
+    border-top: 1px solid #dddddd;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.chart-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
