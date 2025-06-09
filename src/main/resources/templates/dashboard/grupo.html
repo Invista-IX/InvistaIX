@@ -52,7 +52,7 @@
         </div>
         <div class="acoes">
             <a href="#"><button class="sair_grupo">Sair do grupo</button></a>
-            <a href="#"><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
+            <a th:href="@{/imovel/grupo={idGrupo}/cadastrarImovel(idGrupo=${grupo.id})}" ><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
         </div>
     </header>
 	
@@ -85,7 +85,7 @@
 	</footer>
 </main>
 
-<script src=""></script>
+<script src="/js/dashboard/grupo.js"></script>
 
 </body>
 

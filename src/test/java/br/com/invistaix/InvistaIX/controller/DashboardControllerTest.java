@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.repository.GrupoRepository;
 import br.com.invistaix.InvistaIX.service.GrupoService;
+import jakarta.servlet.http.HttpSession;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,12 +38,15 @@ public class DashboardControllerTest {
 	@Mock
 	private Model model;
 	
+	@Mock
+	HttpSession session;
+	
 	@Test
 	void dashboardUrlGetTest() throws Exception {
 		mockMvc.perform(get("/dashboard"))
 				.andExpect(status().isOk());
 		
-		String pagina = dashboardController.dashboardController();
+		String pagina = dashboardController.dashboardController(session);
 		assertEquals("dashboard", pagina);
 	}
 	
@@ -51,7 +55,7 @@ public class DashboardControllerTest {
 		mockMvc.perform(get("/dashboard/cadastro_grupo"))
 				.andExpect(status().isOk());
 		
-		String pagina = dashboardController.cadastrarGrupo(model);
+		String pagina = dashboardController.cadastrarGrupo(model, session);
 		assertEquals("dashboard/cadastro_grupo", pagina);
 	}
 	
@@ -73,7 +77,7 @@ public class DashboardControllerTest {
 		grupoTeste2.setCodigo("grupoTeste2");
 		grupoTeste2.setSenha("senha2");
 		
-		String pagina = dashboardController.salvarGrupo(grupoTeste2, model);
+		String pagina = dashboardController.salvarGrupo(grupoTeste2, model, session);
 		assertEquals("redirect:/dashboard", pagina);
 		
 		grupoService.apagarGrupo(grupoTeste2.getId());
@@ -86,7 +90,7 @@ public class DashboardControllerTest {
 		grupoTeste.setCodigo("grupoTeste3");
 		grupoTeste.setSenha("senha3");
 		
-		dashboardController.salvarGrupo(grupoTeste, model);
+		dashboardController.salvarGrupo(grupoTeste, model, session);
 		
 		String url = "/dashboard/grupo/" + grupoTeste.getId().toString();
 		System.out.println(url);

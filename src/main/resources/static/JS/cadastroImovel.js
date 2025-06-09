@@ -235,8 +235,6 @@ async function enviarImovel(idEndereco, idProprietario) {
 
 		fd.append('idProprietario', idProprietario);
 		
-		fd.append('idGrupo', 1);
-		
 		fd.append('endereco', idEndereco);
 
 		console.log(Array.from(fd));

@@ -121,9 +121,14 @@ public class ImovelModel {
     }
 
     public String getImagemBase64() {
+    	try {
         String imagemData = Base64.getEncoder().encodeToString(imagemBase64);
         System.out.println(imagemData);
     	return imagemData;
+    	} catch (Exception ex){
+    	ex.printStackTrace();
+    	return null;
+    	}
     }
 
     public void setImagemBase64(String imagemBase64) {

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.invistaix.InvistaIX.exception.UnauthorizedAccessException;
 import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.model.EnderecoModel;
+import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.model.ProprietarioModel;
+import br.com.invistaix.InvistaIX.service.GrupoService;
 import br.com.invistaix.InvistaIX.service.ImovelService;
 
 @Controller
@@ -20,9 +22,17 @@ public class ImovelController {
 
     @Autowired
     private ImovelService imovelService;
+    
+    @Autowired
+    GrupoService grupoService;
 
-    @GetMapping("/cadastroImovel")
-    public String formCadastro(Model model) {
+    @GetMapping("/grupo={idGrupo}/cadastrarImovel")
+    public String formCadastro(@PathVariable Integer idGrupo, Model model) {
+    	GrupoModel grupo = grupoService.encontrarPorId(idGrupo);
+    	if(grupo == null) {
+    		return "redirect:/dashboard";
+    	}
+    	model.addAttribute("grupo", grupo);
         model.addAttribute("imovel", new ImovelModel());
         model.addAttribute("endereco", new EnderecoModel());
         model.addAttribute("proprietario", new ProprietarioModel());

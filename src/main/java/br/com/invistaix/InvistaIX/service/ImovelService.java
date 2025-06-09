@@ -81,7 +81,7 @@ public class ImovelService {
     	}
     }
     
-    public List<ImovelModel> buscarImoveisNoGrupo(Integer idGrupo) {
+    public List<ImovelModel> buscarImoveisNoGrupo(Long idGrupo) {
     	try {
     		if (idGrupo == null || idGrupo <= 0) {
                 throw new IllegalArgumentException("ID do imóvel inválido.");
@@ -92,6 +92,10 @@ public class ImovelService {
     	} catch (Exception ex) {
     		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
     	}
+    }
+    
+    public List<ImovelModel> buscarTodos() {
+    	return imovelRepository.findAll();
     }
     
     public String apagarImovelPorId(Long idImovel) {
