@@ -162,7 +162,7 @@ public class ImovelModel {
 
         return String.format(
         		
-                "%s, %d - %s, %s - %s - %se",
+                "%s, %d - %s, %s - %s - %s",
 
                 endereco.getRua(),
                 endereco.getNumero(),
