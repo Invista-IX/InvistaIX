@@ -67,5 +67,44 @@ public class ImovelController {
             throw new RuntimeException(ex.getMessage(), ex);
         }
     }
+	
+    @GetMapping("/grupo={idGrupo}&imovel={idImovel}/graficos")
+    public String exibirGraficos(@PathVariable Long idGrupo,
+    							 @PathVariable Long idImovel,
+    							 			   Model model) {
+    	try {
+    		if (idGrupo == null || idGrupo <= 0) {
+    			throw new IllegalArgumentException("ID do grupo inválido.");
+    		}
+    		if (idImovel == null || idImovel <= 0) {
+    			throw new IllegalArgumentException("ID do imóvel inválido.");
+    		}
+    		ImovelModel imovel = imovelService.buscarPorId(idImovel);
+    		if (imovel == null) {
+    			throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
+    		}
+    		if (imovel.getIdGrupo() != idGrupo) {
+    			throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
+    		}
+    		DespesaModel despesa = new DespesaModel();
+    		despesa.setIdImovel(idImovel);
+    		model.addAttribute("imovel", imovel);
+    		model.addAttribute("idGrupo", idGrupo);
+    		return "imovel/graficos";
+    	} catch (Exception ex) {
+    		throw new RuntimeException(ex.getMessage(), ex);
+    	}
+}
+//    @Autowired
+//    private GraficoService service;
+//
+//    @GetMapping("/graficos")
+//    public String mostrarGraficos(Model model) {
+//        GraficoModel receitaDespesa = service.buscarDadosGrafico();
+//        model.addAttribute("meses", receitaDespesa.getMeses());
+//        model.addAttribute("receita", receitaDespesa.getReceita());
+//        model.addAttribute("despesa", receitaDespesa.getDespesa());
+//        return "graficos";
+//    }
 }
 
