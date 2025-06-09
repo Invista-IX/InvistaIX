@@ -54,5 +54,16 @@ public class ImovelRestController {
     		return null;
     	}
     }
+
+    @GetMapping("/buscar/performance")
+    public ResponseEntity<?> getPerformance(@ModelAttribute ImovelModel imovel) {
+        try {
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Erro ao salvar imóvel: " + e.getMessage());
+        }
+    }
 }
 

@@ -1,10 +1,14 @@
 package br.com.invistaix.InvistaIX.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.Optional;
 
+import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
+import br.com.invistaix.InvistaIX.model.DespesaModel;
+import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,12 @@ public class ImovelService {
 
     @Autowired
     private ImovelRepository imovelRepository;
+
+    @Autowired
+    private DespesaService despesaService;
+
+    @Autowired
+    private ReceitaService receitaService;
 
     public ImovelModel salvarImovel(ImovelModel imovel) {
         try {
@@ -50,6 +60,14 @@ public class ImovelService {
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao salvar imóvel: " + ex.getMessage(), ex);
         }
+
+    }
+
+    public List<PerformanceDTO> retornaPerformance(ImovelModel imovel) {
+
+        List<DespesaModel> despesas = despesaService.listarPorPeriodo(imovel.getId(), LocalDate.now(), LocalDate.now().minusYears(1));
+        List<ReceitaModel> receitas = receitaService.listarPorPeriodo(imovel.getId(), LocalDate.now(), LocalDate.now().minusYears(1));
+
 
     }
 
