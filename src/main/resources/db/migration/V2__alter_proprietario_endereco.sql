@@ -15,3 +15,6 @@ ALTER TABLE imovel
 
 ALTER TABLE endereco
 	DROP COLUMN bairro;
+
+ALTER TABLE ir
+    RENAME COLUMN ir TO valor;
