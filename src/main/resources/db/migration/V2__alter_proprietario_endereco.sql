@@ -12,3 +12,6 @@ ALTER TABLE endereco
 
 ALTER TABLE imovel
     RENAME COLUMN valormatricula TO valor_matricula;
+
+ALTER TABLE endereco
+	DROP COLUMN bairro;
