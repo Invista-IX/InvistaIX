@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.repository.ImovelRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ImovelService {
@@ -81,6 +82,7 @@ public class ImovelService {
     	}
     }
     
+    @Transactional
     public List<ImovelModel> buscarImoveisNoGrupo(Long idGrupo) {
     	try {
     		if (idGrupo == null || idGrupo <= 0) {
@@ -88,6 +90,7 @@ public class ImovelService {
             }
     		List<ImovelModel> imoveis = imovelRepository.findAllInGrupo(idGrupo);
     		System.out.println(imoveis);
+    		System.out.println("pindamonahngaba");
     		return imoveis;
     	} catch (Exception ex) {
     		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);

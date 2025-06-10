@@ -47,14 +47,9 @@ public class ImovelRestController {
     @GetMapping("/findAllByGupo={idGrupo}")
     public List<ImovelModel> encontrarPorGrupo(@PathVariable Long idGrupo) {
     	try {
-    		List<ImovelModel> imoveis = imovelService.buscarTodos();
-    		if (imoveis == null) {
-    			System.out.println(imoveis);
-    			return imoveis;
-    		}
-    		return null;
+    		return imovelService.buscarImoveisNoGrupo(idGrupo);
     	} catch (IllegalArgumentException ex) {
-    		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
+    		return null;
     	} catch (Exception ex) {
     		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
     	}

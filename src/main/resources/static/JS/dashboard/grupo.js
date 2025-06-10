@@ -1,13 +1,15 @@
 //  API  //
 
-// cards produtos 
-const URL_GRUPOS = "http://localhost:8080/api/grupos";
+// cards imoveis
+let idGrupo = document.getElementById('idGrupo').textContent;
+console.log(idGrupo);
+const URL_GRUPOS = "http://localhost:8080/imovel/findAllByGupo=" + idGrupo;
 
 window.addEventListener("load", async () => {
     const wrapper = document.querySelector("#cards_container");
 
     try {
-        // Buscar dados do Sanity
+        // Buscar dados da API
         const result = await fetch(URL_GRUPOS);
         console.log(result);
         const data = await result.json();
@@ -19,7 +21,7 @@ window.addEventListener("load", async () => {
         // Verificar se os dados existem
         if (data && data.length) {
             dados.forEach(item => {
-                const div = criarElementoCardGrupo(item);
+                const div = criarElementoCardImovel(item);
                 wrapper.appendChild(div);
             });
         } else {
@@ -30,8 +32,9 @@ window.addEventListener("load", async () => {
     }
 });
 
-function criarElementoCardGrupo(item) {
-	const base64String = "data:image/png;base64," + item.imagem_base64;
+function criarElementoCardImovel(item) {
+	const base64String = "data:image/png;base64," + item.imagemBase64;
+    console.log(base64String);
 
     const imagem = document.createElement("img");
     fetch(base64String)
@@ -41,25 +44,41 @@ function criarElementoCardGrupo(item) {
         imagem.classList.add("card-img");
         imagem.src = url;
         imagem.alt = "imagem_" + item.nome;
+    })
+    .catch(erro => {
+        console.log(erro.message);
+        
     });
+    imagem.classList.add("card-img");
+    imagem.alt = "imagem_" + item.nome;
     
     const nome = document.createElement("h3");    
     nome.classList.add("card-h3");
     nome.innerText = item.nome;
 
-    const codigo = document.createElement("p");    
-    codigo.classList.add("card-p");
-    codigo.innerText = item.codigo;
+    const matricula = document.createElement("p");    
+    matricula.classList.add("card-p");
+    matricula.innerText = item.numero_matricula;
 
-    const grupo_card = document.createElement("div");
-    grupo_card.classList.add("card");
-    grupo_card.appendChild(imagem);
-    grupo_card.appendChild(nome);
-    grupo_card.appendChild(codigo);
+    const area = document.createElement("p");    
+    area.classList.add("card-p");
+    area.innerText = item.area;
 
-    const grupo_link = document.createElement("a");
-    grupo_link.href = "/dashboard/grupo=" + item.id;
-    grupo_link.append(grupo_card);
+    const preco = document.createElement("p");    
+    preco.classList.add("card-p");
+    preco.innerText = item.preco;
 
-    return grupo_link;
+    const imovel_card = document.createElement("div");
+    imovel_card.classList.add("card");
+    imovel_card.appendChild(imagem);
+    imovel_card.appendChild(nome);
+    imovel_card.appendChild(matricula);
+    imovel_card.appendChild(area);
+    imovel_card.appendChild(preco);
+
+    const imovel_link = document.createElement("a");
+    imovel_link.href = "/imovel/grupo=" + idGrupo + "&imovel=" + item.id + "/gerenciar";
+    imovel_link.append(imovel_card);
+
+    return imovel_link;
 };
