@@ -1,6 +1,8 @@
 package br.com.invistaix.InvistaIX.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 @Entity
@@ -25,6 +27,7 @@ public class DespesaModel {
     private Double agua;
 
     @Column(name = "data", nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     @Column(name = "idimovel", nullable = false)
