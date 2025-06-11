@@ -1,6 +1,7 @@
 package br.com.invistaix.InvistaIX.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 
@@ -23,6 +24,7 @@ public class AvaliacaoModel {
         private Long idimovel;
 
         @Column(name = "dataAvaliacao", nullable = false)
+        @DateTimeFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataAvaliacao;
 
         @Column(name = "razaoSocial", nullable = false, length = 130)

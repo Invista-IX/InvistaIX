@@ -1,6 +1,7 @@
 package br.com.invistaix.InvistaIX.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -13,6 +14,7 @@ public class IRModel {
 
     private Double valor;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     @ManyToOne
