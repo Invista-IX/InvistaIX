@@ -77,113 +77,111 @@ window.addEventListener('DOMContentLoaded', async () => {
 	});
 	
 	//chart lucro mensal
-	Highcharts.chart('container-lucro', {
-	    chart: {
-	        type: 'column'
-	    },
-	    title: {
-	        text: 'Lucro Mensal'
-	    },
-	    xAxis: {
-	        type: 'category',
-	        labels: {
-	            autoRotation: [-45, -90],
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    },
-	    yAxis: {
-	        min: 0,
-	        title: {
-	            text: 'Valor (R$)'
-	        }
-	    },
-	    legend: {
-	        enabled: false
-	    },
-	    tooltip: {
-	        pointFormat: 'Lucro: <b>R${point.y:.2f}</b>'
-	    },
-	    series: [{
-	        name: 'Lucro',
-	        colors: [
-	            '#00a650',
-	        ],
-	        colorByPoint: true,
-	        groupPadding: 0,
-	        data: [
-	            ['Jan', 37.33],
-	            ['Fev', 31.18],
-	            ['Mar', 27.79],
-	            ['Abr', 22.23],
-	            ['Mai', 21.91],
-	            ['Jun', 21.74],
-	            ['Jul', 21.32],
-	            ['Ago', 20.89],
-	            ['Set', 20.67],
-	            ['Out', 19.11],
-	            ['Nov', 16.45],
-	            ['Dec', 16.38],
-	        ],
-	        dataLabels: {
-	            enabled: true,
-	            rotation: -90,
-	            color: '#FFFFFF',
-	            inside: true,
-	            verticalAlign: 'top',
-	            format: '{point.y:.2f}', // one decimal
-	            y: 10, // 10 pixels down from the top
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    }]
-	});
+    fetch(`/api/graficos/ReceitaDespesa/${idImovel}`)
+      .then(response => response.json())
+      .then(data => {
+        const lucroMensal = data.meses.map((mes, index) => {
+          const valor = data.lucro[index];
+          return {
+            name: mes,
+            y: valor,
+            color: valor >= 0 ? '#00a650' : '#d9534f'
+          };
+        });
+
+        Highcharts.chart('container-lucro', {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Lucro Mensal'
+          },
+          xAxis: {
+            type: 'category',
+            labels: {
+              autoRotation: [-45, -90],
+              style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+              }
+            }
+          },
+          yAxis: {
+            title: {
+              text: 'Valor (R$)'
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          tooltip: {
+            pointFormat: 'Lucro: <b>R${point.y:.2f}</b>'
+          },
+          series: [{
+            name: 'Lucro',
+            data: lucroMensal,
+            dataLabels: {
+              enabled: false,
+              rotation: -90,
+              color: '#FFFFFF',
+              inside: true,
+              verticalAlign: 'top',
+              format: '{point.y:.2f}',
+              y: 10,
+              style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+              }
+            }
+          }]
+        });
+      });
+
+
 
 	//chart receitas e despesas mensais
-	Highcharts.chart('container-receitasdespesas', {
-	    chart: {
-	        type: 'line'
-	    },
-	    title: {
-	        text: 'Receitas/Despesas Mensais'
-	    },
-	    xAxis: {
-	        categories: [
-	            'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
-	            'Out', 'Nov', 'Dec'
-	        ]
-	    },
-	    yAxis: {
-	        title: {
-	            text: 'Valor (R$)'
-	        }
-    	},
-	    plotOptions: {
-	        line: {
-	            dataLabels: {
-	                enabled: true
-	            },
-	            enableMouseTracking: false
-	        }
-	    },
-	    series: [{
-	        name: 'Receitas/Mês',
-			color: '#00a650',
-	        data: [
-	            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-	            22.0, 17.8
-	        ]
-	    }, {
-        	name: 'Despesas/Mês',
-			color: '#FF0000',
-        	data: [
-            	-2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
-            	2.0, -0.9
-        	]
-    	}]
-	});
+	try {
+		const response = await fetch(`/api/graficos/ReceitaDespesa/${idImovel}`);
+		if (!response.ok) throw new Error('Erro ao buscar dados de receitas/despesas');
+		const data = await response.json();
+
+		Highcharts.chart('container-receitasdespesas', {
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: 'Receitas/Despesas Mensais'
+			},
+			xAxis: {
+				categories: data.meses
+			},
+			yAxis: {
+				title: {
+					text: 'Valor (R$)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [
+				{
+					name: 'Receitas/Mês',
+					color: '#00a650',
+					data: data.receita
+				},
+				{
+					name: 'Despesas/Mês',
+					color: '#FF0000',
+					data: data.despesa
+				}
+			]
+		});
+	} catch (error) {
+		console.error('Erro ao carregar gráfico de receitas/despesas:', error);
+	}
 });
