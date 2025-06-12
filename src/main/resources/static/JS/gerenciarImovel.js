@@ -341,8 +341,11 @@ function enviarAvaliacao(event) {
             let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
             dataAvaliacao[input.name] = valorTratado;
         });
-
-        const cnpj = document.getElementById('cnpj').value.trim();
+        const cnpjMask = IMask(document.getElementById('cnpj'), {
+                mask: '00.000.000/0000-00'
+        });
+        let cnpj = cnpjMask.unmaskedValue;
+        console.log("tratado: " + cnpj);
         if (!cnpj) {
             exibirModalErro('O CNPJ deve ser informado.');
             return;

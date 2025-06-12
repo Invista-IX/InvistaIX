@@ -16,7 +16,7 @@ public class AvaliacaoRestController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-    @PostMapping("/rest/criar")
+    @PostMapping("/criar")
     public ResponseEntity<?> cadastrarAvaliacao(@ModelAttribute AvaliacaoModel avaliacaoModel) {
         try {
             MultipartFile file = avaliacaoModel.getDocAvaliacaoFile();
@@ -44,7 +44,7 @@ public class AvaliacaoRestController {
         }
     }
 
-    @GetMapping("/rest/base64")
+    @GetMapping("/base64")
     public ResponseEntity<String> getPdfBase64(@RequestParam Long idAvaliacao) {
         AvaliacaoModel avaliacao = avaliacaoService.buscarPorId(idAvaliacao);
         if (avaliacao == null || avaliacao.getDocAvaliacao() == null) {
