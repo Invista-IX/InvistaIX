@@ -21,5 +21,8 @@ public class GraficoController {
         int anoAtual = LocalDate    .now().getYear();
         return service.montarGrafico(idImovel, anoAtual);
     }
+<<<<<<< feat-back-lucro-mensal
 
+=======
+>>>>>>> dev
 }
