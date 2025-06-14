@@ -1,6 +1,8 @@
 package br.com.invistaix.InvistaIX.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 @Entity
 @Table(name = "receita")
@@ -18,6 +20,7 @@ public class ReceitaModel {
     private Double receitaAvulsa;
 
     @Column(name = "data", nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     @Column(name = "idimovel", nullable = false)

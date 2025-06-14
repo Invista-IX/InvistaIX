@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.repository.ImovelRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ImovelService {
@@ -190,20 +191,26 @@ public class ImovelService {
             throw new RuntimeException("Erro ao buscar imóvel: " + ex.getMessage(), ex);
         }
     }
-
-    public List<ImovelModel> buscarImoveisNoGrupo(Integer idGrupo) {
-        try {
-            if (idGrupo == null || idGrupo <= 0) {
+    
+    @Transactional
+    public List<ImovelModel> buscarImoveisNoGrupo(Long idGrupo) {
+    	try {
+    		if (idGrupo == null || idGrupo <= 0) {
                 throw new IllegalArgumentException("ID do imóvel inválido.");
             }
-            List<ImovelModel> imoveis = imovelRepository.findAllInGrupo(idGrupo);
-
-            return imoveis;
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
-        }
+    		List<ImovelModel> imoveis = imovelRepository.findAllInGrupo(idGrupo);
+    		System.out.println(imoveis);
+    		System.out.println("pindamonahngaba");
+    		return imoveis;
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
+    	}
     }
-
+    
+    public List<ImovelModel> buscarTodos() {
+    	return imovelRepository.findAll();
+    }
+    
     public String apagarImovelPorId(Long idImovel) {
         try {
             if (idImovel == null || idImovel <= 0) {

@@ -44,7 +44,9 @@
     <form onsubmit="mandarImovel(event)" id="cad_imovel">
 
 		<h3 id="subtituloImovel">Dados do imóvel</h3>
-
+	
+		<input type="hidden" name="idGrupo" class="imovelInput" style="display: none;" th:value="${grupo.id}"/>
+		
         <div class="imagem-upload" id="imagemImovelDiv">
             <input type="file" id="imagemInput" name="imagem" accept="image/*" style="display: none;" />
 

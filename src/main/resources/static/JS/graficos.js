@@ -110,51 +110,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         }]
     });
 
-    //chart receitas e despesas mensais
-    Highcharts.chart('container-receitasdespesas', {
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Receitas/Despesas Mensais'
-        },
-        xAxis: {
-            categories: [
-                'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
-                'Out', 'Nov', 'Dec'
-            ]
-        },
-        yAxis: {
-            title: {
-                text: 'Valor (R$)'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: 'Receitas/Mês',
-            color: '#00a650',
-            data: [
-                16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-                22.0, 17.8
-            ]
-        }, {
-            name: 'Despesas/Mês',
-            color: '#FF0000',
-            data: [
-                -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
-                2.0, -0.9
-            ]
-        }]
-    });
-});
-
 async function buscarDados(imovelId) {
     const url = `http://localhost:8080/imovel/buscar/performance/${imovelId}`;
 
@@ -212,3 +167,51 @@ function gerarGrafico(valores, categorias) {
         }]
     });
 }
+
+	//chart receitas e despesas mensais
+	try {
+		const response = await fetch(`/api/graficos/ReceitaDespesa/${idImovel}`);
+		if (!response.ok) throw new Error('Erro ao buscar dados de receitas/despesas');
+		const data = await response.json();
+
+		Highcharts.chart('container-receitasdespesas', {
+			chart: {
+				type: 'line'
+			},
+			title: {
+				text: 'Receitas/Despesas Mensais'
+			},
+			xAxis: {
+				categories: data.meses
+			},
+			yAxis: {
+				title: {
+					text: 'Valor (R$)'
+				}
+			},
+			plotOptions: {
+				line: {
+					dataLabels: {
+						enabled: true
+					},
+					enableMouseTracking: false
+				}
+			},
+			series: [
+				{
+					name: 'Receitas/Mês',
+					color: '#00a650',
+					data: data.receita
+				},
+				{
+					name: 'Despesas/Mês',
+					color: '#FF0000',
+					data: data.despesa
+				}
+			]
+		});
+	} catch (error) {
+		console.error('Erro ao carregar gráfico de receitas/despesas:', error);
+	}
+});
+

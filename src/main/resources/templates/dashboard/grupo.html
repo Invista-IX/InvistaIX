@@ -47,12 +47,13 @@
 <main>
     <header>
         <div>
+			<h1 style="display: none;" id="idGrupo" th:text="${grupo.id}"></h1>
             <h1 class="titulo">Imóveis</h1>
             <p class="subtitulo">Gerencie sua carteira de imóveis</p>
         </div>
         <div class="acoes">
             <a href="#"><button class="sair_grupo">Sair do grupo</button></a>
-            <a href="#"><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
+            <a th:href="@{/imovel/grupo={idGrupo}/cadastrarImovel(idGrupo=${grupo.id})}" ><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
         </div>
     </header>
 	
@@ -85,7 +86,7 @@
 	</footer>
 </main>
 
-<script src=""></script>
+<script src="/js/dashboard/grupo.js"></script>
 
 </body>
 
