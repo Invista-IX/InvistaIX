@@ -72,4 +72,11 @@ public class ReceitaModel {
     public void setIdImovel(Long idImovel) {
         this.idImovel = idImovel;
     }
+
+    private double trataNull(Double valor) {
+        return valor != null ? valor : 0.0;
+    }
+    public double getSoma(){
+        return trataNull(getAluguel()) + trataNull(getReceitaAvulsa());
+    }
 }
