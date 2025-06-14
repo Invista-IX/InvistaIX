@@ -3,14 +3,20 @@ package br.com.invistaix.InvistaIX.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.util.List;
+import java.util.Optional;
 import java.time.YearMonth;
 import java.util.*;
 
 import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
 import br.com.invistaix.InvistaIX.model.*;
+import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
+import br.com.invistaix.InvistaIX.model.DespesaModel;
+import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 
 @Service
@@ -30,6 +36,7 @@ public class ImovelService {
 
     @Autowired
     private ReceitaService receitaService;
+
 
     public ImovelModel salvarImovel(ImovelModel imovel) {
         try {
