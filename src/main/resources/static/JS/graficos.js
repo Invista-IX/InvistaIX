@@ -77,71 +77,67 @@ window.addEventListener('DOMContentLoaded', async () => {
 	});
 	
 	//chart lucro mensal
-	Highcharts.chart('container-lucro', {
-	    chart: {
-	        type: 'column'
-	    },
-	    title: {
-	        text: 'Lucro Mensal'
-	    },
-	    xAxis: {
-	        type: 'category',
-	        labels: {
-	            autoRotation: [-45, -90],
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    },
-	    yAxis: {
-	        min: 0,
-	        title: {
-	            text: 'Valor (R$)'
-	        }
-	    },
-	    legend: {
-	        enabled: false
-	    },
-	    tooltip: {
-	        pointFormat: 'Lucro: <b>R${point.y:.2f}</b>'
-	    },
-	    series: [{
-	        name: 'Lucro',
-	        colors: [
-	            '#00a650',
-	        ],
-	        colorByPoint: true,
-	        groupPadding: 0,
-	        data: [
-	            ['Jan', 37.33],
-	            ['Fev', 31.18],
-	            ['Mar', 27.79],
-	            ['Abr', 22.23],
-	            ['Mai', 21.91],
-	            ['Jun', 21.74],
-	            ['Jul', 21.32],
-	            ['Ago', 20.89],
-	            ['Set', 20.67],
-	            ['Out', 19.11],
-	            ['Nov', 16.45],
-	            ['Dec', 16.38],
-	        ],
-	        dataLabels: {
-	            enabled: true,
-	            rotation: -90,
-	            color: '#FFFFFF',
-	            inside: true,
-	            verticalAlign: 'top',
-	            format: '{point.y:.2f}', // one decimal
-	            y: 10, // 10 pixels down from the top
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    }]
-	});
+    fetch(`/api/graficos/ReceitaDespesa/${idImovel}`)
+      .then(response => response.json())
+      .then(data => {
+        const lucroMensal = data.meses.map((mes, index) => {
+          const valor = data.lucro[index];
+          return {
+            name: mes,
+            y: valor,
+            color: valor >= 0 ? '#00a650' : '#d9534f'
+          };
+        });
+
+        Highcharts.chart('container-lucro', {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Lucro Mensal'
+          },
+          xAxis: {
+            type: 'category',
+            labels: {
+              autoRotation: [-45, -90],
+              style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+              }
+            }
+          },
+          yAxis: {
+            title: {
+              text: 'Valor (R$)'
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          tooltip: {
+            pointFormat: 'Lucro: <b>R${point.y:.2f}</b>'
+          },
+          series: [{
+            name: 'Lucro',
+            data: lucroMensal,
+            dataLabels: {
+              enabled: false,
+              rotation: -90,
+              color: '#FFFFFF',
+              inside: true,
+              verticalAlign: 'top',
+              format: '{point.y:.2f}',
+              y: 10,
+              style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+              }
+            }
+          }]
+        });
+      });
+
+
 
 	//chart receitas e despesas mensais
 	try {
