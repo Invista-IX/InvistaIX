@@ -14,10 +14,10 @@ public class AvaliacaoModel {
         @Column(name = "idavaliacao")
         private Long idavaliacao;
 
-        @Column(name = "valor", nullable = false)
+        @Column(name = "valorAvaliacao", nullable = false)
         private Double valorAvaliacao;
 
-        @Column(name = "cnpjavaliador", nullable = false, length = 14)
+        @Column(name = "cnpj", nullable = false, length = 14)
         private String cnpj;
 
         @Column(name = "idimovel", nullable = false)
@@ -27,10 +27,10 @@ public class AvaliacaoModel {
         @DateTimeFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataAvaliacao;
 
-        @Column(name = "razaosocialavaliador", nullable = false, length = 130)
-        private String razaoSocialAvaliador;
+        @Column(name = "razaoSocial", nullable = false, length = 130)
+        private String razaoSocial;
 
-        @Column(columnDefinition = "TEXT", nullable = false, name = "pdf_base64")
+        @Column(columnDefinition = "TEXT", nullable = false)
         private String docAvaliacao;
 
         @Transient
@@ -45,7 +45,7 @@ public class AvaliacaoModel {
             this.cnpj = cnpj;
             this.idimovel = idimovel;
             this.dataAvaliacao= dataAvaliacao;
-            this.razaoSocialAvaliador = razaoSocial;
+            this.razaoSocial= razaoSocial;
             this.docAvaliacao = docAvaliacao;
             this.docAvaliacaoFile = docAvaliacaoFile;
         }
@@ -91,11 +91,11 @@ public class AvaliacaoModel {
     }
 
     public String getRazaoSocial() {
-        return razaoSocialAvaliador;
+        return razaoSocial;
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocialAvaliador = razaoSocial;
+        this.razaoSocial = razaoSocial;
     }
 
     public String getDocAvaliacao() {
@@ -115,5 +115,3 @@ public class AvaliacaoModel {
     }
 
 }
-
-
