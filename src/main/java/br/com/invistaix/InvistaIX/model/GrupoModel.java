@@ -1,10 +1,18 @@
 package br.com.invistaix.InvistaIX.model;
 
 import java.io.IOException;
+import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +20,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
@@ -23,7 +32,7 @@ public class GrupoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgrupo")
-    private Integer id;
+    private Long id;
     
     @Column(nullable = false, length = 45)
     private String nome;
@@ -34,11 +43,14 @@ public class GrupoModel {
     @Column(nullable = false, length = 45)
     private String senha;
     
-    @Lob
     @Column(nullable = true)
-    private byte[] imagem_base64;
+    private String imagem_base64;
+    
+    @JsonIgnore
+    @ManyToMany(mappedBy = "grupos")
+    private Set<UsuarioModel> usuarios = new HashSet<>();
 
-	public GrupoModel(Integer id, String nome, String codigo, String senha, byte[] imagem_base64) {
+	public GrupoModel(Long id, String nome, String codigo, String senha, String imagem_base64) {
 		this.id = id;
 		this.nome = nome;
 		this.codigo = codigo;
@@ -50,11 +62,11 @@ public class GrupoModel {
 		
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -83,33 +95,37 @@ public class GrupoModel {
 	}
 
 	public String getImagem_base64() {
-		try {
-			String base64Data = Base64.getEncoder().encodeToString(imagem_base64);
-	        System.out.println(base64Data);
-			return base64Data;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
+		return imagem_base64;
+	}
+	
+	public void setImagem_base64(String imagem_base64) {
+		this.imagem_base64 = imagem_base64;
 	}
 
-	public void setImagem_base64(MultipartFile imagem_base64) {
-		byte[] cpy;
-		try {
-			cpy = imagem_base64.getBytes();
-			this.imagem_base64 = cpy;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			this.imagem_base64 = null;
-		}
-		
+	public Set<UsuarioModel> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<UsuarioModel> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public void adicionarUsuario(UsuarioModel usuario) {
+		usuarios.add(usuario);
+	}
+	
+	public void removerUsusario(UsuarioModel usuario) {
+		usuarios.remove(usuario);
 	}
 
 	@Override
 	public String toString() {
+		ArrayList<String> idUsuarios = new ArrayList<String>();
+		for(UsuarioModel usuario: usuarios) {
+			idUsuarios.add(Long.toString(usuario.getId()));
+		}
 		return "GrupoModel [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", senha=" + senha
-				+ ", imagem_base64=" + Arrays.toString(imagem_base64) + "]";
+				+ ", imagem_base64=" + imagem_base64 + ", usuarios=" + idUsuarios.toString() + "]";
 	}
     
 }

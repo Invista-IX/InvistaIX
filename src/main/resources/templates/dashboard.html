@@ -46,6 +46,7 @@
 <!-- Conteúdo principal -->
 <main>
     <header>
+		<h1 th:text="${usuario.id}" id="usuarioId" style="display: none;"></h1>
         <div>
             <h1 class="titulo">Dashboard</h1>
             <p class="subtitulo">Visão geral da seus grupos de imóveis e desempenho</p>
@@ -66,16 +67,7 @@
     	<div class="cards" id="cards_container">
 		
 			<!-- Cards aplicados dinamicamente -->
-        	<!-- Card exemplo -->
-			<a href="dashboard/grupo/0">
-        	<div class="card">
-            	<img class="card-img" src="https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg" alt="Grupo Exemplo">
-            	<h3 class="card-h3">Grupo Exemplo</h3>
-            	<p class="card-p">Valor total<br>R$ 1.320.000</p>
-            	<p>Total de imóveis<br>8</p>
-            	<p>Total de Gestores<br>10</p>
-        	</div>
-			</a>
+
     	</div>
 	
 		</div>

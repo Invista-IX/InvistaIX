@@ -41,13 +41,13 @@ public class PerfilControllerTest {
     @Test
     void excluirConta_usuarioLogado_excluiESessaoInvalida() {
         UsuarioModel usuario = new UsuarioModel();
-        usuario.setId(1);
+        usuario.setId(1L);
 
         when(session.getAttribute("usuarioLogado")).thenReturn(usuario);
 
         ResponseEntity<String> response = perfilController.excluirConta(session);
 
-        verify(usuarioService).apagarUsuario(1);
+        verify(usuarioService).apagarUsuario(1L);
         verify(session).invalidate();
 
         assertEquals(200, response.getStatusCodeValue());

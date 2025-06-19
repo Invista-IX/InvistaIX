@@ -27,7 +27,7 @@ public class ImovelController {
     GrupoService grupoService;
 
     @GetMapping("/grupo={idGrupo}/cadastrarImovel")
-    public String formCadastro(@PathVariable Integer idGrupo, Model model) {
+    public String formCadastro(@PathVariable Long idGrupo, Model model) {
     	GrupoModel grupo = grupoService.encontrarPorId(idGrupo);
     	if(grupo == null) {
     		return "redirect:/dashboard";
@@ -86,25 +86,12 @@ public class ImovelController {
     		if (imovel.getIdGrupo() != idGrupo) {
     			throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
     		}
-    		DespesaModel despesa = new DespesaModel();
-    		despesa.setIdImovel(idImovel);
     		model.addAttribute("imovel", imovel);
     		model.addAttribute("idGrupo", idGrupo);
     		return "imovel/graficos";
     	} catch (Exception ex) {
     		throw new RuntimeException(ex.getMessage(), ex);
     	}
-}
-//    @Autowired
-//    private GraficoService service;
-//
-//    @GetMapping("/graficos")
-//    public String mostrarGraficos(Model model) {
-//        GraficoModel receitaDespesa = service.buscarDadosGrafico();
-//        model.addAttribute("meses", receitaDespesa.getMeses());
-//        model.addAttribute("receita", receitaDespesa.getReceita());
-//        model.addAttribute("despesa", receitaDespesa.getDespesa());
-//        return "graficos";
-//    }
+    }
 }
 
