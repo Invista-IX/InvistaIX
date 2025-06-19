@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,7 +48,7 @@ public class GrupoModel {
     private String imagem_base64;
     
     @JsonIgnore
-    @ManyToMany(mappedBy = "grupos")
+    @ManyToMany(mappedBy = "grupos", fetch = FetchType.EAGER)
     private Set<UsuarioModel> usuarios = new HashSet<>();
 
 	public GrupoModel(Long id, String nome, String codigo, String senha, String imagem_base64) {

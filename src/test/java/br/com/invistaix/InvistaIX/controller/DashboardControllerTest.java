@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.repository.GrupoRepository;
 import br.com.invistaix.InvistaIX.service.GrupoService;
+import br.com.invistaix.InvistaIX.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 
 @SpringBootTest
@@ -35,6 +37,9 @@ public class DashboardControllerTest {
 	@Autowired
 	GrupoService grupoService;
 	
+	@Autowired
+	UsuarioService usuarioService;
+	
 	@Mock
 	private Model model;
 	
@@ -43,16 +48,22 @@ public class DashboardControllerTest {
 	
 	@Test
 	void dashboardUrlGetTest() throws Exception {
-		mockMvc.perform(get("/dashboard"))
+		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
+		
+		mockMvc.perform(get("/dashboard")
+				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L)))
 				.andExpect(status().isOk());
 		
-		String pagina = dashboardController.dashboardController(session);
+		String pagina = dashboardController.dashboardController(model, session);
 		assertEquals("dashboard", pagina);
 	}
 	
 	@Test
 	void cadastroGrupoUrlGetTest() throws Exception {
-		mockMvc.perform(get("/dashboard/cadastro_grupo"))
+		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
+		
+		mockMvc.perform(get("/dashboard/cadastro_grupo")
+				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L)))
 				.andExpect(status().isOk());
 		
 		String pagina = dashboardController.cadastrarGrupo(model, session);
@@ -61,7 +72,10 @@ public class DashboardControllerTest {
 	
 	@Test
 	void cadastroGrupoUrlPostTest() throws Exception {
+		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
+		
 		mockMvc.perform(post("/dashboard/cadastro_grupo")
+				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 				.param("nome", "grupo")
 				.param("codigo", "grupoTeste")
 				.param("senha", "senha"))
@@ -85,6 +99,8 @@ public class DashboardControllerTest {
 	
 	@Test
 	void grupoUrlGetTest() throws Exception {
+		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
+		
 		GrupoModel grupoTeste = new GrupoModel();
 		grupoTeste.setNome("grupo3");
 		grupoTeste.setCodigo("grupoTeste3");
@@ -92,10 +108,11 @@ public class DashboardControllerTest {
 		
 		dashboardController.salvarGrupo(grupoTeste, model, session);
 		
-		String url = "/dashboard/grupo/" + grupoTeste.getId().toString();
+		String url = "/dashboard/grupo=" + grupoTeste.getId().toString();
 		System.out.println(url);
 		
-		mockMvc.perform(get(url))
+		mockMvc.perform(get(url)
+				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L)))
 				.andExpect(status().isOk());
 		
 		grupoService.apagarGrupo(grupoTeste.getId());
@@ -104,6 +121,7 @@ public class DashboardControllerTest {
 	@Test
 	void cadastrarEApagarGrupoTest() throws Exception {
 		mockMvc.perform(post("/dashboard/cadastro_grupo")
+				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 				.param("nome", "grupo")
 				.param("codigo", "grupoTeste")
 				.param("senha", "senha"))
@@ -119,6 +137,7 @@ public class DashboardControllerTest {
 	void cadastrarNomeNuloGrupoTest() throws Exception {
 		try {
 			mockMvc.perform(post("/dashboard/cadastro_grupo")
+					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("codigo", "grupoTeste")
 					.param("senha", "senha"))
 					.andExpect(status().is3xxRedirection())
@@ -136,6 +155,7 @@ public class DashboardControllerTest {
 	void cadastrarCodigoNuloGrupoTest() throws Exception {
 		try {
 			mockMvc.perform(post("/dashboard/cadastro_grupo")
+					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("senha", "senha"))
 					.andExpect(status().is3xxRedirection())
@@ -153,6 +173,7 @@ public class DashboardControllerTest {
 	void cadastrarSenhaNuloGrupoTest() throws Exception {
 		try {
 			mockMvc.perform(post("/dashboard/cadastro_grupo")
+					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("codigo", "grupoTeste"))
 					.andExpect(status().is3xxRedirection())
@@ -170,6 +191,7 @@ public class DashboardControllerTest {
 	void cadastrarImagemNuloGrupoTest() throws Exception {
 		try {
 			mockMvc.perform(post("/dashboard/cadastro_grupo")
+					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("codigo", "grupoTeste")
 					.param("senha", "senha"))
