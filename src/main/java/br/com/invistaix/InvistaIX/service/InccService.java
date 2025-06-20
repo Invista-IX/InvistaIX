@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.service;
 
+import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.model.InccModel;
 import br.com.invistaix.InvistaIX.repository.InccRepository;
 import org.jsoup.Jsoup;
@@ -37,14 +38,14 @@ public class InccService {
         try {
             InccModel inccModel = new InccModel(Double.parseDouble(obterUltimoValorINCC().replace("%", "").replace(",", ".")), getHoje());
             inccRepository.save(inccModel);
-        }  catch (IOException e) {
+        } catch (IOException e) {
             logger.error("Erro de IO ao buscar o valor do INCC", e);
         } catch (RuntimeException e) {
             logger.error("Erro inesperado ao processar INCC", e);
         }
     }
 
-    public String obterUltimoValorINCC() throws IOException{
+    public String obterUltimoValorINCC() throws IOException {
         String url = "https://www.yahii.com.br/incc.html";
         String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 + "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -85,4 +86,23 @@ public class InccService {
             throw new IOException(e);
         }
     }
+
+    public List<InccModel> listarPorPeriodo(LocalDate inicio, LocalDate fim) {
+        try {
+            if (inicio == null || fim == null) {
+                throw new IllegalArgumentException("Período inválido: datas devem ser informadas.");
+            }
+            if (fim.isBefore(inicio)) {
+                throw new IllegalArgumentException("Data final deve ser igual ou posterior à data inicial.");
+            }
+            List<InccModel> inncs = inccRepository.findByDataBetween(inicio, fim);
+            return inncs;
+
+        } catch (IllegalArgumentException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao listar incc por período: " + ex.getMessage(), ex);
+        }
+    }
+
 }

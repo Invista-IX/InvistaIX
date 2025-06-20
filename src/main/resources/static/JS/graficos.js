@@ -1,6 +1,67 @@
 window.addEventListener('DOMContentLoaded', async () => {
-	let idImovel = document.getElementById('idImovel').textContent;
-	console.log(idImovel);
+    let idImovel = document.getElementById('idImovel').textContent;
+    console.log(idImovel);
+
+    //chart performance
+    buscarDados(idImovel);
+
+async function buscarDados(imovelId) {
+    const url = `http://localhost:8080/imovel/buscar/performance/${imovelId}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Erro ${response.status}`);
+        const data = await response.json();
+
+        const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+        const ordenado = data
+            .sort((a, b) => a.indice - b.indice)
+            .map(item => ({
+                valor: parseFloat(item.porcentagem),
+                mes: meses[new Date(item.data).getMonth()]
+            }));
+
+        const valores = ordenado.map(item => item.valor);
+        const categorias = ordenado.map(item => item.mes);
+
+        gerarGrafico(valores, categorias);
+    } catch (error) {
+        console.error('Erro ao buscar performance:', error);
+    }
+}
+
+function gerarGrafico(valores, categorias) {
+    Highcharts.chart('container-performance', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Performance do Imóvel'
+        },
+        xAxis: {
+            categories: categorias
+        },
+        yAxis: {
+            title: {
+                text: 'Performance (%)'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Desempenho/Mês',
+            color: '#00a650',
+            data: valores
+        }]
+    });
+}
 
 	//chart valorização
 	Highcharts.chart('container-valorizacao', {
@@ -39,43 +100,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	    }]
 	});
 	
-	//chart performance
-	Highcharts.chart('container-performance', {
-	    chart: {
-	        type: 'line'
-	    },
-	    title: {
-	        text: 'Performance do Imóvel'
-	    },
-	    xAxis: {
-			categories: [
-			    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
-			    'Out', 'Nov', 'Dec'
-			]
-	    },
-	    yAxis: {
-	        title: {
-	            text: 'Performance (%)'
-	        }
-	    },
-	    plotOptions: {
-	        line: {
-	            dataLabels: {
-	                enabled: true
-	            },
-	            enableMouseTracking: false
-	        }
-	    },
-	    series: [{
-	        name: 'Desempenho/Mês',
-			color: '#00a650',
-	        data: [
-	            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-	            22.0, 17.8
-	        ]
-	    }]
-	});
-	
+
 	//chart lucro mensal
     fetch(`/api/graficos/ReceitaDespesa/${idImovel}`)
       .then(response => response.json())
@@ -137,8 +162,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         });
       });
 
-
-
 	//chart receitas e despesas mensais
 	try {
 		const response = await fetch(`/api/graficos/ReceitaDespesa/${idImovel}`);
@@ -185,3 +208,4 @@ window.addEventListener('DOMContentLoaded', async () => {
 		console.error('Erro ao carregar gráfico de receitas/despesas:', error);
 	}
 });
+
