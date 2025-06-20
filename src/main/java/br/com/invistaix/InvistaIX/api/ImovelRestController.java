@@ -45,17 +45,6 @@ public class ImovelRestController {
         }
     }
 
-    public List<ImovelModel> encontrarPorGrupo(@PathVariable Integer idGrupo) {
-        try {
-            return imovelService.buscarImoveisNoGrupo(idGrupo);
-        } catch (IllegalArgumentException ex) {
-            return null;
-        } catch (Exception ex) {
-            return null;
-        }
-    }
-
-
     @GetMapping("/buscar/performance/{imovelId}")
     public ResponseEntity<?> getPerformance(@PathVariable Long imovelId) {
         try {
@@ -66,7 +55,7 @@ public class ImovelRestController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
-      
+    }
     @GetMapping("/findAllByGupo={idGrupo}")
     public List<ImovelModel> encontrarPorGrupo(@PathVariable Long idGrupo) {
     	try {
