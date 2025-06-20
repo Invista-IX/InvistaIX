@@ -33,9 +33,8 @@ window.addEventListener("load", async () => {
 });
 
 function criarElementoCardImovel(item) {
-	const base64String = "data:image/png;base64," + item.imagemBase64;
-    console.log(base64String);
-
+	console.log(item.imagemBase64);
+	base64String = item.imagemBase64;
     const imagem = document.createElement("img");
     fetch(base64String)
         .then(res => res.blob())
@@ -78,17 +77,6 @@ function criarElementoCardImovel(item) {
 	preco.appendChild(document.createElement("br"));
 	preco.appendChild(preco_value);
 	
-	const area_value = document.createElement("p");
-	area_value.classList.add("card-p");
-	area_value.innerText = item.area;
-
-    const area = document.createElement("p");    
-    area.classList.add("card-p");
-	area.classList.add("card-area");
-    area.innerText = "Área";
-	area.appendChild(document.createElement("br"));
-	area.appendChild(area_value);
-	
 	const botao_gerenciar = document.createElement("button");
 	botao_gerenciar.classList.add("gerenciar_imovel");
 	botao_gerenciar.innerText = "Gerenciar Imóvel"
@@ -112,7 +100,6 @@ function criarElementoCardImovel(item) {
     imovel_card.appendChild(imagem);
     imovel_card.appendChild(nome);
     imovel_card.appendChild(matricula);
-    imovel_card.appendChild(area);
     imovel_card.appendChild(preco);
 	imovel_card.appendChild(gerenciar_link);
 	imovel_card.appendChild(analisar_link);

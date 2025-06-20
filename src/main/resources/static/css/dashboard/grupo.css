@@ -203,11 +203,9 @@
 	  display: grid;
 	  grid-template-areas: 
 	  		"img img"
-			"img img"
 			"titulo titulo"
 			"matricula matricula"
 			"valor valor"
-			"area area"
 			"text text" 
 			"gerenciar gerenciar"
 			"analisar analisar";
@@ -224,7 +222,7 @@
     .card-img {
 	  grid-area: img;
       width: calc(100% + 40px);
-	  max-height: 50%;
+	  max-height: 144px;
       margin-left: -20px;
       margin-top: -20px;
       margin-bottom: 10px;
@@ -235,13 +233,13 @@
     .card-h3 {
 	  grid-area: titulo;
       font-size: 18px;
-      margin-bottom: 10px;
+      margin-bottom: 2px;
     }
 
     .card-p {
       font-size: 15px;
       color: #333;
-      margin-bottom: 6px;
+      margin-bottom: 2px;
       line-height: 1.3;
     }
 	
@@ -251,10 +249,6 @@
 	
 	.card-valor {
 		grid-area: valor;
-	}
-	
-	.card-area {
-		grid-area: area;
 	}
 	
 	.analisar_link {
@@ -287,6 +281,7 @@
 	    width: 100%;
 	    height: 36px;
 	    background-color: rgb(192, 192, 192);
+		margin-bottom: 4px;
 	}
 	
 	footer {
