@@ -13,7 +13,7 @@ public class ProprietarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idproprietario")
-    private Integer id;
+    private Long id;
     
     @Column(name = "nome", nullable = false, length = 45)
     private String nome;
@@ -33,7 +33,7 @@ public class ProprietarioModel {
     @Column(name = "telefone", nullable = true, length = 16)
     private String telefone;
     
-    public ProprietarioModel(Integer id, String nome, String sobrenome, Character tipoPessoa, String cnpjCpf, String telefone, String email) {
+    public ProprietarioModel(Long id, String nome, String sobrenome, Character tipoPessoa, String cnpjCpf, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -46,11 +46,11 @@ public class ProprietarioModel {
     public ProprietarioModel() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
