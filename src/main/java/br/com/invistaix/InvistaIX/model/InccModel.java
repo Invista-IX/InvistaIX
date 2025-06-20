@@ -9,7 +9,7 @@ public class InccModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idIncc")
+    @Column(name = "idincc")
     private Integer idIncc;
 
     @Column(name = "porcentagem", nullable = false)
