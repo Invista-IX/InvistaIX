@@ -4,9 +4,6 @@ alter table endereco
 alter table endereco
     add CEP varchar(8);
 
-alter table endereco
-    drop bairro;
-
 alter table imovel
     add numero_matricula varchar(15);
 
