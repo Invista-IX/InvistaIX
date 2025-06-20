@@ -343,8 +343,39 @@
     }
 
     #valor{
-    margin-bottom: 16px;
+	    margin-bottom: 16px;
     }
+	
+	#modalContentExcluir {
+		display: grid;
+		grid-template-areas:
+				"texto texto texto"
+				"cancelar . excluir";
+	}
+	
+	#mensagemExcluirTexto {
+		grid-area: texto;
+	}
+	
+	#botao_cancelar {
+		grid-area: cancelar;
+	}
+	
+	#botao_excluir {
+		grid-area: excluir;	
+	}
+	
+	.btn-excluir {
+	    width: 100px;
+	    color: white;
+	    border: none;
+	    padding: 0.4rem 1.5rem;
+	    font-weight: bold;
+	    font-size: 0.75rem;
+	    border-radius: 7px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	}
 
 </style>
 <body>
@@ -378,10 +409,10 @@
             </div>
             <div class="actions">
                 <button type="button" class="delete"
-                        th:onclick="'window.location=\'/imoveis/' + ${imovel.id} + '/excluir\''">Excluir Imóvel
+                        onclick="exibirModalExcluir()">Excluir Imóvel
                 </button>
                 <button type="button" class="edit"
-                        th:onclick="'window.location=\'/imoveis/' + ${imovel.id} + '/editar\''">+ Editar Imóvel
+                        th:onclick="'window.location=\'/imovel/grupo=' + ${imovel.idGrupo} + '&imovel=' +  ${imovel.id} + '/editar\''">+ Editar Imóvel
                 </button>
             </div>
         </header>
@@ -560,6 +591,17 @@
         <div class="btn-container">
             <button onclick="fecharModalErro()" class="btn-ok">OK</button>
         </div>
+    </div>
+</div>
+<div id="modalExcluir" class="modal-overlay" style="display: none;">
+    <div id="modalContentExcluir" class="modal-content">
+        <p id="mensagemExcluirTexto"></p>
+        <div id="botao_cancelar" class="btn-container">
+            <button onclick="fecharModalExcluir()" class="btn-excluir" style="background-color: black;">Cancelar</button>
+        </div>
+		<div id="botao_excluir" class="btn-container">
+			<button onclick="excluirImovel()" class="btn-excluir" style="background-color: red;">Excluir</button>
+		</div>
     </div>
 </div>
 <div id="toastSucesso" class="toast-sucesso"></div>
