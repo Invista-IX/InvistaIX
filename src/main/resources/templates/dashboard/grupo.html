@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - InvistaIX</title>
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard/grupo.css">
+</head>
+<body>
+
+<!-- Menu lateral -->
+<aside>
+	<div class="logo">
+		<a href="/dashboard">
+			<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+		</a>
+	</div>
+	    <nav>
+            <ul>
+                <h4 style="margin-bottom: 10px;">Menu</h4>
+                <li>
+                    <a href="/dashboard">
+                        <span class="material-icons">dashboard</span>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    <div class="perfil">
+        <h4>Perfil</h4>
+        <a href="#">
+            <span class="material-icons">person</span>
+            Meus Dados
+        </a>
+        <a href="/">
+            <span class="material-icons">logout</span>
+            Sair
+        </a>
+    </div>
+</aside>
+
+<!-- Conteúdo principal -->
+<main>
+    <header>
+        <div>
+			<h1 style="display: none;" id="idGrupo" th:text="${grupo.id}"></h1>
+            <h1 class="titulo">Imóveis</h1>
+            <p class="subtitulo">Gerencie sua carteira de imóveis</p>
+        </div>
+        <div class="acoes">
+            <a href="#"><button class="sair_grupo">Sair do grupo</button></a>
+            <a th:href="@{/imovel/grupo={idGrupo}/cadastrarImovel(idGrupo=${grupo.id})}" ><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
+        </div>
+    </header>
+	
+	<div>
+		<div class="desc">
+			<input id="pesquisa_imovel" type="text" placeholder="Buscar Imoveis"/>
+		</div>
+
+	
+    	<div class="cards" id="cards_container">
+		
+			<!-- Cards aplicados dinamicamente -->
+		
+    	</div>
+	
+		</div>
+	
+	<footer>
+		© 2025 InvistaIX. Todos os direitos reservados.
+	</footer>
+</main>
+
+<script src="/js/dashboard/grupo.js"></script>
+
+</body>
+
+</html>

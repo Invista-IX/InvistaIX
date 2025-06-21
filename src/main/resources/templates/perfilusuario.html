@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/perfilusuario.css">
+</head>
+<body>
+
+<aside>
+  <div class="logo">
+    <a href="/dashboard">
+      <img src="img/logo.png" alt="Logo InvistaIX" class="logo-img"/>
+    </a>
+  </div>
+  <nav>
+    <ul>
+      <h4 style="margin-bottom: 10px;">Menu</h4>
+      <li>
+        <a href="/dashboard">
+          <span class="material-icons">dashboard</span>
+          Dashboard
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="perfil">
+    <h4>Perfil</h4>
+    <a href="/perfil">
+      <span class="material-icons">person</span>
+      Meus Dados
+    </a>
+    <a href="/login">
+      <span class="material-icons">logout</span>
+      Sair
+    </a>
+  </div>
+</aside>
+
+<main class="conteudo">
+  <h1>Perfil do Usuário</h1>
+  <p class="subtitulo">Informações Pessoais</p>
+
+  <form class="formulario" method="post" th:action="@{/perfil/atualizar}" th:object="${usuario}">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="linha">
+      <div class="campo">
+        <label>Nome Completo / Razão Social</label>
+        <input type="text" th:field="*{nome}" placeholder="Fulano Souza">
+      </div>
+      <div class="campo">
+        <label>Telefone</label>
+        <input type="text" th:field="*{telefone}" placeholder="(11) 9 9999 9999">
+      </div>
+    </div>
+
+    <div class="linha">
+      <div class="campo">
+        <label>Email</label>
+        <input type="email" th:field="*{email}" placeholder="fulano@gmail.com" readonly>
+      </div>
+      <div class="campo">
+        <label>Tipo de Pessoa</label>
+        <input type="text" th:field="*{tipoPessoa}" placeholder="Pessoa Física">
+      </div>
+    </div>
+
+    <div class="linha">
+      <div class="campo cpf">
+        <label>CPF/CNPJ</label>
+        <input type="text" th:field="*{cpfCnpj}" placeholder="CPF/CNPJ">
+      </div>
+      <div class="campo excluir">
+        <button class="btn-lixeira" id="btn-excluir">🗑</button>
+      </div>
+    </div>
+
+    <div class="botoes">
+      <button type="reset" class="btn cancelar">Cancelar</button>
+      <button type="submit" class="btn salvar">Salvar</button>
+    </div>
+  </form>
+
+</main>
+</div>
+
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-box">
+    <p>Tem certeza que deseja excluir sua conta?</p>
+    <div class="popup-botoes">
+      <button class="btn cancelar-popup" onclick="fecharPopup()">Cancelar</button>
+      <button class="btn excluir-popup" onclick="confirmarExclusao()">Excluir</button>
+    </div>
+  </div>
+</div>
+<script>
+  const popup = document.getElementById('popup-overlay');
+const btnExcluir = document.querySelector('.btn-lixeira');
+
+btnExcluir.addEventListener('click', function (e) {
+  e.preventDefault();
+  popup.style.display = 'flex';
+});
+
+function fecharPopup() {
+  popup.style.display = 'none';
+}
+
+function confirmarExclusao() {
+  fetch('/perfil/excluir', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Conta excluída com sucesso');
+      window.location.href = '/login';
+    } else {
+      alert('Erro ao excluir a conta.');
+    }
+  });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Página de Recuperação de Senha</title>
+    <link rel="stylesheet" href="css/esqueceuasenha.css">
+
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <img src="img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+        </a>
+    </div>
+</header>
+
+<main>
+    <img src="img/img.png" alt="Cadeado">
+
+    <div class="conteudo">
+        <h2>ESQUECEU A SENHA?</h2>
+        <p>Informe seu e-mail para recuperar a senha</p>
+
+        <form id="form-esqueci-senha" action="/esqueceuasenha" method="post">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="fulano@gmail.com" required />
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="mensagem" style="margin-top: 10px; font-weight: bold;"></div>
+
+        <div class="voltar">
+            <a href="/login">Voltar ao login</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © 2025 InvistaIX. Todos os direitos reservados.
+</footer>
+
+<script src="JS/esqueceuasenha.js"></script>
+</body>
+</html>
+
+

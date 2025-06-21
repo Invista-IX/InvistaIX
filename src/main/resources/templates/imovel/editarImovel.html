@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cadastrar Novo Imóvel - InvistaIX</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/editarImovel.css">
+</head>
+<body>
+	
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
+
+<div class="layout">
+	
+	<header class="header">
+		<div class="info">
+			<h1 id="idImovel" style="display: none" th:text="${imovel.id}"></h1>
+			<h1 id="idGrupo" style="display: none" th:text="${idGrupo}"></h1>
+			<h1 class="title">Editar Imóvel</h1>
+			<p class="subtitle">
+	        	<span>Altere os campos que deseja editar</span>
+			</p>
+		</div>
+		<div class="actions">
+			<button type="button" class="delete"
+				th:onclick="'window.location=\'/imoveis/' + ${imovel.id} + '/excluir\''">Voltar
+			</button>
+		</div>
+	</header>
+	
+<main>
+	
+    <form onsubmit="mandarImovel(event)" id="cad_imovel" th:object="${imovel}">
+
+		<h3 id="subtituloImovel">Dados do imóvel</h3>
+	
+		<input type="hidden" name="idGrupo" id="idGrupo" class="imovelInput" style="display: none;" th:field="*{idGrupo}"/>
+		
+		<input type="hidden" name="id" id="idImovel" class="imovelInput" style="display: none;" th:field="*{id}"/>
+		
+		<input type="hidden" name="dataCadastro" class="imovelInput" style="display: none;" th:field="*{dataCadastro}"/>
+		
+        <div class="imagem-upload" id="imagemImovelDiv">
+            <input type="file" id="imagemInput" name="imagem" accept="image/*" style="display: none;" />
+
+            <label for="imagemInput">
+                <img src="#" style="display: none" id="preview">
+                <span class="material-icons" id="imgPlaceHolder">add_a_photo</span>
+                <p id="imgPlaceHolder">Adicionar imagem</p>
+            </label>
+            <input type="hidden" id="imagemBase64" name="imagemBase64" accept="image/*" />
+			
+			<input type="hidden" id="fakeImagemBase64" name="imagem"style="display: none;" th:field="*{imagemBase64}"/>
+			
+        </div>
+
+        <div id="nomeImovelDiv">
+            <label>Nome do Imóvel</label>
+            <input type="text" name="nome" id="nomeImovelInput" class="imovelInput" th:field="*{nome}" placeholder="Nome do imóvel" required>
+        </div>
+
+		<div id="areaImovelDiv">
+		    <label>Área do imóvel (m²)</label>
+		    <input type="number" name="area" id="areaImovelInput" class="imovelInput" th:field="*{area}" placeholder="Área do imóvel(m²)" required>
+		</div>
+
+		<div id="numeroMatriculaImovelDiv">
+		    <label>Número da Matrícula</label>
+		    <input type="text" name="numeroMatricula" id="numeroMatriculaImovelInput" class="imovelInput" th:field="*{numeroMatricula}" placeholder="Número da matrícula" required disabled>
+		</div>
+
+        <div id="valorMatriculaImovelDiv">
+            <label>Valor da Matrícula</label>
+			<input type="number" name="valorMatricula" id="fakeValorMatriculaImovelInput" th:field="*{valorMatricula}" style="display: none;" placeholder="R$ Valor da matrícula" disabled>
+            <input type="text" name="valorMatricula" id="valorMatriculaImovelInput" class="dinheiro imovelInput" placeholder="R$ Valor da matrícula" required disabled>
+        </div>
+
+		<div id="proprietarioSelect">
+		    <label>Selecione um métdodo</label>
+		    <select type="text" id="proprietarioImovelSelectInput" name="proprietarioSelect" disabled>
+				<option value="encontrar">Proprietario já cadastrado</option>
+				<option value="criar">Cadastrar novo proprietario</option>
+			</select>
+		</div>
+
+        <div id="proprietarioImovelDiv">
+            <label>CPF/CNPJ do Proprietário</label>
+            <input type="text" name="cnpjCpf" id="propritarioImovelInput" class="imovelInput" th:field="${proprietario.cnpjCpf}" placeholder="Informe o nome do proprietário" maxlength="18" required disabled>
+        </div>
+		
+		<input type="hidden" name="preco" id="fakePrecoImovelInput" style="display: none;" th:field="*{preco}"/>
+		<input type="hidden" name="preco" id="precoImovelInput" class="imovelInput" required />
+
+		<div id="cadastroProprietario">
+
+			<h3 id="subtituloProprietario" class="toggleProprietario">Dados do proprietário</h3>
+			
+			<input type="hidden" name="id" class="proprietarioInput" id="nomeProprietarioInput" th:field="${proprietario.id}" style="display: none" required disabled>
+
+			<div id="nomeProprietarioDiv" class="toggleProprietario">
+			    <label>Nome do Proprietário</label>
+			    <input type="text" name="nome" class="proprietarioInput" id="nomeProprietarioInput" th:field="${proprietario.nome}" placeholder="Nome do imóvel">
+			</div>
+
+			<div id="cpfCnpjProprietarioDiv" class="toggleProprietario">
+			    <label id="labelCPFCNPJProprietario">CPF do Proprietário</label>
+			    <input type="text" name="cnpjCpf" class="proprietarioInput" id="cpfCpnjProprietarioInput" th:field="${proprietario.cnpjCpf}" placeholder="Nome do imóvel" maxlength="14" disabled>
+			</div>
+
+			<div id="sobrenomeProprietarioDiv" class="toggleProprietario">
+			    <label>Sobrenome do Proprietário</label>
+			    <input type="text" name="sobrenome" class="proprietarioInput" id="sobrenomeProprietarioInput" th:field="${proprietario.sobrenome}" placeholder="Nome do imóvel">
+			</div>
+
+			<div id="tipoPessoaProprietarioDiv" class="toggleProprietario">
+			    <label>Tipo de Pessoa do Proprietário</label>
+				<select type="text" id="tipoPessoaProprietarioSelect" class="proprietarioInput" th:field="${proprietario.tipoPessoa}" name="tipoPessoa" disabled>
+					<option value="F">Pessoa Física</option>
+					<option value="J">Pessoa Jurídica</option>
+				</select>
+			</div>
+
+			<div id="emailProprietarioDiv" class="toggleProprietario">
+			    <label>Email do Proprietário</label>
+			    <input type="email" name="email" class="proprietarioInput" id="emailProprietarioInput" th:field="${proprietario.email}" placeholder="Nome do imóvel">
+			</div>
+
+			<div id="telefoneProprietarioDiv" class="toggleProprietario">
+			    <label>Telefone do proprietário (opcional)</label>
+			    <input type="tel" name="telefone" class="proprietarioInput" id="telefoneProprietarioInput" th:field="${proprietario.telefone}" placeholder="Nome do imóvel">
+			</div>
+
+		</div>
+
+		<h3 id="subtituloEndereco">Dados do endereço</h3>
+		
+		<input type="hidden" name="id" id="idEnderecoInput" class="enderecoInput" th:field="${endereco.id}" style="display: none;" required/>
+
+		<div id="ruaEnderecoDiv">
+		    <label>Rua</label>
+		    <input type="text" name="rua" id="ruaEnderecoInput" class="enderecoInput" th:field="${endereco.rua}" placeholder="Nome da rua" required>
+		</div>
+
+		<div id="numeroEnderecoDiv">
+		    <label>Número</label>
+		    <input type="text" name="numero" id="numeroEnderecoInput" class="enderecoInput" th:field="${endereco.numero}" placeholder="Número" required>
+		</div>
+
+		<div id="loteamentoEnderecoDiv">
+		    <label>Loteamento</label>
+		    <input type="text" name="loteamento" id="loteamentoEnderecoInput" class="enderecoInput" th:field="${endereco.loteamento}" placeholder="Nome do loteamento" required>
+		</div>
+
+        <div id="cepEnderecoDiv">
+            <label>CEP</label>
+            <input type="text" name="CEP" id="cepEnderecoInput" class="enderecoInput" th:field="${endereco.CEP}" placeholder="CEP" required>
+        </div>
+
+        <div id="cidadeEnderecoDiv">
+            <label>Cidade</label>
+            <input type="text" name="cidade"id="cidadeEnderecoInput" class="enderecoInput" th:field="${endereco.cidade}" placeholder="Cidade" required>
+        </div>
+
+		<div id="estadoEnderecoDiv">
+			<label>Estado</label>
+			<input type="hidden" id="fakeEstadoEnderecoInput" th:field="${endereco.estado}">
+		    <select type="text" name="estado" id="estadoEnderecoInput" class="enderecoInput" th:field="${endereco.estado}" placeholder="Escolha um estado">
+				<option value="AC">Acre</option>
+				<option value="AL">Alagoas</option>
+				<option value="AP">Amapá</option>
+				<option value="AM">Amazonas</option>
+				<option value="BA">Bahia</option>
+				<option value="CE">Ceará</option>
+				<option value="DF">Distrito Federal</option>
+				<option value="ES">Espirito Santo</option>
+				<option value="GO">Goiás</option>
+				<option value="MA">Maranhão</option>
+				<option value="MT">Mato Grosso</option>
+				<option value="MS">Mato Grosso do Sul</option>
+				<option value="MG">Minas Gerais</option>
+				<option value="PA">Pará</option>
+				<option value="PB">Paraíba</option>
+				<option value="PR">Paraná</option>
+				<option value="PE">Pernanbuco</option>
+				<option value="PI">Piauí</option>
+				<option value="RR">Roraima</option>
+				<option value="RO">Rondônia</option>
+				<option value="RJ">Rio de Janeiro</option>
+				<option value="RN">Rio Grande do Norte</option>
+				<option value="RS">Rio Grande do Sul</option>
+				<option value="SC">Santa Catarina</option>
+				<option value="SP">São Paulo</option>
+				<option value="PE">Sergipe</option>
+				<option value="TO">Tocantins</option>
+			</select>
+		</div>
+
+        <div class="form-footer" id="botaoCadastroDiv">
+            <button type="submit"id="botaoEnviar" class="btn-cadastrar">Atualizar</button>
+        </div>
+    </form>
+
+</main>
+
+<footer>
+    © 2025 InvistaIX. Todos os direitos reservados. 
+</footer>
+
+</div>
+<script src="https://unpkg.com/imask"></script>
+<script src="/js/editarImovel.js"></script>
+</body>
+</html>

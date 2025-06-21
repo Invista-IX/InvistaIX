@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cadastro - invistaIX</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/dashboard/cadastro_grupo.css">
+</head>
+
+<body>
+	
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		    <nav>
+	            <ul>
+	                <h4 style="margin-bottom: 10px;">Menu</h4>
+	                <li>
+	                    <a href="/dashboard">
+	                        <span class="material-icons">dashboard</span>
+	                        Dashboard
+	                    </a>
+	                </li>
+	            </ul>
+	        </nav>
+
+	    <div class="perfil">
+	        <h4>Perfil</h4>
+	        <a href="#">
+	            <span class="material-icons">person</span>
+	            Meus Dados
+	        </a>
+	        <a href="/">
+	            <span class="material-icons">logout</span>
+	            Sair
+	        </a>
+	    </div>
+	</aside>
+
+	<main>
+		
+		<header class="header">
+		    <div>
+		        <h1 class="titulo">Cadastrar Grupo</h1>
+		        <p class="subtitulo">Preencha os campos para criar o grupo</p>
+		    </div>
+		    <div class="acoes">
+		        <a href="/dashboard"><button class="voltar">Voltar</button></a>
+		    </div>
+		</header>	
+
+		
+    	<div class="form-box">
+
+			<form id="formCadastro" method="post" action="/dashboard/cadastro_grupo" enctype="multipart/form-data">
+				<div id="div_preview">
+					<label id="preview_label">Preview da imagem</label>
+					<div id="div_imagem">
+						<img id="imagem" src="https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg" alt="Image Preview" />
+					</div>
+				</div>
+				<div id="input_nome">
+			        <label id="nome">Nome</label>
+			        <input id="nome_input" type="text" name="nome" placeholder="Nome" required />
+			    </div>
+			    <div id="input_codigo">
+			        <label id="codigo">Código de acesso</label>
+			        <input id="codigo_input" type="text" name="codigo" placeholder="código de acesso" required />
+			    </div>
+			    <div id="input_senha">
+			        <label id="senha">Senha</label>
+			        <input id="senha_input" type="text" name="senha" placeholder="senha" required />
+			    </div>
+			    <div id="input_upload">
+			        <label id="imagem_upload">Imagem do grupo</label>
+			        <input id="input_imagem" type="file" accept="image/*" />
+			    </div>
+				<input id="string_imagem" name="imagem_base64" type="text" style="display: none;">
+			    <button id="botao" type="submit" class="btn">Cadastrar</button>
+			</form>
+    	</div>
+		
+		<footer>
+			© 2025 InvistaIX. Todos os direitos reservados.
+		</footer>
+		
+	</main>
+
+	<script src="/JS/dashboard/cadastro_grupo.js"></script>
+
+</body>
+
+</html>
