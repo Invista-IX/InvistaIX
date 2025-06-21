@@ -32,7 +32,7 @@ public class ProprietarioRestController {
 	}
 	
 	@GetMapping("/findById={id}")
-	public ProprietarioModel encontrarPorId(@PathVariable Integer id) {
+	public ProprietarioModel encontrarPorId(@PathVariable Long id) {
 		try {
 			return proprietarioService.encontrarPorId(id);
 		} catch (IllegalArgumentException ex) {

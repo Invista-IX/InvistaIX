@@ -15,6 +15,7 @@ import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.model.ProprietarioModel;
 import br.com.invistaix.InvistaIX.service.GrupoService;
 import br.com.invistaix.InvistaIX.service.ImovelService;
+import br.com.invistaix.InvistaIX.service.ProprietarioService;
 
 @Controller
 @RequestMapping("/imovel")
@@ -22,6 +23,9 @@ public class ImovelController {
 
     @Autowired
     private ImovelService imovelService;
+    
+    @Autowired
+    private ProprietarioService proprietarioService;
     
     @Autowired
     GrupoService grupoService;
@@ -37,6 +41,33 @@ public class ImovelController {
         model.addAttribute("endereco", new EnderecoModel());
         model.addAttribute("proprietario", new ProprietarioModel());
         return "imovel/cadastroImovel";
+    }
+    
+    @GetMapping("/grupo={idGrupo}&imovel={idImovel}/editar")
+    public String formEditar(@PathVariable Long idGrupo, @PathVariable Long idImovel, Model model) {
+    	try {
+            if (idGrupo == null || idGrupo <= 0) {
+                throw new IllegalArgumentException("ID do grupo inválido.");
+            }
+            if (idImovel == null || idImovel <= 0) {
+                throw new IllegalArgumentException("ID do imóvel inválido.");
+            }
+            ImovelModel imovel = imovelService.buscarPorId(idImovel);
+            if (imovel == null) {
+                throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
+            }
+            if (imovel.getIdGrupo() != idGrupo) {
+                throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
+            }
+            
+            model.addAttribute("imovel", imovel);
+            model.addAttribute("endereco", imovel.getEndereco());
+            model.addAttribute("proprietario", proprietarioService.encontrarPorId(imovel.getIdProprietario()));
+            System.out.println(imovel);
+            return "imovel/editarImovel";
+    	} catch (Exception ex) {
+    		throw new RuntimeException(ex.getMessage(), ex);
+    	}
     }
 
     @GetMapping("/grupo={idGrupo}&imovel={idImovel}/gerenciar")

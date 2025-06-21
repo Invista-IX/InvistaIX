@@ -241,6 +241,19 @@ function fecharModalErro() {
     modal.style.display = "none";
 }
 
+function exibirModalExcluir() {
+    const modal = document.getElementById("modalExcluir");
+    const texto = document.getElementById("mensagemExcluirTexto");
+
+    texto.textContent = "Você tem CERTEZA que deseja excluir o imóvel " + "?";
+    modal.style.display = "grid";
+}
+
+function fecharModalExcluir() {
+    const modal = document.getElementById("modalExcluir");
+    modal.style.display = "none";
+}
+
 document.addEventListener('click', function (event) {
     const modal = document.getElementById('modalErro');
     const conteudo = document.querySelector('#modalErro .modal-content');
@@ -262,6 +275,40 @@ function mostrarToastSucesso(mensagem) {
     setTimeout(() => {
         toast.classList.remove("mostrar");
     }, 3000);
+}
+
+function excluirImovel() {
+    try {
+        fecharModalExcluir()
+        const idimovel = document.getElementById('idimovel').value;
+        if (!idimovel) {
+            exibirModalErro('ID do imóvel não foi definido.');
+            return;
+        }
+
+        const url = "http://localhost:8080/imovel/deletar=" + idimovel;
+        
+        fetch(url, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.text();
+        })
+        .then(data => {
+            mostrarToastSucesso('Imóvel Excluído com sucesso');
+            location.replace("http://localhost:8080/dashboard");
+        })
+        .catch(error => {
+            exibirModalErro(error.message);
+        });
+    } catch {
+        exibirModalErro('Erro ao excluir imóvel: ' + err.message);
+    }
 }
 
 function enviarImposto(event) {
@@ -341,8 +388,11 @@ function enviarAvaliacao(event) {
             let valorTratado = input.value.replace(/\./g, '').replace(',', '.');
             dataAvaliacao[input.name] = valorTratado;
         });
-
-        const cnpj = document.getElementById('cnpj').value.trim();
+        const cnpjMask = IMask(document.getElementById('cnpj'), {
+                mask: '00.000.000/0000-00'
+        });
+        let cnpj = cnpjMask.unmaskedValue;
+        console.log("tratado: " + cnpj);
         if (!cnpj) {
             exibirModalErro('O CNPJ deve ser informado.');
             return;

@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.repository;
 
+import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.model.InccModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

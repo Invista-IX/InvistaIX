@@ -3,6 +3,7 @@ package br.com.invistaix.InvistaIX.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import java.time.LocalDate;
 
 @Entity
@@ -97,5 +98,13 @@ public class DespesaModel {
 
     public void setIdImovel(Long idImovel) {
         this.idImovel = idImovel;
+    }
+
+    private double trataNull(Double valor) {
+        return valor != null ? valor : 0.0;
+    }
+
+    public double getSoma() {
+        return trataNull(getManutencao()) + trataNull(getDespesaAvulsa()) + trataNull(getLuz()) + trataNull(getAgua());
     }
 }

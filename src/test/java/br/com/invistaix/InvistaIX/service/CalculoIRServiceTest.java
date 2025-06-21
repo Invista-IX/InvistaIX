@@ -54,7 +54,7 @@ public class CalculoIRServiceTest {
         imovel.setIdProprietario(1L);
 
         ProprietarioModel proprietario = new ProprietarioModel();
-        proprietario.setId(1);
+        proprietario.setId(1L);
         proprietario.setTipoPessoa('F');
 
         DespesaModel despesa = new DespesaModel();
@@ -64,7 +64,7 @@ public class CalculoIRServiceTest {
         despesa.setManutencao(100.0);
 
         when(imovelRepository.findById(idImovel)).thenReturn(Optional.of(imovel));
-        when(proprietarioRepository.findById(1)).thenReturn(Optional.of(proprietario));
+        when(proprietarioRepository.findById(1L)).thenReturn(Optional.of(proprietario));
         when(despesaRepository.findByIdImovelAndDataBetween(any(), any(), any()))
                 .thenReturn(Collections.singletonList(despesa));
         when(irRepository.save(any(IRModel.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -87,11 +87,11 @@ public class CalculoIRServiceTest {
         imovel.setIdProprietario(2L);
 
         ProprietarioModel proprietario = new ProprietarioModel();
-        proprietario.setId(2);
+        proprietario.setId(2L);
         proprietario.setTipoPessoa('J');
 
         when(imovelRepository.findById(idImovel)).thenReturn(Optional.of(imovel));
-        when(proprietarioRepository.findById(2)).thenReturn(Optional.of(proprietario));
+        when(proprietarioRepository.findById(2L)).thenReturn(Optional.of(proprietario));
         when(irRepository.save(any(IRModel.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         IRModel resultado = calculoIRService.salvarIR(receita, idImovel);
