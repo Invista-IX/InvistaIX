@@ -3,6 +3,7 @@ package br.com.invistaix.InvistaIX.api;
 import java.util.List;
 
 import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
+import br.com.invistaix.InvistaIX.DTO.ValorizacaoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,6 +58,20 @@ public class ImovelRestController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+    
+    @GetMapping("/grafico/valorizacao/{imovelId}")
+    public ResponseEntity<?> getValorizacao(@PathVariable Long imovelId) {
+        try {
+            List<ValorizacaoDTO> resultado = imovelService.buscaValorizacao(imovelId);
+            System.out.println(resultado);
+            return ResponseEntity.ok(resultado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+    
     @GetMapping("/findAllByGupo={idGrupo}")
     public List<ImovelModel> encontrarPorGrupo(@PathVariable Long idGrupo) {
     	try {
