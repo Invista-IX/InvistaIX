@@ -82,7 +82,7 @@ public class DashboardControllerTest {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/dashboard"));
 			
-		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 		System.out.println(grupoTeste.getCodigo());
 		grupoService.apagarGrupo(grupoTeste.getId());
 		
@@ -128,7 +128,7 @@ public class DashboardControllerTest {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/dashboard"));
 		
-		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 		System.out.println(grupoTeste.getCodigo());
 		grupoService.apagarGrupo(grupoTeste.getId());
 	}
@@ -143,7 +143,7 @@ public class DashboardControllerTest {
 					.andExpect(status().is3xxRedirection())
 					.andExpect(redirectedUrl("/dashboard"));
 			
-			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
 			grupoService.apagarGrupo(grupoTeste.getId());
 		} catch (Exception e){
@@ -161,7 +161,7 @@ public class DashboardControllerTest {
 					.andExpect(status().is3xxRedirection())
 					.andExpect(redirectedUrl("/dashboard"));
 			
-			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
 			grupoService.apagarGrupo(grupoTeste.getId());
 		} catch (Exception e){
@@ -179,7 +179,7 @@ public class DashboardControllerTest {
 					.andExpect(status().is3xxRedirection())
 					.andExpect(redirectedUrl("/dashboard"));
 			
-			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
 			grupoService.apagarGrupo(grupoTeste.getId());
 		} catch (Exception e){
@@ -198,7 +198,7 @@ public class DashboardControllerTest {
 					.andExpect(status().is3xxRedirection())
 					.andExpect(redirectedUrl("/dashboard"));
 			
-			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste");
+			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
 			grupoService.apagarGrupo(grupoTeste.getId());
 		} catch (Exception e){

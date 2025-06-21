@@ -33,9 +33,16 @@ public class GrupoRestController {
 		}
 	}
 	
-	@GetMapping("/todos")
-	public List<GrupoModel> getGrupos() {
-		return grupoService.listarTodos();
+	@GetMapping("/encontrar/codigo={codigo}&senha={senha}")
+	public ResponseEntity<?> encontrarGrupo(@PathVariable String codigo, @PathVariable String senha) {
+		try {
+			GrupoModel grupo = grupoService.encontrarPorCodigo(codigo, senha);
+			return ResponseEntity.ok(grupo);
+		} catch (IllegalArgumentException ex) {
+			return ResponseEntity.badRequest().body(ex.getMessage());
+		} catch (Exception ex) {
+			return ResponseEntity.status(500).body(ex.getMessage());
+		}
 	}
 	
 	@PutMapping("/{idGrupo}/adicionarGestor={idGestor}")

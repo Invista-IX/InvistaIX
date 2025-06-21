@@ -33,16 +33,30 @@ public class GrupoService {
     	return grupoRepository.findById(id).orElse(null);
     }
     
-    public GrupoModel encontrarPorCodigo(String codigo) {
-    	return grupoRepository.findByCodigo(codigo);
-    }
-    
     public boolean conferirExistencia(GrupoModel grupo) {
     	return grupoRepository.existsById(grupo.getId());
     }
     
     public void apagarGrupo(Long id) {
     	grupoRepository.deleteById(id);
+    }
+    
+    public GrupoModel encontrarPorCodigo(String codigo, String senha) {
+    	try {
+    		if (codigo.isEmpty() || codigo == null) {
+    			throw new IllegalArgumentException("Código inválido");
+    		}
+    		GrupoModel grupo = grupoRepository.findByCodigo(codigo).orElse(null);
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado");
+    		}
+    		if (!senha.equals(grupo.getSenha())) {
+    			throw new IllegalArgumentException("Senha inválida");
+    		}
+    		return grupo;
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao buscar grupo: " + ex.getMessage(), ex);
+    	}
     }
     
     public String atribuirGrupo(Long idGrupo, Long idUsuario) {
