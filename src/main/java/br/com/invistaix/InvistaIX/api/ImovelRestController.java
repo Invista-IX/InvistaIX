@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,18 @@ public class ImovelRestController {
     		return null;
     	} catch (Exception ex) {
     		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
+    	}
+    }
+    
+    @DeleteMapping("/deletar={idImovel}")
+    public ResponseEntity<?> excluirImovel(@PathVariable Long idImovel) {
+    	try {
+    		String resultado = imovelService.apagarImovelPorId(idImovel);
+    		return ResponseEntity.ok(resultado);
+    	} catch (IllegalArgumentException ex) {
+    		return ResponseEntity.badRequest().body(ex.getMessage());
+    	} catch (Exception ex) {
+    		return ResponseEntity.internalServerError().body("Erro ao salvar imóvel: " + ex.getMessage());
     	}
     }
 }

@@ -42,7 +42,7 @@ public class ProprietarioService {
         }
     }
     
-    public ProprietarioModel encontrarPorId(Integer id) {
+    public ProprietarioModel encontrarPorId(Long id) {
     	try {
     		if(id == null || id <= 0) {
     			throw new IllegalArgumentException("Informe um id válido");
@@ -70,7 +70,7 @@ public class ProprietarioService {
     	}
     }
     
-    public String apagarProprietarioPorId(Integer id) {
+    public String apagarProprietarioPorId(Long id) {
     	try {
     		if(id == null || id <= 0) {
     			throw new IllegalArgumentException("Informe um id válido");

@@ -16,7 +16,9 @@ import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.invistaix.InvistaIX.model.EnderecoModel;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.repository.EnderecoRepository;
 import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 import jakarta.transaction.Transactional;
 
@@ -25,6 +27,9 @@ public class ImovelService {
 
     @Autowired
     private ImovelRepository imovelRepository;
+    
+    @Autowired 
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private DespesaService despesaService;
@@ -216,11 +221,20 @@ public class ImovelService {
             if (idImovel == null || idImovel <= 0) {
                 throw new IllegalArgumentException("ID do imóvel inválido.");
             }
-            imovelRepository.deleteById(idImovel);
-            return "Imóvel apagado com sucesso";
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
-        }
+    		    ImovelModel imovel = imovelRepository.findById(idImovel).orElse(null);
+    		    if (imovel == null) {
+    			      throw new IllegalArgumentException("Imóvel não encontrado");
+    		    }
+    		    EnderecoModel endereco = enderecoRepository.findById(imovel.getEndereco().getId()).orElse(null);
+    		    if (endereco == null) {
+    			      throw new IllegalArgumentException("Endereco não encontrado");
+    		    }
+    		    imovelRepository.deleteById(idImovel);
+    		    enderecoRepository.deleteById(endereco.getId());
+    		    return "Imóvel apagado com sucesso";
+    	} catch (Exception ex) {
+    		    throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
+      }
     }
 
 }
