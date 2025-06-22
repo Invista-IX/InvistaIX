@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -9,6 +10,7 @@ import java.time.YearMonth;
 import java.util.*;
 
 import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
+import br.com.invistaix.InvistaIX.DTO.ValorizacaoDTO;
 import br.com.invistaix.InvistaIX.model.*;
 import br.com.invistaix.InvistaIX.DTO.PerformanceDTO;
 import br.com.invistaix.InvistaIX.model.DespesaModel;
@@ -16,7 +18,9 @@ import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.invistaix.InvistaIX.model.EnderecoModel;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.repository.EnderecoRepository;
 import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 import jakarta.transaction.Transactional;
 
@@ -25,6 +29,9 @@ public class ImovelService {
 
     @Autowired
     private ImovelRepository imovelRepository;
+    
+    @Autowired 
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private DespesaService despesaService;
@@ -162,7 +169,103 @@ public class ImovelService {
             throw new RuntimeException(ex.getMessage());
         }
     }
+    
+    public List<ValorizacaoDTO> buscaValorizacao(Long imovelid) {
+        try {
+            if (imovelid <= 0) {
+                throw new IllegalArgumentException("id do imovel invalido.");
+            }
+            ImovelModel imovel = imovelRepository.findById(imovelid).orElse(null);
+            if (imovel == null) {
+            	throw new RuntimeException("Imovel não encontrado.");
+            }
+            return retornaValorizacao(imovel);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+    
+    public List<ValorizacaoDTO> retornaValorizacao(ImovelModel imovel) {
+        try {
 
+            LocalDate hoje = LocalDate.now();
+            LocalDate inicio = hoje.minusYears(1).plusDays(1);
+
+            YearMonth inicio2 = YearMonth.from(hoje);
+            
+            while (inicio2.getMonth().getValue() != 1) {
+            	inicio2 = inicio2.minusMonths(1);
+            	System.out.println(inicio2);
+            }
+            
+            LocalDate inicio3 = inicio2.atDay(1);
+            
+            List<AvaliacaoModel> avaliacoes = avaliacaoService.listarPorPeriodo(imovel.getId(), inicio3, hoje);
+            List<InccModel> inccs = inccService.listarPorPeriodo(inicio3, hoje);
+            
+            Collections.sort(inccs, Comparator.comparing(InccModel::getData));
+            System.out.println("data-referência: " + inicio);
+            for (InccModel in : inccs) {
+            	System.out.println("incc=[valor: " + in.getPorcentagem() + ", data: " + YearMonth.from(in.getData()) + "];");
+            }
+
+            Collections.sort(avaliacoes, Comparator.comparing(AvaliacaoModel::getDataAvaliacao));
+
+            List<ValorizacaoDTO> resultado = new ArrayList<>();
+            double base = imovel.getValorMatricula();
+            System.out.println("valor base : " + base);
+            
+            double buffer = 0.0;
+
+            for (int i = 1; i <= 12; i++) {
+                YearMonth ym = inicio2.plusMonths(i);
+                LocalDate primeiroDia = ym.atDay(1);
+
+                double valorIncc = 0.0;
+                for (InccModel in : inccs) {
+                	System.out.println("data:" + ym);
+                	System.out.println("incc-data:" + YearMonth.from(in.getData()));
+                    if (YearMonth.from(in.getData()).equals(ym)) {
+                        valorIncc = in.getPorcentagem();
+                        break;
+                    }
+                }
+
+                double valorImovel = base;
+                System.out.println("valorMatricula: " + valorImovel);
+                for (AvaliacaoModel aval : avaliacoes) {
+                    YearMonth ymAval = YearMonth.from(aval.getDataAvaliacao());
+                    if (ymAval.compareTo(ym) <= 0) {
+                        valorImovel = aval.getValorAvaliacao();
+                    } else {
+                        break;
+                    }
+                }
+
+                double valor;
+                
+                System.out.println("valor incc " + i + ": " + valorIncc);
+                System.out.println("pré valor " + i + ": " + valorImovel);
+                
+                valor = valorImovel + (valorImovel * (valorIncc / 100));
+                base = valor;
+                
+                System.out.println("valor " + i + ": " + valor);
+                DecimalFormat formatador = new DecimalFormat("#0.00");
+                System.out.println("valor formatado" + i + ": " + formatador.format(valor).replace(',', '.'));
+                if (valor != buffer) {
+                	resultado.add(new ValorizacaoDTO(formatador.format(valor).replace(',', '.'), primeiroDia, i));
+                } else {
+                	resultado.add(new ValorizacaoDTO(formatador.format(0.00).replace(',', '.'), primeiroDia, i));
+                }
+                buffer = valor;
+            }
+
+            return resultado;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
 
     public ImovelModel buscarPorId(Long idImovel) {
         try {
@@ -199,8 +302,6 @@ public class ImovelService {
                 throw new IllegalArgumentException("ID do imóvel inválido.");
             }
     		List<ImovelModel> imoveis = imovelRepository.findAllInGrupo(idGrupo);
-    		System.out.println(imoveis);
-    		System.out.println("pindamonahngaba");
     		return imoveis;
     	} catch (Exception ex) {
     		throw new RuntimeException("Erro ao buscar imóveis: " + ex.getMessage(), ex);
@@ -216,11 +317,20 @@ public class ImovelService {
             if (idImovel == null || idImovel <= 0) {
                 throw new IllegalArgumentException("ID do imóvel inválido.");
             }
-            imovelRepository.deleteById(idImovel);
-            return "Imóvel apagado com sucesso";
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
-        }
+    		    ImovelModel imovel = imovelRepository.findById(idImovel).orElse(null);
+    		    if (imovel == null) {
+    			      throw new IllegalArgumentException("Imóvel não encontrado");
+    		    }
+    		    EnderecoModel endereco = enderecoRepository.findById(imovel.getEndereco().getId()).orElse(null);
+    		    if (endereco == null) {
+    			      throw new IllegalArgumentException("Endereco não encontrado");
+    		    }
+    		    imovelRepository.deleteById(idImovel);
+    		    enderecoRepository.deleteById(endereco.getId());
+    		    return "Imóvel apagado com sucesso";
+    	} catch (Exception ex) {
+    		    throw new RuntimeException("Erro ao apagar o imóvel: " + ex.getMessage(), ex);
+      }
     }
 
 }

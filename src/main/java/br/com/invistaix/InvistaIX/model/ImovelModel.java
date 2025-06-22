@@ -31,9 +31,8 @@ public class ImovelModel {
     @Column(name = "valor_matricula", nullable = false)
     private Double valorMatricula;
 
-    @Lob
     @Column(name = "imagem_base64", nullable = true)
-    private byte[] imagemBase64;
+    private String imagemBase64;
 
     @Column(name = "idproprietario", nullable = false)
     private Long idProprietario;
@@ -49,7 +48,7 @@ public class ImovelModel {
     }
 
     public ImovelModel(Long id, String nome, LocalDateTime dataCadastro, Double area, Double preco,
-                       Long idProprietario, Long idGrupo, EnderecoModel endereco, byte[] imagemBase64, 
+                       Long idProprietario, Long idGrupo, EnderecoModel endereco, String imagemBase64, 
                        String numeroMatricula, Double valorMatricula) {
         this.id = id;
         this.nome = nome;
@@ -121,19 +120,11 @@ public class ImovelModel {
     }
 
     public String getImagemBase64() {
-    	try {
-        String imagemData = Base64.getEncoder().encodeToString(imagemBase64);
-        System.out.println(imagemData);
-    	return imagemData;
-    	} catch (Exception ex){
-    	ex.printStackTrace();
-    	return null;
-    	}
+	    return imagemBase64;
     }
 
     public void setImagemBase64(String imagemBase64) {
-        byte[] imagemBytes = imagemBase64.getBytes();
-    	this.imagemBase64 = imagemBytes;
+    	this.imagemBase64 = imagemBase64;
     }
 
     public Long getIdProprietario() {
@@ -183,7 +174,7 @@ public class ImovelModel {
 	public String toString() {
 		return "ImovelModel [id=" + id + ", nome=" + nome + ", dataCadastro=" + dataCadastro + ", area=" + area
 				+ ", preco=" + preco + ", numeroMatricula=" + numeroMatricula + ", valorMatricula=" + valorMatricula
-				+ ", imagemBase64=" + Arrays.toString(imagemBase64) + ", idProprietario=" + idProprietario
+				+ ", imagemBase64=" + imagemBase64 + ", idProprietario=" + idProprietario
 				+ ", idGrupo=" + idGrupo + ", endereco=" + endereco + "]";
 	}
     

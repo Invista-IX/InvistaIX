@@ -4,6 +4,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     //chart performance
     buscarDados(idImovel);
+	
+	//chart valorização
+	buscarDadosValorizacao(idImovel);
 
 async function buscarDados(imovelId) {
     const url = `http://localhost:8080/imovel/buscar/performance/${imovelId}`;
@@ -63,44 +66,67 @@ function gerarGrafico(valores, categorias) {
     });
 }
 
-	//chart valorização
+
+async function buscarDadosValorizacao(imovelId) {
+    const url = `http://localhost:8080/imovel/grafico/valorizacao/${imovelId}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Erro ${response.status}`);
+        const data = await response.json();
+
+        const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+        const ordenado = data
+            .sort((a, b) => a.indice - b.indice)
+            .map(item => ({
+                valor: parseFloat(item.valor),
+                mes: meses[new Date(item.data).getMonth()]
+            }));
+
+        const valores = ordenado.map(item => item.valor === 0 ? null : item.valor);
+        const categorias = ordenado.map(item => item.mes);
+		
+		console.log(valores);
+		console.log(categorias);
+
+        gerarGraficoValorizacao(valores, categorias);
+    } catch (error) {
+        console.error('Erro ao buscar performance:', error);
+    }
+}
+
+function gerarGraficoValorizacao(valores, categorias) {
 	Highcharts.chart('container-valorizacao', {
-	    chart: {
-	        type: 'line'
-	    },
-	    title: {
-	        text: 'Valorização do Imóvel'
-	    },
-	    xAxis: {
-			categories: [
-			    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set',
-			    'Out', 'Nov', 'Dec'
-			]
-	    },
-	    yAxis: {
-	        title: {
-	            text: 'Valor (R$)'
-	        }
-	    },
-	    plotOptions: {
-	        line: {
-	            dataLabels: {
-	                enabled: true
-	            },
-	            enableMouseTracking: false
-	        }
-	    },
-	    series: [{
-	        name: 'Valor/Mês',
+		chart: {
+			type: 'line'
+		},
+		title: {
+			text: 'Valorização do Imóvel'
+		},
+		xAxis: {
+			categories: categorias
+		},
+		yAxis: {
+			title: {
+				text: 'Valor (R$)'
+			}
+		},
+		plotOptions: {
+			line: {
+				dataLabels: {
+					enabled: true
+				},
+				enableMouseTracking: false
+			}
+		},
+		series: [{
+			name: 'Valor/Mês',
 			color: '#00a650',
-	        data: [
-	            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-	            22.0, 17.8
-	        ]
+	        data: valores
 	    }]
 	});
-	
-
+}
 	//chart lucro mensal
     fetch(`/api/graficos/ReceitaDespesa/${idImovel}`)
       .then(response => response.json())

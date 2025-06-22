@@ -21,7 +21,7 @@ public class DashboardController {
 	GrupoService grupoService;
 
     @GetMapping
-    public String dashboardController(HttpSession session) {
+    public String dashboardController(Model model, HttpSession session) {
     	//bloco de validação de usuário loogado
     	UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuarioLogado");
     	
@@ -30,6 +30,7 @@ public class DashboardController {
         }
     	//
     	
+    	model.addAttribute("usuario", usuario);
         return "dashboard";
     }
     
@@ -62,7 +63,7 @@ public class DashboardController {
     }
     
     @GetMapping("/grupo={id}")
-    public String abrirGrupo(@PathVariable Integer id, Model model, HttpSession session) {
+    public String abrirGrupo(@PathVariable Long id, Model model, HttpSession session) {
     	//bloco de validação de usuário loogado
     	UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuarioLogado");
     	

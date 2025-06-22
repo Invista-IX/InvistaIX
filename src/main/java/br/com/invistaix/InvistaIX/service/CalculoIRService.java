@@ -1,6 +1,10 @@
 package br.com.invistaix.InvistaIX.service;
 
-import br.com.invistaix.InvistaIX.model.DespesaModel;
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.invistaix.InvistaIX.model.IRModel;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
 import br.com.invistaix.InvistaIX.model.ProprietarioModel;
@@ -10,11 +14,6 @@ import br.com.invistaix.InvistaIX.repository.ImovelRepository;
 import br.com.invistaix.InvistaIX.repository.ProprietarioRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class CalculoIRService {
@@ -42,7 +41,7 @@ public class CalculoIRService {
             throw new RuntimeException("Imóvel sem proprietário associado.");
         }
 
-        ProprietarioModel proprietario = proprietarioRepository.findById(imovel.getIdProprietario().intValue())
+        ProprietarioModel proprietario = proprietarioRepository.findById(imovel.getIdProprietario())
                 .orElseThrow(() -> new RuntimeException("Proprietário não encontrado."));
 
         double valorIR;

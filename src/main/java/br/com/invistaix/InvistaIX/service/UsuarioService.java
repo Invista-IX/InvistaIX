@@ -18,7 +18,7 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 	
-	public UsuarioModel encontrarPorId(Integer id) {
+	public UsuarioModel encontrarPorId(Long id) {
 		return usuarioRepository.findById(id).orElse(null);
 	}
 	
@@ -30,7 +30,7 @@ public class UsuarioService {
 		return usuarioRepository.save(cadastro);
 	}
 	
-	public void apagarUsuario(Integer id) {
+	public void apagarUsuario(Long id) {
 		usuarioRepository.deleteById(id);
 	}
 	
@@ -46,4 +46,5 @@ public class UsuarioService {
 	public Boolean checarTelefoneCadastrado(UsuarioModel usuarioModel) {
 		return usuarioRepository.existsByTelefone(usuarioModel.getTelefone());
 	}
+
 }

@@ -1,7 +1,8 @@
 //  API  //
 
 // cards produtos 
-const URL_GRUPOS = "http://localhost:8080/api/grupos";
+const usuarioId = document.getElementById('usuarioId').textContent;
+const URL_GRUPOS = "http://localhost:8080/grupos/encontrarGrupos=" + usuarioId;
 
 window.addEventListener("load", async () => {
     const wrapper = document.querySelector("#cards_container");
@@ -31,8 +32,8 @@ window.addEventListener("load", async () => {
 });
 
 function criarElementoCardGrupo(item) {
-	const base64String = "data:image/png;base64," + item.imagem_base64;
-
+    console.log(item.imagem_base64);
+    base64String = item.imagem_base64;
     const imagem = document.createElement("img");
     fetch(base64String)
         .then(res => res.blob())

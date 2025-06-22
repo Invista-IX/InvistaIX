@@ -6,8 +6,12 @@ document.getElementById('input_imagem').addEventListener('change', function () {
     reader.onload = function (event) {
         let base64String = event.target.result;
         console.log(base64String);
+        document.getElementById('string_imagem').value = base64String;
         document.getElementById('imagem').src = base64String;
     };
 
+
     reader.readAsDataURL(file);
 });
+
+document.getElementById('')

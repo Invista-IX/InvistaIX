@@ -1,10 +1,19 @@
 package br.com.invistaix.InvistaIX.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
@@ -17,7 +26,7 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idgestor")
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, length = 45)
     private String nome;
@@ -40,7 +49,20 @@ public class UsuarioModel {
     @Column(name = "pessoa_fj", nullable = false, length = 1)
     private Character tipoPessoa;
     
-    public UsuarioModel(Integer id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "gestor_x_grupo",
+    			joinColumns = @JoinColumn(
+    								name = "idgestor",
+    								referencedColumnName = "idgestor"
+    			),
+    			inverseJoinColumns = @JoinColumn(
+    								name = "idgrupo",
+    								referencedColumnName = "idgrupo"
+    			)
+    )
+    private Set<GrupoModel> grupos = new HashSet<>();
+    
+    public UsuarioModel(Long id, String nome, String sobrenome, String email, String telefone, String cpfCnpj, String senha, Character tipoPessoa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -56,11 +78,11 @@ public class UsuarioModel {
     	
     }
 
-	public Integer getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -119,4 +141,31 @@ public class UsuarioModel {
     public void setTipoPessoa(Character tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
+    
+	public Set<GrupoModel> getGrupos() {
+		return grupos;
+	}
+    
+	public void setGrupos(Set<GrupoModel> grupos) {
+		this.grupos = grupos;
+	}
+	
+	public void adicionarGrupo(GrupoModel grupo) {
+		grupos.add(grupo);
+	}
+	
+	public void removerGrupo(GrupoModel grupo) {
+		grupos.remove(grupo);
+	}
+
+	@Override
+	public String toString() {
+		ArrayList<String> idGrupos = new ArrayList<String>();
+		for (GrupoModel grupo: grupos) {
+			idGrupos.add(Long.toString(grupo.getId()));
+		};
+		return "UsuarioModel [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
+				+ ", telefone=" + telefone + ", cpfCnpj=" + cpfCnpj + ", senha=" + senha + ", tipoPessoa=" + tipoPessoa
+				+ ", grupos=" + idGrupos.toString()  + "]";
+	}
 }
