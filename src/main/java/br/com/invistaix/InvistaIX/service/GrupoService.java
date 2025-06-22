@@ -85,6 +85,32 @@ public class GrupoService {
     	}
     }
     
+    public String desatribuirGrupo(Long idGrupo, Long idUsuario) {
+    	try {
+    		if (idGrupo == null || idGrupo == 0) {
+    			throw new IllegalArgumentException("ID do grupo inválido.");
+    		}
+    		if (idUsuario == null || idUsuario == 0) {
+    			throw new IllegalArgumentException("ID do usuario inválido.");
+    		}
+    		GrupoModel grupo = grupoRepository.findById(idGrupo).get();
+    		UsuarioModel usuario = usuarioRepository.findById(idUsuario).get();
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado.");
+    		}
+    		if (usuario == null) {
+    			throw new NullPointerException("Usuario não encontrado.");
+    		}
+    		usuario.removerGrupo(grupo);
+    		usuarioRepository.save(usuario);
+    		System.out.println(usuario);
+    		System.out.println(grupo);
+    		return "Usuario atribuido ao grupo com sucesso.";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao atribuir usuario: " + ex.getMessage(), ex);
+    	}
+    }
+    
     public Set<GrupoModel> encontrarGrupos(Long usuarioId) {
 		try {
 			if(usuarioId == null || usuarioId == 0) {

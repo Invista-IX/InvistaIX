@@ -6,53 +6,58 @@
     <title>Dashboard - InvistaIX</title>
 
     <!-- Material Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/css/dashboard/grupo.css">
 </head>
 <body>
 
-<!-- Menu lateral -->
-<aside>
-	<div class="logo">
-		<a href="/dashboard">
-			<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
-		</a>
-	</div>
-	    <nav>
-            <ul>
-                <h4 style="margin-bottom: 10px;">Menu</h4>
-                <li>
-                    <a href="/dashboard">
-                        <span class="material-icons">dashboard</span>
-                        Dashboard
-                    </a>
-                </li>
-            </ul>
-        </nav>
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-    <div class="perfil">
-        <h4>Perfil</h4>
-        <a href="#">
-            <span class="material-icons">person</span>
-            Meus Dados
-        </a>
-        <a href="/">
-            <span class="material-icons">logout</span>
-            Sair
-        </a>
-    </div>
-</aside>
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
+
 
 <!-- Conteúdo principal -->
 <main>
     <header>
         <div>
 			<h1 style="display: none;" id="idGrupo" th:text="${grupo.id}"></h1>
+			<h1 style="display: none;" id="nomeGrupo" th:text="${grupo.nome}"></h1>
+			<h1 style="display: none;" id="idUsuario" th:text="${usuario.id}"></h1>
             <h1 class="titulo">Imóveis</h1>
             <p class="subtitulo">Gerencie sua carteira de imóveis</p>
         </div>
         <div class="acoes">
-            <a href="#"><button class="sair_grupo">Sair do grupo</button></a>
+            <button onclick="exibirModalSair()" class="sair_grupo">Sair do grupo</button></a>
             <a th:href="@{/imovel/grupo={idGrupo}/cadastrarImovel(idGrupo=${grupo.id})}" ><button class="adicionar_imovel">+ Adicionar Imóvel</button></a>
         </div>
     </header>
@@ -75,6 +80,29 @@
 		© 2025 InvistaIX. Todos os direitos reservados.
 	</footer>
 </main>
+
+<div id="modalErro" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <p id="mensagemErroTexto"></p>
+        <div class="btn-container">
+            <button onclick="fecharModalErro()" class="btn-ok">OK</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalSair" class="modal-overlay" style="display: none;">
+    <div id="modalContentSair" class="modal-content">
+        <p id="mensagemSairTexto"></p>
+        <div id="botao_cancelar" class="btn-container">
+            <button onclick="fecharModalSair()" class="btn-sair" style="background-color: black;">Cancelar</button>
+        </div>
+		<div id="botao_sair" class="btn-container">
+			<button onclick="removerGrupo()" class="btn-sair" style="background-color: red;">Sair</button>
+		</div>
+    </div>
+</div>
+
+<div id="toastSucesso" class="toast-sucesso"></div>
 
 <script src="/js/dashboard/grupo.js"></script>
 

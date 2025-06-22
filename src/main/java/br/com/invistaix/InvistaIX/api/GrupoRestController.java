@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,10 +47,22 @@ public class GrupoRestController {
 	}
 	
 	@PutMapping("/{idGrupo}/adicionarGestor={idGestor}")
-	public ResponseEntity<?> setarProprietarioGrupo(@PathVariable Long idGrupo, @PathVariable Long idGestor) {
+	public ResponseEntity<?> atribuirProprietarioGrupo(@PathVariable Long idGrupo, @PathVariable Long idGestor) {
 		try {
 			grupoService.atribuirGrupo(idGrupo, idGestor);
 			return ResponseEntity.ok("Gestor adicionado ao grupo com sucesso.");
+		} catch (IllegalArgumentException ex) {
+			return ResponseEntity.badRequest().body(ex.getMessage());
+		} catch (Exception ex) {
+			return ResponseEntity.status(500).body(ex.getMessage());
+		}
+	}
+	
+	@PatchMapping("/{idGrupo}/removerGestor={idGestor}")
+	public ResponseEntity<?> removerProprietarioGrupo(@PathVariable Long idGrupo, @PathVariable Long idGestor) {
+		try {
+			grupoService.desatribuirGrupo(idGrupo, idGestor);
+			return ResponseEntity.ok("Gestor removido do grupo com sucesso.");
 		} catch (IllegalArgumentException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
 		} catch (Exception ex) {

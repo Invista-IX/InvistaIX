@@ -2,7 +2,9 @@
 
 // cards imoveis
 let idGrupo = document.getElementById('idGrupo').textContent;
+let idUsuario = document.getElementById('idUsuario').textContent;
 console.log(idGrupo);
+console.log(idUsuario);
 const URL_GRUPOS = "http://localhost:8080/imovel/findAllByGupo=" + idGrupo;
 
 window.addEventListener("load", async () => {
@@ -106,3 +108,89 @@ function criarElementoCardImovel(item) {
 
     return imovel_card;
 };
+
+function exibirModalErro(mensagem) {
+    const modal = document.getElementById("modalErro");
+    const texto = document.getElementById("mensagemErroTexto");
+
+    texto.textContent = mensagem;
+    modal.style.display = "flex";
+}
+
+function fecharModalErro() {
+    const modal = document.getElementById("modalErro");
+    modal.style.display = "none";
+}
+
+function exibirModalSair() {
+    const modal = document.getElementById("modalSair");
+    const texto = document.getElementById("mensagemSairTexto");
+
+    texto.textContent = "Você tem CERTEZA que deseja sair do grupo \"" + document.getElementById("nomeGrupo").textContent + "\"?";
+    modal.style.display = "grid";
+}
+
+function fecharModalSair() {
+    const modal = document.getElementById("modalSair");
+    modal.style.display = "none";
+}
+
+document.addEventListener('click', function (event) {
+    const modal = document.getElementById('modalErro');
+    const conteudo = document.querySelector('#modalErro .modal-content');
+    if (modal.style.display === 'flex' && !conteudo.contains(event.target)) {
+        fecharModalErro();
+    }
+});
+document.getElementById("modalErro").addEventListener("click", function (e) {
+    if (e.target === this) {
+        fecharModalErro();
+    }
+});
+
+function mostrarToastSucesso(mensagem) {
+    const toast = document.getElementById("toastSucesso");
+    toast.textContent = mensagem;
+    toast.classList.add("mostrar");
+
+    setTimeout(() => {
+        toast.classList.remove("mostrar");
+    }, 3000);
+}
+
+function removerGrupo() {
+    try {
+        fecharModalSair();
+        if (!idGrupo) {
+            exibirModalErro('ID do grupo não foi definido.');
+            return;
+        }
+		if (!idUsuario) {
+			exibirModalErro('ID do gestor não foi definido.');
+	        return;
+        }
+
+        const url = "http://localhost:8080/grupos/" + idGrupo + "/removerGestor=" + idUsuario;
+        
+        fetch(url, {
+            method: 'PATCH',
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.text();
+        })
+        .then(data => {
+            mostrarToastSucesso('Removido do grupo com sucesso.');
+            location.replace("http://localhost:8080/dashboard");
+        })
+        .catch(error => {
+            exibirModalErro(error.message);
+        });
+    } catch (erro) {
+        exibirModalErro('Erro ao excluir imóvel: ' + erro.message);
+    }
+}

@@ -72,6 +72,7 @@ public class DashboardController {
         }
     	//
     	
+    	model.addAttribute("usuario", usuario);
     	model.addAttribute("grupo",  grupoService.encontrarPorId(id));
     	return "dashboard/grupo";
     }
