@@ -2,7 +2,6 @@ package br.com.invistaix.InvistaIX.service;
 
 import br.com.invistaix.InvistaIX.model.DespesaModel;
 import br.com.invistaix.InvistaIX.repository.DespesaRepository;
-import br.com.invistaix.InvistaIX.service.DespesaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
