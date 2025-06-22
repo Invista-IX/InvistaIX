@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.invistaix.InvistaIX.DTO.ImagemDTO;
 import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.model.UsuarioModel;
 import br.com.invistaix.InvistaIX.service.GrupoService;
@@ -44,7 +45,9 @@ public class DashboardController {
         }
     	//
     	
+    	model.addAttribute("usuario", usuario);
     	model.addAttribute("grupo", new GrupoModel());
+    	model.addAttribute("imagem", new ImagemDTO());
     	return "dashboard/cadastroGrupo";
     }
     

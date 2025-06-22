@@ -20,9 +20,33 @@ public class GrupoService {
     @Autowired
     UsuarioRepository usuarioRepository;
     
-    public void salvar(GrupoModel novoGrupo) {
-    	grupoRepository.save(novoGrupo);
-    	System.out.println(novoGrupo.toString());
+    public String salvar(GrupoModel novoGrupo) {
+    	try {
+    		if (novoGrupo == null) {
+    			throw new NullPointerException("Grupo inválido");
+    		}
+    		grupoRepository.save(novoGrupo);
+    		return "Grupo salvo com sucesso";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao salvar grupo: " + ex.getMessage(), ex);
+    	}
+    }
+    
+    public String atualizarImagem(Long idGrupo, String base64) {
+    	try {
+    		if (idGrupo == 0 || idGrupo == null) {
+    			throw new IllegalArgumentException("ID do grupo inválido.");
+    		}
+    		GrupoModel grupo = grupoRepository.findById(idGrupo).orElse(null);
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado.");
+    		}
+    		grupo.setImagem_base64(base64);
+    		grupoRepository.save(grupo);
+    		return "Imagem do grupo atualizada com sucesso";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao atualizar a imagem do grupo: " + ex.getMessage(), ex);
+    	}
     }
     
     public List<GrupoModel> listarTodos() {
@@ -44,14 +68,14 @@ public class GrupoService {
     public GrupoModel encontrarPorCodigo(String codigo, String senha) {
     	try {
     		if (codigo.isEmpty() || codigo == null) {
-    			throw new IllegalArgumentException("Código inválido");
+    			throw new IllegalArgumentException("Código inválido.");
     		}
     		GrupoModel grupo = grupoRepository.findByCodigo(codigo).orElse(null);
     		if (grupo == null) {
-    			throw new NullPointerException("Grupo não encontrado");
+    			throw new NullPointerException("Grupo não encontrado.");
     		}
     		if (!senha.equals(grupo.getSenha())) {
-    			throw new IllegalArgumentException("Senha inválida");
+    			throw new IllegalArgumentException("Senha inválida.");
     		}
     		return grupo;
     	} catch (Exception ex) {

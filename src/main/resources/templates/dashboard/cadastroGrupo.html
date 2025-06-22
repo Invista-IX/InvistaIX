@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Cadastro - invistaIX</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<!-- Material Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="/css/dashboard/cadastroGrupo.css">
 </head>
 
@@ -18,35 +21,37 @@
 				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
 			</a>
 		</div>
-		    <nav>
-	            <ul>
-	                <h4 style="margin-bottom: 10px;">Menu</h4>
-	                <li>
-	                    <a href="/dashboard">
-	                        <span class="material-icons">dashboard</span>
-	                        Dashboard
-	                    </a>
-	                </li>
-	            </ul>
-	        </nav>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-	    <div class="perfil">
-	        <h4>Perfil</h4>
-	        <a href="#">
-	            <span class="material-icons">person</span>
-	            Meus Dados
-	        </a>
-	        <a href="/">
-	            <span class="material-icons">logout</span>
-	            Sair
-	        </a>
-	    </div>
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/perfil/logout">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
 	</aside>
 
 	<main>
 		
 		<header class="header">
 		    <div>
+				<h1 th:text="${usuario.id}" id="idUsuario" style="display: none;"></h1>
 		        <h1 class="titulo">Cadastrar Grupo</h1>
 		        <p class="subtitulo">Preencha os campos para criar o grupo</p>
 		    </div>
@@ -58,7 +63,7 @@
 		
     	<div class="form-box">
 
-			<form id="formCadastro" method="post" action="/dashboard/cadastro_grupo" enctype="multipart/form-data">
+			<form id="formCadastro" onsubmit="enviarGrupo(event)">
 				<div id="div_preview">
 					<label id="preview_label">Preview da imagem</label>
 					<div id="div_imagem">
@@ -67,19 +72,19 @@
 				</div>
 				<div id="input_nome">
 			        <label id="nome">Nome</label>
-			        <input id="nome_input" type="text" name="nome" placeholder="Nome" required />
+			        <input id="nome_input" type="text" name="nome" class="grupoInput" placeholder="Nome" required />
 			    </div>
 			    <div id="input_codigo">
 			        <label id="codigo">Código de acesso</label>
-			        <input id="codigo_input" type="text" name="codigo" placeholder="código de acesso" required />
+			        <input id="codigo_input" type="text" name="codigo" class="grupoInput" placeholder="código de acesso" required />
 			    </div>
 			    <div id="input_senha">
 			        <label id="senha">Senha</label>
-			        <input id="senha_input" type="text" name="senha" placeholder="senha" required />
+			        <input id="senha_input" type="text" name="senha" class="grupoInput" placeholder="senha" required />
 			    </div>
 			    <div id="input_upload">
 			        <label id="imagem_upload">Imagem do grupo</label>
-			        <input id="input_imagem" type="file" accept="image/*" />
+			        <input id="input_imagem" type="file" name="imagem_base64" accept="image/*" />
 			    </div>
 				<input id="string_imagem" name="imagem_base64" type="text" style="display: none;">
 			    <button id="botao" type="submit" class="btn">Cadastrar</button>
