@@ -34,7 +34,7 @@ public class DashboardController {
         return "dashboard";
     }
     
-    @GetMapping("/cadastro_grupo")
+    @GetMapping("/cadastrarGrupo")
     public String cadastrarGrupo(Model model, HttpSession session) {
     	//bloco de validação de usuário loogado
     	UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuarioLogado");
@@ -45,7 +45,7 @@ public class DashboardController {
     	//
     	
     	model.addAttribute("grupo", new GrupoModel());
-    	return "dashboard/cadastro_grupo";
+    	return "dashboard/cadastroGrupo";
     }
     
     @PostMapping("/cadastro_grupo")
