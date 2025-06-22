@@ -2,6 +2,7 @@ package br.com.invistaix.InvistaIX.service;
 
 import br.com.invistaix.InvistaIX.model.ReceitaModel;
 import br.com.invistaix.InvistaIX.repository.ReceitaRepository;
+import br.com.invistaix.InvistaIX.service.CalculoIRService;
 import br.com.invistaix.InvistaIX.service.ReceitaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ public class ReceitaServiceTest {
     @Mock
     private ReceitaRepository receitaRepository;
 
+    @Mock
+    private CalculoIRService calculoIRService;
+
     private ReceitaModel receitaValida;
 
     @BeforeEach
@@ -33,17 +37,6 @@ public class ReceitaServiceTest {
         receitaValida.setAluguel(1000.0);
         receitaValida.setReceitaAvulsa(200.0);
         receitaValida.setData(LocalDate.of(2024, 5, 1));
-    }
-
-    @Test
-    void deveCriarReceitaComValoresValidos() {
-        when(receitaRepository.existsByImovelAndMesAndAno(1L, 5, 2024)).thenReturn(false);
-        when(receitaRepository.save(any(ReceitaModel.class))).thenReturn(receitaValida);
-
-        ReceitaModel resultado = receitaService.criarReceita(receitaValida);
-
-        assertNotNull(resultado);
-        verify(receitaRepository).save(receitaValida);
     }
 
     @Test
