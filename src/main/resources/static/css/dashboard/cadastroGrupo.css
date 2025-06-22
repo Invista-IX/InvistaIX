@@ -50,7 +50,7 @@ aside {
 }
 
 .logo span {
-	color: #009966;
+	color: #00a650;
 	margin-left: 4px;
 }
 
@@ -273,7 +273,7 @@ select {
 
 .btn {
 	grid-column: span 2;
-	background-color: #0ca678;
+	background-color: #00a650;
 	color: white;
 	border: none;
 	padding: 0.9rem;
