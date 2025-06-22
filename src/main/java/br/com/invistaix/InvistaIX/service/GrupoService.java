@@ -20,9 +20,33 @@ public class GrupoService {
     @Autowired
     UsuarioRepository usuarioRepository;
     
-    public void salvar(GrupoModel novoGrupo) {
-    	grupoRepository.save(novoGrupo);
-    	System.out.println(novoGrupo.toString());
+    public String salvar(GrupoModel novoGrupo) {
+    	try {
+    		if (novoGrupo == null) {
+    			throw new NullPointerException("Grupo inválido");
+    		}
+    		grupoRepository.save(novoGrupo);
+    		return "Grupo salvo com sucesso";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao salvar grupo: " + ex.getMessage(), ex);
+    	}
+    }
+    
+    public String atualizarImagem(Long idGrupo, String base64) {
+    	try {
+    		if (idGrupo == 0 || idGrupo == null) {
+    			throw new IllegalArgumentException("ID do grupo inválido.");
+    		}
+    		GrupoModel grupo = grupoRepository.findById(idGrupo).orElse(null);
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado.");
+    		}
+    		grupo.setImagem_base64(base64);
+    		grupoRepository.save(grupo);
+    		return "Imagem do grupo atualizada com sucesso";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao atualizar a imagem do grupo: " + ex.getMessage(), ex);
+    	}
     }
     
     public List<GrupoModel> listarTodos() {
@@ -33,16 +57,30 @@ public class GrupoService {
     	return grupoRepository.findById(id).orElse(null);
     }
     
-    public GrupoModel encontrarPorCodigo(String codigo) {
-    	return grupoRepository.findByCodigo(codigo);
-    }
-    
     public boolean conferirExistencia(GrupoModel grupo) {
     	return grupoRepository.existsById(grupo.getId());
     }
     
     public void apagarGrupo(Long id) {
     	grupoRepository.deleteById(id);
+    }
+    
+    public GrupoModel encontrarPorCodigo(String codigo, String senha) {
+    	try {
+    		if (codigo.isEmpty() || codigo == null) {
+    			throw new IllegalArgumentException("Código inválido.");
+    		}
+    		GrupoModel grupo = grupoRepository.findByCodigo(codigo).orElse(null);
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado.");
+    		}
+    		if (!senha.equals(grupo.getSenha())) {
+    			throw new IllegalArgumentException("Senha inválida.");
+    		}
+    		return grupo;
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao buscar grupo: " + ex.getMessage(), ex);
+    	}
     }
     
     public String atribuirGrupo(Long idGrupo, Long idUsuario) {
@@ -62,6 +100,32 @@ public class GrupoService {
     			throw new NullPointerException("Usuario não encontrado.");
     		}
     		usuario.adicionarGrupo(grupo);
+    		usuarioRepository.save(usuario);
+    		System.out.println(usuario);
+    		System.out.println(grupo);
+    		return "Usuario atribuido ao grupo com sucesso.";
+    	} catch (Exception ex) {
+    		throw new RuntimeException("Erro ao atribuir usuario: " + ex.getMessage(), ex);
+    	}
+    }
+    
+    public String desatribuirGrupo(Long idGrupo, Long idUsuario) {
+    	try {
+    		if (idGrupo == null || idGrupo == 0) {
+    			throw new IllegalArgumentException("ID do grupo inválido.");
+    		}
+    		if (idUsuario == null || idUsuario == 0) {
+    			throw new IllegalArgumentException("ID do usuario inválido.");
+    		}
+    		GrupoModel grupo = grupoRepository.findById(idGrupo).get();
+    		UsuarioModel usuario = usuarioRepository.findById(idUsuario).get();
+    		if (grupo == null) {
+    			throw new NullPointerException("Grupo não encontrado.");
+    		}
+    		if (usuario == null) {
+    			throw new NullPointerException("Usuario não encontrado.");
+    		}
+    		usuario.removerGrupo(grupo);
     		usuarioRepository.save(usuario);
     		System.out.println(usuario);
     		System.out.println(grupo);

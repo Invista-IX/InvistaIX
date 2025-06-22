@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.Model;
+package br.com.invistaix.InvistaIX.model;
 
 import br.com.invistaix.InvistaIX.model.DespesaModel;
 import org.junit.jupiter.api.Test;

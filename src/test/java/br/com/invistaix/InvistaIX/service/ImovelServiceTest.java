@@ -8,32 +8,54 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.invistaix.InvistaIX.model.EnderecoModel;
+import br.com.invistaix.InvistaIX.model.GrupoModel;
 import br.com.invistaix.InvistaIX.model.ImovelModel;
+import br.com.invistaix.InvistaIX.model.ProprietarioModel;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ImovelServiceTest {
 
     @Autowired
+    GrupoService grupoService;
+	
+    @Autowired
     ImovelService imovelService;
 
     @Autowired
     EnderecoService enderecoService;
+    
+    @Autowired
+    ProprietarioService proprietarioService;
 
     @Test
     void CadastrarEApagarImovel() {
-		/*
+    	ProprietarioModel proprietario = new ProprietarioModel();
+    	proprietario.setNome("nome");
+    	proprietario.setSobrenome("sobrenome");
+    	proprietario.setTipoPessoa('F');
+    	proprietario.setCnpjCpf("00987654321");
+    	proprietario.setEmail("proprietario@email.com");
+    	proprietario.setTelefone("45 99999-9999");
+    	
+    	proprietarioService.salvarProprietario(proprietario);
+    	
+    	GrupoModel grupo = new GrupoModel();
+    	grupo.setNome("grupo");
+    	grupo.setCodigo("codigoteste");
+    	grupo.setSenha("senha");
+    	
+    	grupoService.salvar(grupo);
+    	
 		EnderecoModel endereco = new EnderecoModel();
-		endereco.setId(100);
 		endereco.setRua("rua a");
 		endereco.setNumero(1122);
 		endereco.setLoteamento("loateamento a");
 		endereco.setCidade("cidade a");
 		endereco.setEstado("SP");
 		endereco.setCEP("112233");
-		*/
-
-        EnderecoModel endereco = enderecoService.encontrarPorId(1);
+		
+		enderecoService.salvarEndereco(endereco);
 
         ImovelModel imovel = new ImovelModel();
         imovel.setNome("imovel");
@@ -42,7 +64,7 @@ public class ImovelServiceTest {
         imovel.setPreco(2000.0D);
         imovel.setNumeroMatricula("123456789");
         imovel.setValorMatricula(10000D);
-        imovel.setIdProprietario(1L);
+        imovel.setIdProprietario(proprietario.getId());
         imovel.setIdGrupo(1L);
         imovel.setEndereco(endereco);
         imovel.setImagemBase64(null);
@@ -50,5 +72,8 @@ public class ImovelServiceTest {
         imovelService.salvarImovel(imovel);
 
         imovelService.apagarImovelPorId(imovel.getId());
+        proprietarioService.apagarProprietarioPorId(proprietario.getId());
+        grupoService.apagarGrupo(grupo.getId());
+        enderecoService.apagarEnderecoPorId(endereco.getId());
     }
 }

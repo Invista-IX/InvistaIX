@@ -50,7 +50,7 @@
 	}
 
 	.logo span {
-		color: #009966;
+		color:  #00a650;
 		margin-left: 4px;
 	}
 
@@ -129,7 +129,7 @@
     .titulo {
       font-size: 42px;
       font-weight: 900;
-      color: #019267;
+      color:  #00a650;
     }
 
     .subtitulo {
@@ -139,10 +139,11 @@
     }
 	
 	.acoes {
-	  grid-area: nav;
-	  display: flex;
-	  gap: 12px;
-	  flex-wrap: wrap;
+	    grid-area: nav;
+	    display: flex;
+	    gap: 4px;
+	    flex-wrap: wrap;
+		margin-bottom: 24px;
 	}
 
 	.acoes button {
@@ -169,7 +170,7 @@
 
     .adicionar_imovel {
 	  width: 100%;
-      background-color: #017a55;
+      background-color:  #00a650;
     }
 	
 	.desc {
@@ -197,6 +198,7 @@
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 30px;
+	  min-height: 350px;
     }
 
     .card {
@@ -290,6 +292,91 @@
 		font-size: 14px;
 		color: #888888;
 		border-top: 1px solid #dddddd;
+	}
+	
+	#modalContentSair {
+		display: grid;
+		grid-template-areas:
+				"texto texto texto"
+				"gap gap gap"
+				"cancelar . sair";
+	}
+
+	#mensagemSairTexto {
+		grid-area: texto;
+	}
+
+	#botao_cancelar {
+		grid-area: cancelar;
+	}
+
+	#botao_sair {
+		grid-area: sair;	
+	}
+
+	.btn-sair {
+	    width: 100px;
+	    color: white;
+	    border: none;
+	    padding: 0.4rem 1.5rem;
+	    font-weight: bold;
+	    font-size: 0.75rem;
+	    border-radius: 7px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	}
+	
+	.modal-content {
+	    background-color: #fefefe;
+	    padding: 1.5rem;
+	    border-radius: .75rem;
+	    max-width: 22rem;
+	    min-height: 10rem;
+	    width: 90%;
+	    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	    text-align: center;
+	    font-size: 1.2rem;
+	    font-family: Arial, sans-serif;
+	    color: #333;
+	}
+	
+	.toast-sucesso {
+	    position: fixed;
+	    bottom: 30px;
+	    right: -350px;
+	    background-color: var(--green);
+	    color: white;
+	    padding: 16px 24px;
+	    border-radius: 8px;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	    font-size: 14px;
+	    max-width: 300px;
+	    transition: right 0.4s ease, opacity 0.3s ease;
+	    opacity: 0;
+	    z-index: 9999;
+	}
+
+	.toast-sucesso.mostrar {
+	    right: 30px;
+	    opacity: 1;
+	}
+
+	.modal-overlay {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(0, 0, 0, 0.6);
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    z-index: 999;
+	}
+
+	.modal-content .btn-container {
+	    display: flex;
+	    justify-content: flex-end;
 	}
 
     @media (max-width: 768px) {

@@ -129,7 +129,7 @@
     .titulo {
       font-size: 42px;
       font-weight: 900;
-      color: #019267;
+      color: #00a650;
     }
 
     .subtitulo {
@@ -155,11 +155,11 @@
 	}
 
     .criar {
-      background-color: #019267;
+      background-color: #00a650;
     }
 
     .ingressar {
-      background-color: #017a55;
+      background-color: #00a650;
     }
 	
 	.desc {
@@ -209,12 +209,154 @@
       line-height: 1.3;
     }
 	
+	label {
+	  display: block;
+	  font-weight: bold;
+	  padding-left: 0.3rem;
+	  padding-bottom: 0.2rem;
+	  font-size: medium;
+	}
+
+	input {
+	  width: 100%;
+	  padding: 10px;
+	  border: 1px solid #ddd;
+	  border-radius: 6px;
+	  background-color: #f9f9f9;
+	  max-height: 37px;
+	}
+	
 	footer {
 		text-align: center;
 		padding: 20px 10px;
 		font-size: 14px;
 		color: #888888;
 		border-top: 1px solid #dddddd;
+	}
+	
+	.toast-sucesso {
+	    position: fixed;
+	    bottom: 30px;
+	    right: -350px;
+	    background-color:  #00a650;
+	    color: white;
+	    padding: 16px 24px;
+	    border-radius: 8px;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	    font-size: 14px;
+	    max-width: 300px;
+	    transition: right 0.4s ease, opacity 0.3s ease;
+	    opacity: 0;
+	    z-index: 9999;
+	}
+
+	.toast-sucesso.mostrar {
+	    right: 30px;
+	    opacity: 1;
+	}
+
+	.modal-overlay {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(0, 0, 0, 0.6);
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    z-index: 999;
+	}
+
+	.modal-content .btn-container {
+	    display: flex;
+	    justify-content: flex-end;
+	}
+
+	.modal-content {
+	    background-color: #fefefe;
+	    padding: 1.5rem;
+	    border-radius: .75rem;
+	    max-width: 22rem;
+	    max-height: 10rem;
+	    width: 90%;
+	    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	    text-align: center;
+	    font-size: 1.2rem;
+	    font-family: Arial, sans-serif;
+	    color: #333;
+	}
+	
+	.modal-content-ingressar {
+		background-color: #fefefe;
+	    padding: 1.5rem;
+	    border-radius: .75rem;
+		gap: 10px;
+	    width: 90%;
+	    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	    text-align: center;
+	    font-size: 1.2rem;
+	    font-family: Arial, sans-serif;
+	    color: #333;
+		}
+
+	.modal-content p {
+	    margin-bottom: 20px;
+	    font-size: 16px;
+	}
+
+	.btn-ok {
+	    background-color: #000;
+	    color: white;
+	    border: none;
+	    margin-right: .70rem;
+	    padding: 0.4rem 1.5rem;
+	    font-weight: bold;
+	    font-size: 0.75rem;
+	    border-radius: 7px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	}
+
+	#modalContentIngressar {
+		display: grid;
+		grid-template-areas:
+				"texto texto texto"
+				"codigo codigo codigo"
+				"senha senha senha"
+				"cancelar . ingressar";
+	}
+
+	#mensagemIngressarTexto {
+		grid-area: texto;
+	}
+	
+	#codigoGrupoDiv {
+		grid-area: codigo;
+	}
+	
+	#senhaGrupoDiv {
+		grid-area: senha;
+	}
+
+	#botao_cancelar {
+		grid-area: cancelar;
+	}
+
+	#botao_ingressar {
+		grid-area: ingressar;	
+	}
+
+	.btn-ingressar {
+	    width: 100px;
+	    color: white;
+	    border: none;
+	    padding: 0.4rem 1.5rem;
+	    font-weight: bold;
+	    font-size: 0.75rem;
+	    border-radius: 7px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
 	}
 
     @media (max-width: 768px) {

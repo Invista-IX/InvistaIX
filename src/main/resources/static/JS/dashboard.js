@@ -64,3 +64,101 @@ function criarElementoCardGrupo(item) {
 
     return grupo_link;
 };
+
+function exibirModalErro(mensagem) {
+    const modal = document.getElementById("modalErro");
+    const texto = document.getElementById("mensagemErroTexto");
+
+    texto.textContent = mensagem;
+    modal.style.display = "flex";
+}
+
+function fecharModalErro() {
+    const modal = document.getElementById("modalErro");
+    modal.style.display = "none";
+}
+
+function exibirModalIngressar() {
+    const modal = document.getElementById("modalIngressar");
+    const texto = document.getElementById("mensagemIngressarTexto");
+
+    texto.textContent = "Insira a senha e o código do grupo que deseja ingressar";
+    modal.style.display = "grid";
+}
+
+function fecharModalIngressar() {
+    const modal = document.getElementById("modalIngressar");
+    modal.style.display = "none";
+}
+
+document.addEventListener('click', function (event) {
+    const modal = document.getElementById('modalErro');
+    const conteudo = document.querySelector('#modalErro .modal-content');
+    if (modal.style.display === 'flex' && !conteudo.contains(event.target)) {
+        fecharModalErro();
+    }
+});
+document.getElementById("modalErro").addEventListener("click", function (e) {
+    if (e.target === this) {
+        fecharModalErro();
+    }
+});
+
+function mostrarToastSucesso(mensagem) {
+    const toast = document.getElementById("toastSucesso");
+    toast.textContent = mensagem;
+    toast.classList.add("mostrar");
+
+    setTimeout(() => {
+        toast.classList.remove("mostrar");
+    }, 3000);
+}
+
+function ingressarGrupo() {
+    try {
+        const codigo = document.getElementById("codigogrupoInput").value;
+        const senha = document.getElementById("senhaGrupoInput").value;
+        const urlGrupo = "http://localhost:8080/grupos/encontrar/codigo=" + codigo + "&senha=" + senha;
+        console.log(urlGrupo);
+        fetch(urlGrupo, {
+            method: 'GET'
+        })
+        .then(response => {
+            if(!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.json();
+        })
+        .then(grupo => {
+            const urlAtribuir = "http://localhost:8080/grupos/" + grupo.id + "/adicionarGestor=" + usuarioId;
+            
+            console.log(grupo);
+            console.log(urlAtribuir);
+            
+            fetch(urlAtribuir, {
+                method: 'PUT'
+            })
+            .then(response => {
+                if(!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    })
+                }
+                return response.text();
+            })
+            .then(data => {
+                mostrarToastSucesso(data);
+                window.location.reload();
+            });
+        })
+        .catch(erro => {
+            fecharModalIngressar();
+            exibirModalErro(erro.message);
+        })
+    } catch (err) {
+        fecharModalIngressar();
+        exibirModalErro('Erro ao excluir imóvel: ' + err.message);
+    }
+}
