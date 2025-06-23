@@ -4,41 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/perfilusuario.css">
 </head>
 <body>
 
-<aside>
-  <div class="logo">
-    <a href="/dashboard">
-      <img src="img/logo.png" alt="Logo InvistaIX" class="logo-img"/>
-    </a>
-  </div>
-  <nav>
-    <ul>
-      <h4 style="margin-bottom: 10px;">Menu</h4>
-      <li>
-        <a href="/dashboard">
-          <span class="material-icons">dashboard</span>
-          Dashboard
-        </a>
-      </li>
-    </ul>
-  </nav>
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-  <div class="perfil">
-    <h4>Perfil</h4>
-    <a href="/perfil">
-      <span class="material-icons">person</span>
-      Meus Dados
-    </a>
-    <a href="/login">
-      <span class="material-icons">logout</span>
-      Sair
-    </a>
-  </div>
-</aside>
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/perfil/logout">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
 
 <main class="conteudo">
   <h1>Perfil do Usuário</h1>
