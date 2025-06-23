@@ -85,7 +85,7 @@ CREATE OR REPLACE FUNCTION atualizar_preco_imovel()
 begin
 
 	update imovel
-		set preco = new.valor
+		set preco = new.valor_avaliacao
 		where idimovel = new.idimovel;
 	raise notice 'preço do imóvel atualizado com sucesso';
 	return new;
