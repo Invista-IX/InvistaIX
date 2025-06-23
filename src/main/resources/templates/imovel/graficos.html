@@ -13,38 +13,39 @@
 
 <body>
 	
-<!-- Menu lateral -->
-<aside>
-	<div class="logo">
-		<a href="/dashboard">
-			<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
-		</a>
-	</div>
-	
-	<nav>
-		<ul>
-		    <h4 style="margin-bottom: 10px;">Menu</h4>
-			<li>
-				<a href="/dashboard">
-					<span class="material-icons">dashboard</span>
-					Dashboard
-				</a>
-			</li>
-		</ul>
-	</nav>
 
-	<div class="perfil">
-		<h4>Perfil</h4>
-		<a href="#">
-			<span class="material-icons">person</span>
-			Meus Dados
-		</a>
-		<a href="/">
-			<span class="material-icons">logout</span>
-			Sair
-		</a>
-	</div>
-</aside>
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/perfil/logout">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
 
 <div class="layout">
 
@@ -60,10 +61,7 @@
 		</div>
 		<div class="actions">
 			<button type="button" class="delete"
-				th:onclick="'window.location=\'/imoveis/' + ${imovel.id} + '/excluir\''">Excluir Imóvel
-			</button>
-			<button type="button" class="edit"
-				th:onclick="'window.location=\'/imoveis/' + ${imovel.id} + '/editar\''">+ Editar Imóvel
+				th:onclick="'window.location=\'/dashboard/grupo=' + ${idGrupo} + '\''">Voltar
 			</button>
 		</div>
 	</header>
