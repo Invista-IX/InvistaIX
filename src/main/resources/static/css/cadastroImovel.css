@@ -279,7 +279,7 @@ img#preview {
 }
 
 .imagem-upload:hover {
-  border-color: #019267;
+  border-color: #00a650;
 }
 
 .imagem-upload span {
@@ -324,7 +324,7 @@ select {
 }
 
 .btn-cadastrar {
-  background-color: #019267;
+  background-color: #00a650;
   color: #fff;
   padding: 14px;
   font-size: 16px;
