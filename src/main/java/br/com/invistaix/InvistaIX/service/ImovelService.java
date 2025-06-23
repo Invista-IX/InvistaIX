@@ -215,7 +215,7 @@ public class ImovelService {
             double base = imovel.getValorMatricula();
             System.out.println("valor base : " + base);
             
-            double buffer = 0.0;
+            double buffer = base;
 
             for (int i = 1; i <= 12; i++) {
                 YearMonth ym = inicio2.plusMonths(i);
@@ -231,12 +231,14 @@ public class ImovelService {
                     }
                 }
 
-                double valorImovel = base;
+                double valorImovel = buffer;
                 System.out.println("valorMatricula: " + valorImovel);
                 for (AvaliacaoModel aval : avaliacoes) {
                     YearMonth ymAval = YearMonth.from(aval.getDataAvaliacao());
                     if (ymAval.compareTo(ym) <= 0) {
-                        valorImovel = aval.getValorAvaliacao();
+                    	if(valorImovel <= aval.getValorAvaliacao()) {
+                    		valorImovel = aval.getValorAvaliacao();
+                    	}
                     } else {
                         break;
                     }
