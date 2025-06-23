@@ -243,7 +243,12 @@
       color: #333;
       margin-bottom: 2px;
       line-height: 1.3;
+	  font-weight: 100;
     }
+	
+	.card-p-t {
+	  font-weight: 600;
+	}
 	
 	.card-matricula {
 		grid-area: matricula;

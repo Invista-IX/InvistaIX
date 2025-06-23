@@ -63,6 +63,7 @@ function criarElementoCardImovel(item) {
 	
     const matricula = document.createElement("p");    
     matricula.classList.add("card-p");
+	matricula.classList.add("card-p-t");
 	matricula.classList.add("card-matricula");
     matricula.innerText = "Numero da Matricula";
 	matricula.appendChild(document.createElement("br"));
@@ -74,6 +75,7 @@ function criarElementoCardImovel(item) {
 	
 	const preco = document.createElement("p");    
 	preco.classList.add("card-p");
+	preco.classList.add("card-p-t");
 	preco.classList.add("card-preco");
 	preco.innerText = "Valor";
 	preco.appendChild(document.createElement("br"));
