@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - InvistaIX</title>
+
+    <!-- Material Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/perfil/logout">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
+
+<!-- Conteúdo principal -->
+<main>
+    <header>
+		<h1 th:text="${usuario.id}" id="usuarioId" style="display: none;"></h1>
+        <div>
+            <h1 class="titulo">Dashboard</h1>
+            <p class="subtitulo">Visão geral da seus grupos de imóveis e desempenho</p>
+        </div>
+        <div class="acoes">
+            <a href="dashboard/cadastrarGrupo"><button class="criar">+ Criar Grupo</button></a>
+            <button onclick="exibirModalIngressar()" class="ingressar">Ingressar</button>
+        </div>
+    </header>
+	
+	<div>
+		<div class="desc">
+			<h2>Grupos de imóveis</h2>
+			<p style="margin-bottom: 20px; color: #555;">Análise dos grupos de imóveis</p>
+		</div>
+
+	
+    	<div class="cards" id="cards_container">
+		
+			<!-- Cards aplicados dinamicamente -->
+
+    	</div>
+	
+		</div>
+	
+	<footer>
+		© 2025 InvistaIX. Todos os direitos reservados.
+	</footer>
+</main>
+
+<div id="modalErro" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <p id="mensagemErroTexto"></p>
+        <div class="btn-container">
+            <button onclick="fecharModalErro()" class="btn-ok">OK</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalIngressar" class="modal-overlay" style="display: none;">
+    <div id="modalContentIngressar" class="modal-content-ingressar">
+        <p id="mensagemIngressarTexto"></p>
+	
+		<div id="codigoGrupoDiv">
+		    <label>Código do grupo</label>
+		    <input type="text" name="codigo" id="codigogrupoInput" class="ingressarInput" placeholder="Código" required>
+		</div>
+		
+		<div id="senhaGrupoDiv">
+		    <label>Senha do grupo</label>
+		    <input type="text" name="senha" id="senhaGrupoInput" class="ingressarInput" placeholder="Senha" required>
+		</div>
+		
+        <div id="botao_cancelar" class="btn-container">
+            <button onclick="fecharModalIngressar()" class="btn-ingressar" style="background-color: black;">Cancelar</button>
+        </div>
+		
+		<div id="botao_ingressar" class="btn-container">
+			<button onclick="ingressarGrupo()" class="btn-ingressar" style="background-color:  #00a650;">Ingressar</button>
+		</div>
+    </div>
+</div>
+
+<div id="toastSucesso" class="toast-sucesso"></div>
+
+<script src="/JS/dashboard.js"></script>
+
+</body>
+
+</html>

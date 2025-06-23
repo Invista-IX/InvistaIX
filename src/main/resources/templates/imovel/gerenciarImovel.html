@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>InvistaIX — Cadastrar Nova Entrada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
+</head>
+<style>
+    .toast-sucesso {
+        position: fixed;
+        bottom: 30px;
+        right: -350px;
+        background-color: var(--green);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        max-width: 300px;
+        transition: right 0.4s ease, opacity 0.3s ease;
+        opacity: 0;
+        z-index: 9999;
+    }
+	
+	.toast-sucesso.mostrar {
+        right: 30px;
+        opacity: 1;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .modal-content .btn-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        padding: 1.5rem;
+        border-radius: .75rem;
+        max-width: 22rem;
+        max-height: 10rem;
+        width: 90%;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .modal-content p {
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .btn-ok {
+        background-color: #000;
+        color: white;
+        border: none;
+        margin-right: .70rem;
+        padding: 0.4rem 1.5rem;
+        font-weight: bold;
+        font-size: 0.75rem;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    :root {
+        --green: #00a650;
+        --light-grey: #f7f8f9;
+        --grey: #ccc;
+        --dark: #333;
+        --sidebar-width: 200px;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: sans-serif;
+        color: var(--dark);
+        background: var(--light-grey);
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+
+    }
+	
+	aside {
+	  width: 220px;
+	  background-color: #e6f1ec;
+	  padding: 20px;
+	  display: grid;
+	  height: 100%;
+	  position: fixed;
+	  z-index: 1;
+	  top: 0;
+	  left: 0;
+	  overflow-x: hidden;
+	  overflow-y: hidden;
+	  grid: 'logo'
+			'nav'
+			'gap'
+			'perfil';
+	  grid-template-rows: 15% 60% 10% 20%;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  flex-shrink: 0;
+	}
+
+	.logo {
+	  display: flex;
+	  grid-area: logo;
+	  align-items: center;
+	  gap: 2px;
+	  font-weight: bold;
+	  font-size: 20px;
+	  margin-bottom: 20px;
+	  margin-left: 20px;
+	  justify-content: center;
+	  align-items: center;;
+	  width: 100px;
+	  height: 100px;
+	}
+
+	.logo span {
+		color: #009966;
+		margin-left: 4px;
+	}
+
+	.logo-img {
+		width: 180px;
+		height: auto;
+		align-self: center;
+	}
+
+	nav {
+		grid-area: nav;
+	}
+	nav ul {
+	  list-style: none;
+	}
+
+	nav ul li {
+	  margin-bottom: 10px;
+	}
+
+	nav ul li a {
+	  text-decoration: none;
+	  color: #000;
+	  font-size: 16px;
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	}
+
+	nav ul li a .material-icons,
+	.perfil a .material-icons {
+	  font-size: 18px;
+	  color: #777;
+	}
+
+	.perfil {
+	  grid-area: perfil;
+	  margin-bottom: 30px;
+	      display: flex;
+	      flex-direction: column;
+	      justify-content: flex-end
+	}
+
+	.perfil h4 {
+	  margin-bottom: 10px;
+	}
+
+	.perfil a {
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	  margin-bottom: 10px;
+	  text-decoration: none;
+	  color: #000;
+	  font-size: 16px;
+	}
+
+    .layout {
+		padding: 0px 0px 0px 220px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        background: white;
+        padding: 2rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .header .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+    }
+
+    .header .subtitle {
+        font-size: .975rem;
+        color: #666;
+    }
+
+    .header .actions button {
+        margin-left: 1rem;
+        padding: 0.8rem 2.5rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    .header .actions .edit {
+        background: var(--green);
+        color: white;
+    }
+
+    .header .actions .delete {
+        background: #000;
+        color: white;
+    }
+
+    main {
+        padding: 2rem 2rem;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+        font-size: 1.7rem;
+    }
+
+    .tabs {
+        display: flex;
+        position: relative;
+        border-bottom: 1px solid var(--grey);
+        margin-bottom: 2rem;
+    }
+
+    .tab {
+        background: none;
+        border: none;
+        padding: .75rem 1.5rem;
+        cursor: pointer;
+        font-size: 1.15rem;
+        color: #555;
+    }
+
+    .tab.active {
+        color: var(--green);
+    }
+
+    .indicator {
+        position: absolute;
+        bottom: 0;
+        height: 3px;
+        width: 0;
+        background: var(--green);
+        transition: transform 0.3s ease, width 0.3s ease;
+    }
+
+    .pane {
+        display: none;
+    }
+
+    .pane.active {
+        display: block;
+    }
+
+    .fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .fields.full-width {
+        grid-template-columns: 1fr;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .field label {
+        margin-left: .4rem;
+        margin-bottom: .5rem;
+        font-size: 1rem;
+    }
+
+    .inputData {
+        border-radius: 10px;
+        padding: .75rem;
+        border: 1px solid var(--grey);
+        font-size: .9rem;
+        width: 33rem;
+        margin-right: 2rem;
+    }
+
+    .field input[type="text"] {
+        padding: .75rem;
+        width: auto;
+		max-width: 33rem;
+        border: 1px solid var(--grey);
+        border-radius: 10px;
+        font-size: .9rem;
+        margin-right: 2rem;
+    }
+
+    .fields-avaliacao {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .col-esquerda {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .col-direita {
+        width: 120px;
+        margin-right: 140px;
+    }
+
+    .file-upload {
+        width: 100%;
+        padding-top: 100%;
+        background-color: #f0f0f0;
+        border: 2px dashed #aaa;
+        border-radius: 8px;
+        position: relative;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .file-upload span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        font-weight: bold;
+        color: #666;
+        z-index: 1;
+        point-events: none;
+    }
+
+  		.file-upload input[type="file"] {
+  		position: absolute;
+  		top: 0; left: 0;
+  		width: 100%;
+  		height: 100%;
+  		opacity: 0;
+  		cursor: pointer;
+  		z-index: 2;
+	}
+
+    .save-btn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: .75rem 2rem;
+        background: var(--green);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        max-width: 90%;
+        width: auto;
+    }
+
+    #valor{
+	    margin-bottom: 16px;
+    }
+	
+	#modalContentExcluir {
+		display: grid;
+		grid-template-areas:
+				"texto texto texto"
+				"cancelar . excluir";
+	}
+	
+	#mensagemExcluirTexto {
+		grid-area: texto;
+	}
+	
+	#botao_cancelar {
+		grid-area: cancelar;
+	}
+	
+	#botao_excluir {
+		grid-area: excluir;	
+	}
+	
+	.btn-excluir {
+	    width: 100px;
+	    color: white;
+	    border: none;
+	    padding: 0.4rem 1.5rem;
+	    font-weight: bold;
+	    font-size: 0.75rem;
+	    border-radius: 7px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	}
+
+</style>
+<body>
+<div class="container">
+	<!-- Menu lateral -->
+	<aside>
+		<div class="logo">
+			<a href="/dashboard">
+				<img src="/img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+			</a>
+		</div>
+		
+		<nav>
+			<ul>
+			    <h4 style="margin-bottom: 10px;">Menu</h4>
+				<li>
+					<a href="/dashboard">
+						<i class="fas fa-chart-line"></i>
+						Dashboard
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="perfil">
+			<h4>Perfil</h4>
+			<a href="/perfil">
+				<i class="fas fa-user"></i>
+				Meus Dados
+			</a>
+			<a href="/perfil/logout">
+				<i class="fas fa-arrow-left"></i>
+				Sair
+			</a>
+		</div>
+	</aside>
+    <div class="layout">
+        <header class="header">
+            <div class="info">
+                <h1 class="title" th:text="${imovel.nome}"></h1>
+                <p class="subtitle">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 0.1rem; margin-left: 0.05rem"></i>
+                    <span th:text="${imovel.enderecoFormatado}"></span>
+                </p>
+            </div>
+            <div class="actions">
+                <button type="button" class="delete"
+                        onclick="exibirModalExcluir()">Excluir Imóvel
+                </button>
+                <button type="button" class="edit"
+                        th:onclick="'window.location=\'/imovel/grupo=' + ${imovel.idGrupo} + '&imovel=' +  ${imovel.id} + '/editar\''">+ Editar Imóvel
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <section class="entry-form">
+                <h2>Cadastrar Nova Entrada</h2>
+                <nav class="tabs" id="tabs">
+                    <button type="button" class="tab active" data-target="despesa" style="padding-left: 0">Despesa
+                    </button>
+                    <button type="button" class="tab" data-target="receita">Receita</button>
+                    <button type="button" class="tab" data-target="imposto">Imposto</button>
+                    <button type="button" class="tab" data-target="avaliacao">Avaliação</button>
+                    <span class="indicator" id="indicator"></span>
+                </nav>
+
+
+                <form onsubmit="enviarDespesa(event)">
+                    <section class="pane active" id="despesa">
+                        <div class="fields">
+                            <div class="field">
+                                <label for="agua">Água</label>
+                                <input id="agua" name="agua" type="text" class="dinheiro dinheiroDespesa"
+                                       placeholder="Digite o valor da conta de água"/>
+                            </div>
+                            <div class="field">
+                                <label for="manutencao">Manutenção</label>
+                                <input id="manutencao" name="manutencao" type="text" class="dinheiro dinheiroDespesa"
+                                       placeholder="Digite o valor da manutenção"/>
+                            </div>
+                            <div class="field">
+                                <label for="luz">Luz</label>
+                                <input id="luz" name="luz" type="text" class="dinheiro dinheiroDespesa"
+                                       placeholder="Digite o valor da conta de luz"/>
+                            </div>
+                            <div class="field">
+                                <label for="avulsaDespesa">Despesa avulsa</label>
+                                <input id="avulsaDespesa" name="despesaAvulsa" type="text" class="dinheiro dinheiroDespesa"
+                                       placeholder="Digite valor da despesa avulsa"/>
+                            </div>
+                            <div class="field">
+                                <label for="dataDespesa">Data da despesa</label>
+                                <input
+                                        id="dataDespesa"
+                                        name="dataDespesa"
+                                        type="text"
+                                        placeholder="Selecione a data"
+                                        class="inputData"
+                                        autocomplete="off"
+                                        readonly
+                                />
+                            </div>
+                        </div>
+                        <input type="hidden" id="idImovel" th:value="${imovel.id}"/>
+                        <div class="actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                        </div>
+                    </section>
+                </form>
+
+                <form onsubmit="enviarReceita(event)">
+                    <section class="pane" id="receita">
+                        <div class="fields">
+                            <div class="field">
+                                <label for="aluguel">Aluguel</label>
+                                <input id="aluguel" name="aluguel" type="text" class="dinheiro dinheiroReceita"
+                                       placeholder="Digite o valor do aluguel">
+                            </div>
+                            <div class="field">
+                                <label for="receitaAvulsa">Receita avulsa</label>
+                                <input id="receitaAvulsa" name="receitaAvulsa" type="text" class="dinheiro dinheiroReceita"
+                                       placeholder="Digite valor da receita avulsa"/>
+                            </div>
+                            <div class="field">
+                                <label for="dataReceita">Data da receita</label>
+                                <input
+                                        id="dataReceita"
+                                        name="dataReceita"
+                                        type="text"
+                                        placeholder="Selecione a data"
+                                        class="inputData"
+                                        autocomplete="off"
+                                        readonly
+                                />
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                        </div>
+                    </section>
+                </form>
+
+                <section class="pane" id="imposto">
+                    <div class="fields full-width">
+                        <div class="field">
+                            <form id="formImposto" action="/iptu/criar" method="post">
+                                <div class="field">
+                                    <label for="valor">IPTU</label>
+                                    <input id="valor" name="valor" type="text" class="dinheiro" placeholder="Digite o valor do IPTU do imóvel"/>
+                                </div>
+                                <div class="field">
+                                    <input id="idimovel" type="hidden" name="idimovel" th:value="${imovel.id}" />
+                                </div>
+                                <div class="field">
+                                    <label for="data">Ano do IPTU</label>
+                                    <input
+                                            id="data"
+                                            name="data"
+                                            type="text"
+                                            placeholder="Selecione o ano"
+                                            class="inputData"
+                                            autocomplete="off"
+                                            readonly
+                                    />
+                                </div>
+                                <button type="submit" class="save-btn">Salvar</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pane" id="avaliacao">
+                    <form id="formAvaliacao" action="/avaliacao/criar" method="post" enctype="multipart/form-data"  onsubmit="enviarAvaliacao(event)">
+                        <div class="fields-avaliacao">
+                            <div class="col-esquerda">
+                                <div class="field">
+                                    <label for="cnpj">CNPJ</label>
+                                    <input id="cnpj" name="cnpj" type="text" maxlength="18"
+                                           placeholder="Informe o CNPJ do avaliador"/>
+                                </div>
+                                <div class="field">
+                                    <label for="razaoSocial">Razão Social</label>
+                                    <input id="razaoSocial" name="razaoSocial" type="text" maxlength="60"
+                                           placeholder="Informe a razão social do avaliador"/>
+                                </div>
+                                <div class="field">
+                                    <label for="valorAvaliacao">Valor da avaliação</label>
+                                    <input id="valorAvaliacao" name="valorAvaliacao" type="text" class="dinheiro"
+                                           placeholder="Informe o valor da avaliação"/>
+                                </div>
+                                <div class="field">
+                                    <label for="dataAvaliacao">Ano da Avaliação</label>
+                                    <input id="dataAvaliacao" name="dataAvaliacao" type="text"
+                                           placeholder="Selecione o ano" class="inputData" autocomplete="off" readonly/>
+                                </div>
+                                <input type="hidden" id="idAvaliacaoInput" value="[[${avaliacao.id}]]">
+                            </div>
+
+                            <div class="col-direita">
+                                <div class="field upload">
+                                    <label for="docAvaliacao">Documento da avaliação</label>
+                                    <div class="file-upload">
+                                        <span>+</span>
+                                        <input id="docAvaliacao" name="docAvaliacaoFile" type="file" accept="application/pdf"/>
+                                    </div>
+                                    <div id="nomeArquivo" style="margin-top: 8px; font-size: 14px; color: #555;"></div>
+
+                                </div>
+                                <div class="field">
+                                    <input id="idimovel" type="hidden" name="idimovel" th:value="${imovel.id}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                        </div>
+                    </form>
+                </section>
+            </section>
+        </main>
+    </div>
+</div>
+<div id="modalErro" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <p id="mensagemErroTexto"></p>
+        <div class="btn-container">
+            <button onclick="fecharModalErro()" class="btn-ok">OK</button>
+        </div>
+    </div>
+</div>
+<div id="modalExcluir" class="modal-overlay" style="display: none;">
+    <div id="modalContentExcluir" class="modal-content">
+        <p id="mensagemExcluirTexto"></p>
+        <div id="botao_cancelar" class="btn-container">
+            <button onclick="fecharModalExcluir()" class="btn-excluir" style="background-color: black;">Cancelar</button>
+        </div>
+		<div id="botao_excluir" class="btn-container">
+			<button onclick="excluirImovel()" class="btn-excluir" style="background-color: red;">Excluir</button>
+		</div>
+    </div>
+</div>
+<div id="toastSucesso" class="toast-sucesso"></div>
+<script src="https://unpkg.com/imask@7.6.0/dist/imask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+<script src="/JS/gerenciarImovel.js"></script>
+</body>
+</html>

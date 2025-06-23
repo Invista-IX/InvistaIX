@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cadastro - invistaIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+	<link rel="stylesheet" href="css/cadastroUsuario.css">
+</head>
+<body>
+<header>
+	<div class="logo">
+		<a href="/">
+			<img src="img/logo.png" alt="Logo InvistaIX" class="logo-img" />
+		</a>
+	</div>
+	<nav class="acoes">
+       	<a href="/"><button class="voltar">← Voltar</button></a>
+    </nav>
+</header>
+<main>
+    <div class="form-box">
+        <h2>Cadastro</h2>
+        <p>Preencha os campos para criar sua conta</p>
+        <form id="formCadastro" method="post" action="/cadastro">
+            <div>
+                <label id="nome">Nome</label>
+                <input type="text" name="nome" placeholder="Nome" required />
+            </div>
+			<div>
+				<label id="sobrenome">Sobrenome</label>
+			    <input type="text" name="sobrenome" placeholder="Sobrenome" required />
+			</div>
+            <div>
+                <label id="cpf">CPF/CNPJ</label>
+                <input type="text" name="cpfCnpj" placeholder="CPF/CNPJ" required />
+                <span th:if="${cpfCnpjErro}" th:text="${cpfCnpjErro}" class="erro"></span>
+            </div>
+			<div>
+                <label id="tipoPessoa">Tipo de pessoa</label>
+				<select name="tipoPessoa">
+					<option value="F">Pessoa Física</option>
+					<option value="J">Pessoa Jurídica</option>
+				</select>
+			</div>
+            <div>
+                <label id="email">Email</label>
+                <input type="email" name="email" placeholder="Email" required />
+                <span th:if="${emailErro}" th:text="${emailErro}" class="erro"></span>
+            </div>
+            <div>
+                <label id="telefone">Telefone</label>
+                <input type="tel" name="telefone" placeholder="(11) 9999 999" required />
+            </div>
+            <div>
+                <label id="senhaLabel">Senha</label>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required />
+                <span class="erroSenha" id="erroSenha"></span>
+            </div>
+            <div>
+                <label id="confSenhaLabel">Confirme a Senha</label>
+                <input type="password" id="confSenha" placeholder="Confirme a senha" required />
+                <span class="erroSenha" id="erroConfSenha"></span>
+            </div>
+            <button type="submit" class="btn">Cadastrar</button>
+        </form>
+    </div>
+</main>
+<footer>
+    © 2025 InvistaIX. Todos os direitos reservados.
+</footer>
+<script src="/JS/cadastro.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+  margin: 0;
+	display: grid;
+	height: 100vh;
+	font-family: 'Inter', sans-serif;
+	background-color: #f9f9f9;
+	color: #1a1a1a;
+}
+
+header {
+  display: grid;
+  grid: 'logo gap gap gap nav';
+  padding: 16px 32px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  max-height: 4vw;
+  align-items: center;
+  justify-content: space-between;
+ align-content: center;
+}
+		
+.logo {
+	margin-top: 8px;
+	grid-area: logo;
+}
+
+.logo span {
+	color: #00a650;
+	margin-left: 4px;
+}
+
+.logo-img {
+	width: 180px;
+	height: auto;
+	align-self: center;
+}
+
+nav {
+	grid-area: nav;
+}
+
+nav a {
+	margin-right: 20px;
+	text-decoration: none;
+	color: #333333;
+	font-weight: 500;
+}		
+
+.form-box {
+	padding: 2rem 4rem;
+	border-radius: 12px;
+	max-width: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: 800;
+	text-align: center;
+	margin-bottom: 0.3rem;
+}
+
+p {
+	text-align: center;
+	margin-bottom: 2rem;
+	color: #666;
+	font-size: 0.95rem;
+}
+
+form {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	box-sizing: border-box;
+}
+
+label {
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 8px;
+	display: block;
+	box-sizing: borer-box;
+}
+
+.erro {
+  color: red;
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 4px;
+  margin-left: 200px;
+}
+
+.erroSenha {
+  color: red;
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 4px;
+  text-align: center;
+  justify-content: center;
+}
+
+input, select {
+	width: 100%;
+	padding: 0.9rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	font-size: 0.95rem;
+	background-color: #f9f9f9;
+	box-sizing: border-box;
+}
+
+input::placeholder {
+	color: #b0b0b0;
+}
+
+select {
+	appearance: none;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.7rem center;
+	background-size: 1rem;
+}
+
+.btn {
+	grid-column: span 2;
+	background-color: #00a650;
+	color: white;
+	border: none;
+	padding: 0.9rem;
+	border-radius: 10px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.acoes {
+  grid-area: nav;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.acoes button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+}
+
+.voltar {
+	background-color: rgb(0, 0, 0);
+	color: #ffffff;
+}
+
+footer {
+	text-align: center;
+	padding: 20px 10px;
+	font-size: 14px;
+	color: #888888;
+	border-top: 1px solid #dddddd;
+}
+
+@media (max-width: 600px) {
+	form {
+		grid-template-columns: 1fr;
+	}
+
+	.btn {
+		grid-column: span 1;
+	}
+}
