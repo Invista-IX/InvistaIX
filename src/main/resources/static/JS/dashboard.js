@@ -48,15 +48,51 @@ function criarElementoCardGrupo(item) {
     nome.classList.add("card-h3");
     nome.innerText = item.nome;
 
+    const codigo_value = document.createElement("p");
+    codigo_value.classList.add("card-p");
+    codigo_value.innerText = item.codigo;
+
     const codigo = document.createElement("p");    
     codigo.classList.add("card-p");
-    codigo.innerText = item.codigo;
+    codigo.classList.add("card-p-t");
+    codigo.innerText = "Códgio";
+    codigo.appendChild(document.createElement("br"));
+    codigo.appendChild(codigo_value);
+
+    const gestores_value = document.createElement("p");
+    gestores_value.classList.add("card-p");
+    const url = "http://localhost:8080/grupos/" + item.id + "/totalGestores"
+    fetch(url, {
+        method: "GET"
+    })
+    .then(response => {
+        if(!response.ok) {
+            return response.text().then(text => {
+                throw new Error(text);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        gestores_value.innerText = data;
+    })
+    .catch(erro=> {
+        console.log(erro);
+    })
+
+    const gestores = document.createElement("p");
+    gestores.classList.add("card-p");
+    gestores.classList.add("card-p-t");
+    gestores.innerText = "Total Gestores";
+    gestores.appendChild(gestores_value);
 
     const grupo_card = document.createElement("div");
     grupo_card.classList.add("card");
     grupo_card.appendChild(imagem);
     grupo_card.appendChild(nome);
     grupo_card.appendChild(codigo);
+    grupo_card.appendChild(gestores);
 
     const grupo_link = document.createElement("a");
     grupo_link.href = "/dashboard/grupo=" + item.id;

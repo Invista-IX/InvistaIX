@@ -1,5 +1,6 @@
 package br.com.invistaix.InvistaIX.api;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class GrupoRestController {
 	public ResponseEntity<?> encontrarGrupos(@PathVariable Long idGestor) {
 		try {
 			Set<GrupoModel> grupos = grupoService.encontrarGrupos(idGestor);
+			System.out.println(grupos);
+			Iterator<GrupoModel> gps = grupos.iterator();
+			while (gps.hasNext()) {
+				System.out.println(gps.next().getUsuarios().size());
+			}
 			return ResponseEntity.ok(grupos);
 		} catch (IllegalArgumentException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
@@ -90,6 +96,18 @@ public class GrupoRestController {
 		try {
 			grupoService.desatribuirGrupo(idGrupo, idGestor);
 			return ResponseEntity.ok("Gestor removido do grupo com sucesso.");
+		} catch (IllegalArgumentException ex) {
+			return ResponseEntity.badRequest().body(ex.getMessage());
+		} catch (Exception ex) {
+			return ResponseEntity.status(500).body(ex.getMessage());
+		}
+	}
+	
+	@GetMapping("/{idGrupo}/totalGestores")
+	public ResponseEntity<?> retornarTotalUsuariosNoGrupo(@PathVariable Long idGrupo) {
+		try {
+			GrupoModel grupo = grupoService.encontrarPorId(idGrupo);
+			return ResponseEntity.ok(grupo.getUsuarios().size());
 		} catch (IllegalArgumentException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
 		} catch (Exception ex) {
