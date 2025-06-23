@@ -10,12 +10,19 @@ body {
   min-height: 100vh;
   background-color: #f9f9f9;
 }
+
 aside {
   width: 220px;
   background-color: #e6f1ec;
   padding: 20px;
   display: grid;
-  position: sticky;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
   grid: 'logo'
 		'nav'
 		'gap'
@@ -34,8 +41,22 @@ aside {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 20px;
-  max-width: 175px;
-  max-height: 100px;
+  margin-left: 20px;
+  justify-content: center;
+  align-items: center;;
+  width: 100px;
+  height: 100px;
+}
+
+.logo span {
+	color:  #00a650;
+	margin-left: 4px;
+}
+
+.logo-img {
+	width: 180px;
+	height: auto;
+	align-self: center;
 }
 
 nav {
@@ -67,6 +88,9 @@ nav ul li a .material-icons,
 .perfil {
   grid-area: perfil;
   margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end
 }
 
 .perfil h4 {
@@ -85,15 +109,15 @@ nav ul li a .material-icons,
 
 main {
   flex-grow: 1;
-  padding: 40px;
+  padding: 40px 40px 0px 260px;
   background-color: #fff;
   min-width: 0;
   display: grid;
-  gap: 20px;
-}
+  gap: 5vh;
+}	
 
 h2 {
-  color: #019267;
+  color: #00a650;
   font-weight: 800;
   margin-bottom: 4px;
 }
