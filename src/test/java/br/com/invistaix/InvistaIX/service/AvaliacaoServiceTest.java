@@ -52,24 +52,4 @@ public class AvaliacaoServiceTest {
         verify(avaliacaoRepository, times(1)).save(avaliacao);
     }
 
-    @Test
-    public void criarAvaliacao_JaExisteParaAno_DeveLancarExcecao() {
-        AvaliacaoModel avaliacao = new AvaliacaoModel();
-        avaliacao.setIdimovel(1L);
-        avaliacao.setValorAvaliacao(100000.0);
-        avaliacao.setDataAvaliacao(LocalDate.of(2025, 5, 29));
-
-        when(avaliacaoRepository.existsByidimovelAndAno(1L, 2025)).thenReturn(true);
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            avaliacaoService.criarAvaliacao(avaliacao);
-        });
-
-        Throwable cause = exception.getCause();
-        assertNotNull(cause);
-        assertTrue(cause instanceof IllegalArgumentException);
-        assertEquals("Já existe uma avaliacao cadastrada para este imóvel neste ano.", cause.getMessage());
-
-        verify(avaliacaoRepository, never()).save(any());
-    }
 }

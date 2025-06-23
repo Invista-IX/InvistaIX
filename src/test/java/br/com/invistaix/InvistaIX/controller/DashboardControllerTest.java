@@ -62,25 +62,24 @@ public class DashboardControllerTest {
 	void cadastroGrupoUrlGetTest() throws Exception {
 		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
 		
-		mockMvc.perform(get("/dashboard/cadastro_grupo")
+		mockMvc.perform(get("/dashboard/cadastrarGrupo")
 				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L)))
 				.andExpect(status().isOk());
 		
 		String pagina = dashboardController.cadastrarGrupo(model, session);
-		assertEquals("dashboard/cadastro_grupo", pagina);
+		assertEquals("dashboard/cadastroGrupo", pagina);
 	}
 	
 	@Test
 	void cadastroGrupoUrlPostTest() throws Exception {
 		Mockito.when(session.getAttribute("usuarioLogado")).thenReturn(usuarioService.encontrarPorId(1L));
 		
-		mockMvc.perform(post("/dashboard/cadastro_grupo")
+		mockMvc.perform(post("/grupos/cadastrar")
 				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 				.param("nome", "grupo")
 				.param("codigo", "grupoTeste")
 				.param("senha", "senha"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/dashboard"));
+				.andExpect(status().isOk());
 			
 		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 		System.out.println(grupoTeste.getCodigo());
@@ -120,13 +119,12 @@ public class DashboardControllerTest {
 	
 	@Test
 	void cadastrarEApagarGrupoTest() throws Exception {
-		mockMvc.perform(post("/dashboard/cadastro_grupo")
+		mockMvc.perform(post("/grupos/cadastrar")
 				.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 				.param("nome", "grupo")
 				.param("codigo", "grupoTeste")
 				.param("senha", "senha"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/dashboard"));
+				.andExpect(status().isOk());
 		
 		GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 		System.out.println(grupoTeste.getCodigo());
@@ -136,12 +134,11 @@ public class DashboardControllerTest {
 	@Test
 	void cadastrarNomeNuloGrupoTest() throws Exception {
 		try {
-			mockMvc.perform(post("/dashboard/cadastro_grupo")
+			mockMvc.perform(post("/grupos/cadastrar")
 					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("codigo", "grupoTeste")
 					.param("senha", "senha"))
-					.andExpect(status().is3xxRedirection())
-					.andExpect(redirectedUrl("/dashboard"));
+					.andExpect(status().is4xxClientError());
 			
 			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
@@ -154,12 +151,11 @@ public class DashboardControllerTest {
 	@Test
 	void cadastrarCodigoNuloGrupoTest() throws Exception {
 		try {
-			mockMvc.perform(post("/dashboard/cadastro_grupo")
+			mockMvc.perform(post("/grupos/cadastrar")
 					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("senha", "senha"))
-					.andExpect(status().is3xxRedirection())
-					.andExpect(redirectedUrl("/dashboard"));
+					.andExpect(status().is4xxClientError());
 			
 			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
@@ -172,12 +168,11 @@ public class DashboardControllerTest {
 	@Test
 	void cadastrarSenhaNuloGrupoTest() throws Exception {
 		try {
-			mockMvc.perform(post("/dashboard/cadastro_grupo")
+			mockMvc.perform(post("/grupos/cadastrar")
 					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("codigo", "grupoTeste"))
-					.andExpect(status().is3xxRedirection())
-					.andExpect(redirectedUrl("/dashboard"));
+					.andExpect(status().is4xxClientError());
 			
 			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());
@@ -190,13 +185,12 @@ public class DashboardControllerTest {
 	@Test
 	void cadastrarImagemNuloGrupoTest() throws Exception {
 		try {
-			mockMvc.perform(post("/dashboard/cadastro_grupo")
+			mockMvc.perform(post("/grupos/cadastrar")
 					.sessionAttr("usuarioLogado", usuarioService.encontrarPorId(1L))
 					.param("nome", "grupo")
 					.param("codigo", "grupoTeste")
 					.param("senha", "senha"))
-					.andExpect(status().is3xxRedirection())
-					.andExpect(redirectedUrl("/dashboard"));
+					.andExpect(status().isOk());
 			
 			GrupoModel grupoTeste = grupoService.encontrarPorCodigo("grupoTeste", "senha");
 			System.out.println(grupoTeste.getCodigo());

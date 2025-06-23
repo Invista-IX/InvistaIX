@@ -65,7 +65,7 @@ public class ImovelServiceTest {
         imovel.setNumeroMatricula("123456789");
         imovel.setValorMatricula(10000D);
         imovel.setIdProprietario(proprietario.getId());
-        imovel.setIdGrupo(1L);
+        imovel.setIdGrupo(grupo.getId());
         imovel.setEndereco(endereco);
         imovel.setImagemBase64(null);
 
