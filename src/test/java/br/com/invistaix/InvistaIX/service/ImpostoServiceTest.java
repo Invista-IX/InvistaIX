@@ -27,7 +27,7 @@ class ImpostoServiceTest {
 
     @Test
     void criarIptu_DeveSalvarQuandoDadosValidos() {
-        ImpostoModel iptu = new ImpostoModel(0, 1500.0, LocalDate.of(2024, 5, 20), 1L);
+        ImpostoModel iptu = new ImpostoModel(0L, 1500.0, LocalDate.of(2024, 5, 20), 1L);
         when(impostoRepository.existsByidimovelAndAno(1L, 2024)).thenReturn(false);
         when(impostoRepository.findByIdimovelAndDataBetween(eq(1L), any(), any())).thenReturn(Optional.empty());
         when(impostoRepository.save(iptu)).thenReturn(iptu);
@@ -40,7 +40,7 @@ class ImpostoServiceTest {
     @Test
     void listarPorImovel_DeveRetornarListaQuandoIdValido() {
         List<ImpostoModel> lista = Arrays.asList(
-                new ImpostoModel(1, 1000.0, LocalDate.of(2023, 1, 10), 1L)
+                new ImpostoModel(1L, 1000.0, LocalDate.of(2023, 1, 10), 1L)
         );
         when(impostoRepository.findByidimovel(1L)).thenReturn(lista);
 
