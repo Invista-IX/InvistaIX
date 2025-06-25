@@ -10,7 +10,7 @@ public class EnderecoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idendereco")
 
-    private Integer id;
+    private Long id;
 
     @Column(name = "rua", nullable = false, length = 45)
     private String rua;
@@ -30,7 +30,7 @@ public class EnderecoModel {
     @Column(name = "CEP", nullable = false, length = 8)
     private String CEP;
     
-    public EnderecoModel(Integer id, String rua, Integer numero, String loteamento, String cidade, String estado, String CEP) {
+    public EnderecoModel(Long id, String rua, Integer numero, String loteamento, String cidade, String estado, String CEP) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
@@ -44,11 +44,11 @@ public class EnderecoModel {
     public EnderecoModel() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     

@@ -236,7 +236,7 @@ public class ImovelService {
                 for (AvaliacaoModel aval : avaliacoes) {
                     YearMonth ymAval = YearMonth.from(aval.getDataAvaliacao());
                     if (ymAval.compareTo(ym) <= 0) {
-                    	if(valorImovel <= aval.getValorAvaliacao()) {
+                    	if(valorImovel <= aval.getValorAvaliacao() && imovel.getId() == aval.getIdimovel()) {
                     		valorImovel = aval.getValorAvaliacao();
                     	}
                     } else {
