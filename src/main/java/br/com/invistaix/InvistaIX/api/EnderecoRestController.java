@@ -32,7 +32,7 @@ public class EnderecoRestController {
 	}
 	
 	@GetMapping("/findById={id}")
-	public EnderecoModel encontrarPorId(@PathVariable Integer id) {
+	public EnderecoModel encontrarPorId(@PathVariable Long id) {
 		try {
 			return enderecoService.encontrarPorId(id);
 		} catch (IllegalArgumentException ex) {
