@@ -50,16 +50,19 @@ function gerarGrafico(valores, categorias) {
                 text: 'Performance (%)'
             }
         },
+        tooltip: {
+          pointFormat: 'Performance: <b>{point.y}%</b>'
+        },
         plotOptions: {
             line: {
                 dataLabels: {
                     enabled: true
                 },
-                enableMouseTracking: false
+                enableMouseTracking: true
             }
         },
         series: [{
-            name: 'Desempenho/Mês',
+            name: 'Desempenho',
             color: '#00a650',
             data: valores
         }]
@@ -112,16 +115,19 @@ function gerarGraficoValorizacao(valores, categorias) {
 				text: 'Valor (R$)'
 			}
 		},
-		plotOptions: {
-			line: {
-				dataLabels: {
-					enabled: true
-				},
-				enableMouseTracking: false
-			}
-		},
+    tooltip: {
+      pointFormat: 'Valor do Imóvel: <b>R${point.y}</b>'
+    },
+    plotOptions: {
+      line: {
+          dataLabels: {
+              enabled: true
+          },
+          enableMouseTracking: true
+      }
+    },
 		series: [{
-			name: 'Valor/Mês',
+			name: 'Valor',
 			color: '#00a650',
 	        data: valores
 	    }]
@@ -214,17 +220,17 @@ function gerarGraficoValorizacao(valores, categorias) {
 					dataLabels: {
 						enabled: true
 					},
-					enableMouseTracking: false
+					enableMouseTracking: true
 				}
 			},
 			series: [
 				{
-					name: 'Receitas/Mês',
+					name: 'Receitas',
 					color: '#00a650',
 					data: data.receita
 				},
 				{
-					name: 'Despesas/Mês',
+					name: 'Despesas',
 					color: '#FF0000',
 					data: data.despesa
 				}
