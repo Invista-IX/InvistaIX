@@ -44,7 +44,7 @@ public class EnderecoService {
         }
     }
 	
-	public EnderecoModel encontrarPorId(Integer id) {
+	public EnderecoModel encontrarPorId(Long id) {
 		try {
 			if(id == null || id <= 0) {
 				throw new IllegalArgumentException("ID do endereço inválido.");
@@ -69,7 +69,7 @@ public class EnderecoService {
 		}
 	}
 	
-	public String apagarEnderecoPorId(Integer id) {
+	public String apagarEnderecoPorId(Long id) {
 		try {
 			if(id == null || id <= 0) {
 				throw new IllegalArgumentException("ID do endereço inválido.");

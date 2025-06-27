@@ -18,7 +18,7 @@ public class CadastroUsuarioController {
     @GetMapping("/cadastro")
     public String formCadastro(Model model) {
         model.addAttribute("usuario", new UsuarioModel());
-        return "cadastroUsuario";
+        return "usuario/cadastroUsuario";
     }
 
     @PostMapping("/cadastro")
@@ -37,7 +37,7 @@ public class CadastroUsuarioController {
         }
 
         if (temErro) {
-            return "cadastroUsuario";
+            return "usuario/cadastroUsuario";
         }
         /* debug */
         System.out.println("novo cadastro, nome: " + cadastro.getNome());

@@ -11,7 +11,7 @@ public class ImpostoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idiptu")
-    private int idiptu;
+    private Long idiptu;
 
     @Column(name = "valor", nullable = false)
     private Double valor;
@@ -26,18 +26,18 @@ public class ImpostoModel {
     public ImpostoModel() {
     }
 
-    public ImpostoModel(int idiptu, double valor, LocalDate data, Long idimovel){
+    public ImpostoModel(Long idiptu, Double valor, LocalDate data, Long idimovel){
         this.idiptu = idiptu;
         this.valor = valor;
         this.data = data;
         this.idimovel = idimovel;
     }
 
-    public int getIdiptu() {
+    public Long getIdiptu() {
         return idiptu;
     }
 
-    public void setIdiptu(int idiptu) {
+    public void setIdiptu(Long idiptu) {
         this.idiptu = idiptu;
     }
 

@@ -12,7 +12,7 @@ class ImpostoModelTest {
     @Test
     void testaConstrutorComParametros() {
         LocalDate data = LocalDate.of(2024, 5, 25);
-        ImpostoModel imposto = new ImpostoModel(1, 1500.0, data, 10L);
+        ImpostoModel imposto = new ImpostoModel(1L, 1500.0, data, 10L);
 
         assertEquals(1, imposto.getIdiptu());
         assertEquals(1500.0, imposto.getValor());
@@ -24,7 +24,7 @@ class ImpostoModelTest {
     void testaSettersEGetters() {
         ImpostoModel imposto = new ImpostoModel();
 
-        imposto.setIdiptu(2);
+        imposto.setIdiptu(2L);
         imposto.setValor(999.99);
         LocalDate data = LocalDate.of(2023, 12, 15);
         imposto.setData(data);

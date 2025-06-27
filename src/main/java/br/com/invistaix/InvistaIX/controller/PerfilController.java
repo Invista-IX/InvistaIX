@@ -25,7 +25,7 @@ public class PerfilController {
             return "redirect:/login";
         }
         model.addAttribute("usuario", usuario);
-        return "perfilusuario";
+        return "usuario/perfilUsuario";
     }
 
     @PostMapping("/atualizar")

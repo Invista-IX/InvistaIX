@@ -63,7 +63,6 @@ public class ImovelRestController {
     public ResponseEntity<?> getValorizacao(@PathVariable Long imovelId) {
         try {
             List<ValorizacaoDTO> resultado = imovelService.buscaValorizacao(imovelId);
-            System.out.println(resultado);
             return ResponseEntity.ok(resultado);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -56,7 +56,7 @@ public class ImovelController {
             if (imovel == null) {
                 throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
             }
-            if (imovel.getIdGrupo() != idGrupo) {
+            if (idGrupo.compareTo(imovel.getIdGrupo()) != 0) {
                 throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
             }
             
@@ -85,8 +85,8 @@ public class ImovelController {
             if (imovel == null) {
                 throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
             }
-            if (imovel.getIdGrupo() != idGrupo) {
-                throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
+            if (idGrupo.compareTo(imovel.getIdGrupo()) != 0) {
+            	throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
             }
             DespesaModel despesa = new DespesaModel();
             despesa.setIdImovel(idImovel);
@@ -114,12 +114,12 @@ public class ImovelController {
     		if (imovel == null) {
     			throw new IllegalArgumentException("Imóvel com ID " + idImovel + " não encontrado.");
     		}
-    		if (imovel.getIdGrupo() != idGrupo) {
+    		if (idGrupo.compareTo(imovel.getIdGrupo()) != 0) {
     			throw new UnauthorizedAccessException("Acesso negado: Imovél não pertence a esse grupo.");
     		}
     		model.addAttribute("imovel", imovel);
     		model.addAttribute("idGrupo", idGrupo);
-    		return "imovel/graficos";
+    		return "imovel/graficosImovel";
     	} catch (Exception ex) {
     		throw new RuntimeException(ex.getMessage(), ex);
     	}

@@ -187,80 +187,66 @@ public class ImovelService {
     
     public List<ValorizacaoDTO> retornaValorizacao(ImovelModel imovel) {
         try {
-
             LocalDate hoje = LocalDate.now();
-            LocalDate inicio = hoje.minusYears(1).plusDays(1);
-
-            YearMonth inicio2 = YearMonth.from(hoje);
+            YearMonth inicioAno = YearMonth.from(hoje);
+            YearMonth dataCadastro = YearMonth.from(imovel.getDataCadastro());
             
-            while (inicio2.getMonth().getValue() != 1) {
-            	inicio2 = inicio2.minusMonths(1);
-            	System.out.println(inicio2);
+            while (inicioAno.getMonth().getValue() != 1) {
+            	inicioAno = inicioAno.minusMonths(1);
             }
             
-            LocalDate inicio3 = inicio2.atDay(1);
-            
-            List<AvaliacaoModel> avaliacoes = avaliacaoService.listarPorPeriodo(imovel.getId(), inicio3, hoje);
-            List<InccModel> inccs = inccService.listarPorPeriodo(inicio3, hoje);
-            
+            List<AvaliacaoModel> avaliacoes = avaliacaoService.listarPorPeriodo(imovel.getId(), inicioAno.atDay(1), hoje);
+            List<InccModel> inccs = inccService.listarPorPeriodo(inicioAno.atDay(1), hoje);
+
+            Collections.sort(avaliacoes, Comparator.comparing(AvaliacaoModel::getDataAvaliacao));
             Collections.sort(inccs, Comparator.comparing(InccModel::getData));
-            System.out.println("data-referência: " + inicio);
+            
+            /*
+            System.out.println("------------------\n data-referência: " + inicioAno + "\n------------------");
             for (InccModel in : inccs) {
             	System.out.println("incc=[valor: " + in.getPorcentagem() + ", data: " + YearMonth.from(in.getData()) + "];");
             }
-
-            Collections.sort(avaliacoes, Comparator.comparing(AvaliacaoModel::getDataAvaliacao));
+            */
 
             List<ValorizacaoDTO> resultado = new ArrayList<>();
             double base = imovel.getValorMatricula();
-            System.out.println("valor base : " + base);
-            
-            double buffer = base;
 
             for (int i = 1; i <= 12; i++) {
-                YearMonth ym = inicio2.plusMonths(i);
-                LocalDate primeiroDia = ym.atDay(1);
-
                 double valorIncc = 0.0;
                 for (InccModel in : inccs) {
-                	System.out.println("data:" + ym);
-                	System.out.println("incc-data:" + YearMonth.from(in.getData()));
-                    if (YearMonth.from(in.getData()).equals(ym)) {
+                    if (YearMonth.from(in.getData()).equals(inicioAno.plusMonths(i-1))) {
                         valorIncc = in.getPorcentagem();
                         break;
                     }
                 }
 
-                double valorImovel = buffer;
-                System.out.println("valorMatricula: " + valorImovel);
+                double valorImovel = base;
                 for (AvaliacaoModel aval : avaliacoes) {
                     YearMonth ymAval = YearMonth.from(aval.getDataAvaliacao());
-                    if (ymAval.compareTo(ym) <= 0) {
-                    	if(valorImovel <= aval.getValorAvaliacao()) {
-                    		valorImovel = aval.getValorAvaliacao();
-                    	}
+                    if (ymAval.compareTo(inicioAno.plusMonths(i)) <= 0 && valorImovel <= aval.getValorAvaliacao() && imovel.getId() == aval.getIdimovel()) {
+                    	//System.out.println("###############\n data-referencia: " + inicioAno.plusMonths(i) + "\n data-avaliacao: " + ymAval + "\n id-imovel: " + imovel.getId() + "\n avaliacao-id-imovel: " + aval.getIdimovel() + "\n###############");
+                    	valorImovel = aval.getValorAvaliacao();
                     } else {
                         break;
                     }
                 }
-
-                double valor;
                 
-                System.out.println("valor incc " + i + ": " + valorIncc);
-                System.out.println("pré valor " + i + ": " + valorImovel);
-                
-                valor = valorImovel + (valorImovel * (valorIncc / 100));
-                base = valor;
-                
-                System.out.println("valor " + i + ": " + valor);
-                DecimalFormat formatador = new DecimalFormat("#0.00");
-                System.out.println("valor formatado" + i + ": " + formatador.format(valor).replace(',', '.'));
-                if (valor != buffer) {
-                	resultado.add(new ValorizacaoDTO(formatador.format(valor).replace(',', '.'), primeiroDia, i));
-                } else {
-                	resultado.add(new ValorizacaoDTO(formatador.format(0.00).replace(',', '.'), primeiroDia, i));
+                //System.out.println("[data-cadastro: " + dataCadastro + "| data-mes: " + inicioAno.plusMonths(i-1) + "]");
+                if(dataCadastro.compareTo(inicioAno.plusMonths(i-1)) >= 0) {
+                    //System.out.println("$$$$$$$$$$$$$$$$\n calculo mes " + i + ":\n valor base: " + valorImovel + "\n valor incc: " + (valorIncc / 100) + "\n calculo: " + valorImovel + " + (" + valorImovel + " * " + (valorIncc / 100) + ") \n$$$$$$$$$$$$$$$$");
+                    valorImovel = valorImovel + (valorImovel * (valorIncc / 100));
                 }
-                buffer = valor;
+                
+                DecimalFormat formatador = new DecimalFormat("#0.00");
+                //System.out.println("valor mes " + i + ": " + formatador.format(valorImovel).replace(',', '.'));
+                
+                if (valorImovel != base) {
+                	resultado.add(new ValorizacaoDTO(formatador.format(valorImovel).replace(',', '.'), inicioAno.plusMonths(i).atDay(1), i));
+                } else {
+                	resultado.add(new ValorizacaoDTO(formatador.format(0.00).replace(',', '.'), inicioAno.plusMonths(i).atDay(1), i));
+                }
+                
+                base = valorImovel;
             }
 
             return resultado;

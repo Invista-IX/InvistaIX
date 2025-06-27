@@ -10,7 +10,7 @@ public class InccModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idincc")
-    private Integer idIncc;
+    private Long idIncc;
 
     @Column(name = "porcentagem", nullable = false)
     private Double porcentagem;
@@ -25,11 +25,11 @@ public class InccModel {
         this.data = data;
     }
 
-    public Integer getIdIncc() {
+    public Long getIdIncc() {
         return idIncc;
     }
 
-    public void setIdIncc(Integer idIncc) {
+    public void setIdIncc(Long idIncc) {
         this.idIncc = idIncc;
     }
 
