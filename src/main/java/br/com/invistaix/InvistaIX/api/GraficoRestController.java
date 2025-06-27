@@ -1,4 +1,4 @@
-package br.com.invistaix.InvistaIX.controller;
+package br.com.invistaix.InvistaIX.api;
 
 import br.com.invistaix.InvistaIX.model.GraficoModel;
 import br.com.invistaix.InvistaIX.service.GraficoService;
@@ -8,11 +8,11 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/graficos")
-public class GraficoController {
+public class GraficoRestController {
 
     private final GraficoService service;
 
-    public GraficoController(GraficoService service) {
+    public GraficoRestController(GraficoService service) {
         this.service = service;
     }
 

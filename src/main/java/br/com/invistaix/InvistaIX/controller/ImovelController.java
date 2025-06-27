@@ -119,7 +119,7 @@ public class ImovelController {
     		}
     		model.addAttribute("imovel", imovel);
     		model.addAttribute("idGrupo", idGrupo);
-    		return "imovel/graficos";
+    		return "imovel/graficosImovel";
     	} catch (Exception ex) {
     		throw new RuntimeException(ex.getMessage(), ex);
     	}

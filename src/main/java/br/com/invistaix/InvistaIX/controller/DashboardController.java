@@ -32,7 +32,7 @@ public class DashboardController {
     	//
     	
     	model.addAttribute("usuario", usuario);
-        return "dashboard";
+        return "dashboard/dashboard";
     }
     
     @GetMapping("/cadastrarGrupo")
